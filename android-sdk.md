@@ -1,6 +1,7 @@
 
 ###<a name="index">Index</a>
 * [SDK download and setup](#install)
+* [Setup Eclipse without Gradle](#eclipse)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Sample code](#sample)
@@ -56,6 +57,43 @@ dependencies {
         </receiver>
 ```
 
+###<a name="eclipse">Setup Eclipse without gradle</a>：
+1. [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/Android_SDK/attach_files)
+ adlibrary.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
+2. Build tool：Ant
+3. Copy the four jars into target project folder /libs/ , and Add them to build path.
+4. Add the follows in strings.xml
+
+```
+    <integer name="google_play_services_version">9256000</integer>
+```
+5.Update AndroidManifest.xml as below:
+
+```
+        <meta-data android:name="com.google.android.gms.version"                 
+            android:value="@integer/google_play_services_version" />
+        <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="com.cloudtech.action.InnerWebLanding" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.cloudtech.ads.view.InterstitialActivity"
+            android:launchMode="singleInstance">
+        </activity>
+
+        <activity android:name="com.google.android.gms.ads.AdActivity"                    
+
+android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <receiver android:name="com.cloudtech.ads.broadcast.LogBroadcast">
+            <intent-filter>
+                <action android:name="com.cloudtech.ads.SWITCH"/>
+            </intent-filter>
+        </receiver>
+```
 
 
 ###<a name="api">SDK API reference</a>：
