@@ -8,7 +8,7 @@
 
 
 ###<a name="install">SDK download and setup</a>
-According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework
+According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
 
 		FBAudienceNetwork.framework
 		FirebaseAnalytics.framework  
