@@ -9,7 +9,7 @@
 
 ###<a name="install">SDK download and setup</a>
 
-* [Download the SDK](http://git.oschina.net/CloudTech/Android_SDK/attach_files)
+* [Download the SDK](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
 * After download, copy file adlibrary.jar into target project folder: [ModuleName]/libs/adlibrary.jar
 * Update the project's build.gradle with below code:
@@ -58,7 +58,7 @@ dependencies {
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-1. [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/Android_SDK/attach_files)
+1. [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
  adlibrary.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
 2. Build tool：Ant
 3. Copy the four jars into target project folder /libs/ , and Add them to build path.
