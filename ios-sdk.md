@@ -14,10 +14,10 @@
 		FirebaseAnalytics.framework  
 		FirebaseInstanceID.framework
 		GoogleInterchangeUtilities.framework
-	        GoogleSymbolUtilities.framework
+	    GoogleSymbolUtilities.framework
 		GoogleUtilities.framework
 		Firebase.h
-		GoogleService-Info.plist
+		GoogleService-Info.plist 
 
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
