@@ -8,16 +8,20 @@
 
 
 ###<a name="install">SDK download and setup</a>
-According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
+* According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
 
 		FBAudienceNetwork.framework
 		FirebaseAnalytics.framework  
 		FirebaseInstanceID.framework
 		GoogleInterchangeUtilities.framework
-	    GoogleSymbolUtilities.framework
+	        GoogleSymbolUtilities.framework
 		GoogleUtilities.framework
 		Firebase.h
 		GoogleService-Info.plist
+
+* In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
+In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
+* Import the hearder file : #import <CTSDK/CTService.h>
 
 
 
