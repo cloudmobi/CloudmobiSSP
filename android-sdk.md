@@ -85,8 +85,7 @@ dependencies {
         </activity>
 
         <activity android:name="com.google.android.gms.ads.AdActivity"                    
-
-android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <receiver android:name="com.cloudtech.ads.broadcast.LogBroadcast">
             <intent-filter>
