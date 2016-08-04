@@ -104,9 +104,9 @@ dependencies {
     /**
      * Get banner style advertisement.
      * @param slotId banner advertisement space id
-     * @param fbId facebook placement id.
-     * @param adMobAppId admob application id
-     * @param adMobUnitId admit banner id
+     * @param fbId facebook placement id.    （set "null" ,if you needn't Facebook Ads）
+     * @param adMobAppId admob application id (set "null",if you needn't Admob Ads)
+     * @param adMobUnitId admit banner id     (just as above)
      * @param isShowCloseButton show close button at the top-right corner of the advertisement
      * @param context Activity or application context.
      * @param isTest Use test advertisement or not
@@ -125,9 +125,9 @@ dependencies {
     /**
      * Preload interstitial advertisement
      * @param slotId interstitial advertisement space id
-     * @param fbId facebook placement id.
-     * @param adMobAppId admob application id
-     * @param adMobUnitId admit interstitial id
+     * @param fbId facebook placement id.     （set "null" ,if you needn't Facebook Ads）
+     * @param adMobAppId admob application id   (set "null",if you needn't Admob Ads)
+     * @param adMobUnitId admit interstitial id  (just as above)
      * @param isShowCloseButton show close button at the top-right corner of the advertisement
      * @param context Activity or application context.
      * @param isTest Use test advertisement or not
@@ -147,9 +147,9 @@ dependencies {
     /**
      * Get native advertisement
      * @param slotId natvie advertisement space id
-     * @param fbId facebook placement id.
-     * @param adMobAppId admob application id
-     * @param adMobUnitId admit native id (Not supported at present, pass null is ok)
+     * @param fbId facebook placement id.        （set "null" ,if you needn't Facebook Ads）
+     * @param adMobAppId admob application id    (set "null",if you needn't Admob Ads)
+     * @param adMobUnitId admit native id (Not supported at present, pass null is ok) (just as above)
      * @param isShowCloseButton show close button at the top-right corner of the advertisement
      * @param context Activity or application context.
      * @param isTest Use test advertisement or not
@@ -164,21 +164,7 @@ dependencies {
                                      Context context,
                                      Boolean isTest,
                                      CTAdEventListener adListener) 
-    /**
-     * Show interstitial advertisement
-     *
-     * @param adView The advertisement container which return by preload
-     */
-    public static void showInterstitial(CTNative adView)
-
-    /**
-     * Close the interstitial advertisement
-     *
-     * @param adView The advertisement container which return by preload
-     */
-    public static void closeInterstitial(CTNative adView) 
-
-    
+   
 ```
 
 
@@ -279,15 +265,41 @@ dependencies {
 #### Banner advertisement：
 ```
     public void loadAd() {
-        // Create a callback to monitor the advertisement loading process(Implmenting the CTAdEventListener interface)
-        MyCTAdEventListener listener = new MyCTAdEventListener();
-        // Try to get a banner advertisement.
-        CTNative res = CTService.getBanner(Config.slotIdBanner,
-                Config.fbId, Config.ADMOB_APP_ID,
-                Config.ADMOB_AD_UNIT_ID_BANNER, true, ContextHolder.getContext(),
-                true, listener);
+        // 获取横幅广告，返回一个含有广告的容器
+        CTNative adView = CTService.getBanner(Config.slotIdBanner, Config.fbId, Config.ADMOB_APP_ID,         
+                Config.ADMOB_AD_UNIT_ID_BANNER,true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
+                    @Override
+                    public void onAdviewGotAdSucceed(CTNative result) {
+                        if (result != null){
+                            container.setVisibility(View.VISIBLE);
+                            container.removeAllViews();
+                            container.addView(result);   //把广告添加到容器
+                        }
 
-        adView = res;
+                        super.onAdviewGotAdSucceed(result);
+                    }
+
+                    @Override
+                    public void onAdviewGotAdFail(CTNative result) {
+
+                        super.onAdviewGotAdFail(result);
+                    }
+
+                    @Override
+                    public void onAdviewClicked(CTNative result) {
+
+                        super.onAdviewClicked(result);
+                    }
+
+                    @Override
+                    public void onAdviewClosed(CTNative result) {
+
+                        container.removeAllViews();
+                        container.setVisibility(View.GONE);
+
+                        super.onAdviewClosed(result);
+                    }
+                });
     }
 
 ```
@@ -295,14 +307,25 @@ dependencies {
 #### Interstitial advertisement：
 ```
     public void loadAd() {
-        // Create a callback to monitor the advertisement loading process(Implmenting the CTAdEventListener interface)
-        MyCTAdEventListener listener = new MyCTAdEventListener();
-        // Preload an interstitial advertisement.
-        CTNative res = CTService.preloadInterstitial(Config.slotIdInterstitial,
-                Config.fbId,
-                Config.ADMOB_APP_ID, Config.ADMOB_AD_UNIT_ID_INTERSTITIAL,
-                true, ContextHolder.getContext(), true, listener);
-        adView = res;
+        CTNative  adView = CTService.preloadInterstitial(Config.slotIdInterstitial,
+                Config.fbId, Config.ADMOB_APP_ID, Config.ADMOB_AD_UNIT_ID_INTERSTITIAL,
+                true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
+
+                    @Override
+                    public void onInterstitialLoadSucceed(CTNative result) {
+                        super.onInterstitialLoadSucceed(result);
+                    }
+
+                    @Override
+                    public void onAdviewGotAdSucceed(CTNative result) {   //在广告加载成功之后再show,不然会出一个空白
+                        if (result != null && result.isLoaded()){
+                            CTService.showInterstitial(result);
+                        }
+
+                        super.onAdviewGotAdSucceed(result);
+                    }
+                });
+        
     }
     
 ```
@@ -311,13 +334,34 @@ dependencies {
 
 ```
     public void loadAd() {
-        // Create a callback to monitor the advertisement loading process(Implmenting the CTAdEventListener interface)
-        MyCTAdEventListener listener = new MyCTAdEventListener();
-        // Try to get a native advertisement
-        CTNative res = CTService.getNative(Config.slotIdNative, Config.fbId,
-                Config.ADMOB_APP_ID, Config.ADMOB_AD_UNIT_ID_NATIVE, true,
-                ContextHolder.getContext(), true, listener);
-        adView = res;
+         CTNative  adView = CTService.getNative(Config.slotIdNative, Config.fbId, null, null,
+                true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
+                    @Override
+                    public void onAdviewGotAdSucceed(CTNative result) {
+                        showAd();
+
+                        super.onAdviewGotAdSucceed(result);
+                    }
+
+                    @Override
+                    public void onAdviewGotAdFail(CTNative result) {
+
+                        super.onAdviewGotAdFail(result);
+                    }
+
+                    @Override
+                    public void onAdviewClicked(CTNative result) {
+
+                        super.onAdviewClicked(result);
+                    }
+
+                    @Override
+                    public void onAdviewClosed(CTNative result) {
+                        hideAd();
+
+                        super.onAdviewClosed(result);
+                    }
+                });
     }
 
 ```
