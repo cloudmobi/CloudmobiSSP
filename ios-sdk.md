@@ -24,7 +24,7 @@
 * In Build Phases -> Link Binary With Libraries -> add AdSupport.framework and libsqlite3.0.tbd 
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
-* Import the hearder file : #import <CTSDK/CTService.h>
+* Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
 
 
 ```
