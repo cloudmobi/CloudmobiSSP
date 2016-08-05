@@ -276,7 +276,63 @@ dependencies {
 
 
 ###<a name="sample">Sample code</a>
-    
+    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
+```
+    public class MyCTAdEventListener implements CTAdEventListener {
+   
+    @Override
+    public void onAdviewGotAdSucceed(CTNative result) {
+        showMsg("onAdviewGotAdSucceed");
+    }
+
+    @Override
+    public void onInterstitialLoadSucceed(CTNative result) {
+        showMsg("onInterstitialLoadSucceed");
+    }
+
+    @Override
+    public void onAdviewGotAdFail(CTNative result) {
+        showMsg(result.getErrorsMsg());
+    }
+
+    @Override
+    public void onAdviewIntoLandpage(CTNative result) {
+        showMsg("onAdviewIntoLandpage");
+    }
+
+    @Override
+    public void onStartLandingPageFail(CTNative result) {
+        showMsg("onStartLandingPageFail");
+    }
+
+    @Override
+    public void onAdviewDismissedLandpage(CTNative result) {
+        showMsg("onAdviewDismissedLandpage");
+    }
+
+    @Override
+    public void onAdviewClicked(CTNative result) {
+        showMsg("onAdviewClicked");
+    }
+
+    @Override
+    public void onAdviewClosed(CTNative result) {
+        showMsg("onAdviewClosed");
+    }
+
+    @Override
+    public void onAdviewDestroyed(CTNative result) {
+        showMsg("onAdviewDestroyed");
+    }
+
+
+    private void showMsg(String msg){
+
+        Toast.makeText(ContextHolder.getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+}
+```         
+
 #### Banner advertisement：
 ```
     public void loadAd() {
