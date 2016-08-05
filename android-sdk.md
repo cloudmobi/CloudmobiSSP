@@ -58,17 +58,17 @@ dependencies {
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-1. [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
  adlibrary.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
 （If you don't need the facebook or Admob ADs， the related dependence is not needed.）
-2. Build tool：Ant
-3. Copy the four jars into target project folder /libs/ , and Add them to build path.
-4. Add the follows in strings.xml
+* Build tool：Ant
+* Copy the four jars into target project folder /libs/ , and Add them to build path.
+*  Add the follows in strings.xml
 
 ```
     <integer name="google_play_services_version">9256000</integer>
 ```
-5.Update AndroidManifest.xml as below:
+*  Update AndroidManifest.xml as below:
 
 ```
         <meta-data android:name="com.google.android.gms.version"                 
@@ -98,7 +98,7 @@ dependencies {
 
 ###<a name="api">SDK API reference</a>：
 
-### CTService: The calling interface for the SDK.
+##### CTService: The calling interface for the SDK.
 
 ```
  
@@ -183,7 +183,7 @@ dependencies {
 ```
 
 
-###### CTNative: A framelayout container view which hold the advertisement.
+##### CTNative: A framelayout container view which hold the advertisement.
 
 ```
     /**
@@ -200,7 +200,7 @@ dependencies {
 ```
 
 
-###### CTAdEventListener: Call back interface for the advertisement loading process.
+##### CTAdEventListener: Call back interface for the advertisement loading process.
 
 ```
     /**
@@ -276,7 +276,11 @@ dependencies {
 
 
 ###<a name="sample">Sample code</a>
-    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
+	
+* About CTAdEventListerner
+   
+   We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
+    
 ```
     public class MyCTAdEventListener implements CTAdEventListener {
    
@@ -333,10 +337,9 @@ dependencies {
 }
 ```         
 
-#### Banner advertisement：
+##### Banner advertisement：
 ```
     public void loadAd() {
-        // 获取横幅广告，返回一个含有广告的容器
         CTNative adView = CTService.getBanner(Config.slotIdBanner, Config.fbId, Config.ADMOB_APP_ID,         
                 Config.ADMOB_AD_UNIT_ID_BANNER,true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
                     @Override
@@ -375,7 +378,7 @@ dependencies {
 
 ```
 
-#### Interstitial advertisement：
+##### Interstitial advertisement：
 ```
     public void loadAd() {
         CTNative  adView = CTService.preloadInterstitial(Config.slotIdInterstitial,
@@ -401,7 +404,7 @@ dependencies {
     
 ```
 
-#### Native advertisement：
+##### Native advertisement：
 
 ```
     public void loadAd() {
