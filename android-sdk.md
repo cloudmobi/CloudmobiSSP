@@ -165,6 +165,20 @@ dependencies {
                                      Context context,
                                      Boolean isTest,
                                      CTAdEventListener adListener) 
+
+    /**
+     * Show interstitial advertisement after you get it success.
+     *
+     * @param adView The advertisement container which return by preload
+     */
+    public static void showInterstitial(CTNative adView)
+
+    /**
+     * Close the interstitial advertisement
+     *
+     * @param adView The advertisement container which return by preload
+     */
+    public static void closeInterstitial(CTNative adView) 
    
 ```
 
@@ -262,7 +276,7 @@ dependencies {
 
 
 ###<a name="sample">Sample code</a>
-
+    
 #### Banner advertisement：
 ```
     public void loadAd() {
@@ -274,7 +288,7 @@ dependencies {
                         if (result != null){
                             container.setVisibility(View.VISIBLE);
                             container.removeAllViews();
-                            container.addView(result);   //把广告添加到容器
+                            container.addView(result);  
                         }
 
                         super.onAdviewGotAdSucceed(result);
@@ -318,7 +332,7 @@ dependencies {
                     }
 
                     @Override
-                    public void onAdviewGotAdSucceed(CTNative result) {   //在广告加载成功之后再show,不然会出一个空白
+                    public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null && result.isLoaded()){
                             CTService.showInterstitial(result);
                         }
