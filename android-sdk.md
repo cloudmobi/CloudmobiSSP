@@ -19,7 +19,7 @@
     classpath 'com.google.gms:google-services:3.0.0'  
 ``` 
 
-* Update the module's build.gradle with dependency：
+* Update the module's build.gradle with dependency：（If you don't need the facebook or Admob ADs， the related dependence is not needed.）
 
 ```
 apply plugin: 'com.google.gms.google-services'
@@ -60,6 +60,7 @@ dependencies {
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
 1. [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
  adlibrary.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
+（If you don't need the facebook or Admob ADs， the related dependence is not needed.）
 2. Build tool：Ant
 3. Copy the four jars into target project folder /libs/ , and Add them to build path.
 4. Add the follows in strings.xml
