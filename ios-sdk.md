@@ -26,6 +26,7 @@
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
 * Import the hearder file : #import <CTSDK/CTService.h>
 
+
 ```
  
     /**
