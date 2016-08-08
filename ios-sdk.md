@@ -17,17 +17,15 @@
 	    GoogleSymbolUtilities.framework
 		GoogleUtilities.framework
 		Firebase.h
-		GoogleService-Info.plist 
+		GoogleService-Info.plist
+		GoogleMobileAds.framework
+		CTSDK.framework 
 
+* In Build Phases -> Link Binary With Libraries -> add AdSupport.framework and libsqlite3.0.tbd 
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
-* Import the hearder file : #import <CTSDK/CTService.h>
+* Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
 
-
-
-###<a name="api">SDK API reference</a>：
-
-### CTService: The calling interface for the SDK.
 
 ```
  
