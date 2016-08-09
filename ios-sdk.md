@@ -231,6 +231,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 | ~~ERR\_015\_GET_GAID~~     | ~~Cannot get google advertisement id failed~~ |
 | ERR\_016\_GET_AD_CONFIG     | Cannot get the account configuration or template |
 | ERR\_017\_INTERSTITIAL_SHOW_NO_AD     | Try to load the interstitial advertisement, but the advertisement is not ready  |
+| ERR\_018\_AD_CLOSED  |Ad slotId has been closed|
 | ERR\_999\_OTHERS     | All other errors  |
 |                    |                      |
 
