@@ -44,6 +44,7 @@ dependencies {
         </activity>
 
         <activity android:name="com.cloudtech.ads.view.InterstitialActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
         </activity>
 
@@ -82,6 +83,7 @@ dependencies {
         </activity>
 
         <activity android:name="com.cloudtech.ads.view.InterstitialActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
         </activity>
 
