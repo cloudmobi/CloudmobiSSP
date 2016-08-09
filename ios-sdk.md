@@ -74,7 +74,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
-                             /**
+    /**
      * Show interstitial advertisement
      *
      * Request success, call this method show Ad View
