@@ -112,8 +112,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
- 
-    
 
     
 ```
