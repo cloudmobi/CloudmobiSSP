@@ -34,11 +34,12 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Banner Ad View
      *
      * @param slot_Id -> Cloud Tech Banner AD ID
-     * @param fb_id -> Facebook Native Placement ID
-     * @param mob_id ->  Admob Banner AD ID
+     * @param fb_id -> Facebook Native Placement ID （set "nil",if you needn't Facebook Ads）
+     * @param mob_id ->  Admob Banner AD ID  (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Banner Ad View
      * @param failure -> The request failed Block, retuen error
@@ -50,6 +51,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
+                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* bannerView))success
                       failure:(void (^)(NSError *error))failure;
@@ -59,19 +61,22 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Interstitial Ad View
      *
      * @param slot_Id -> Cloud Tech Intersitital AD ID
-     * @param fb_id -> Facebook Native Placement ID
-     * @param mob_id ->  Admob Interstitial AD ID
+     * @param fb_id -> Facebook Native Placement ID   （set "nil",if you needn't Facebook Ads）
+     * @param mob_id ->  Admob Interstitial AD ID   (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Interstitial Ad View
      * @param failure -> The request failed Block, retuen error
      */
+     
     +(void)preloadInterstitialWithSlotId:(NSString*)slot_id
                                 fbId:(NSString*)fb_id
                              admobId:(NSString*)mob_id
                             delegate:(id)delegate
+                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
@@ -95,21 +100,24 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Native Ad View
      *
      * @param slot_Id -> Cloud Tech Native AD ID
-     * @param fb_id -> Facebook Native Placement ID
-     * @param mob_id ->  Admob Native AD ID
+     * @param fb_id -> Facebook Native Placement ID   （set "nil",if you needn't Facebook Ads）
+     * @param mob_id ->  Admob Native AD ID    (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Interstitial Ad View
      * @param failure -> The request failed Block, retuen error
      */
+     
     +(void)getNativeADswithSlotId:(NSString*)slot_id
                          fbId:(NSString*)fb_id
                       admobId:(NSString*)mob_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
+                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
