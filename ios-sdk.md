@@ -34,8 +34,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Banner Ad View
      *
      * @param slot_Id -> Cloud Tech Banner AD ID
-     * @param fb_id -> Facebook Native Placement ID （set "nil",if you needn't Facebook Ads）
-     * @param mob_id ->  Admob Banner AD ID  (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
@@ -46,8 +44,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      */
      
     +(void)getBannerADswithSlotId:(NSString*)slot_id
-                         fbId:(NSString*)fb_id
-                      admobId:(NSString*)mob_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
@@ -61,8 +57,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Interstitial Ad View
      *
      * @param slot_Id -> Cloud Tech Intersitital AD ID
-     * @param fb_id -> Facebook Native Placement ID   （set "nil",if you needn't Facebook Ads）
-     * @param mob_id ->  Admob Interstitial AD ID   (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
@@ -73,8 +67,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      */
      
     +(void)preloadInterstitialWithSlotId:(NSString*)slot_id
-                                fbId:(NSString*)fb_id
-                             admobId:(NSString*)mob_id
                             delegate:(id)delegate
                             keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
@@ -100,8 +92,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Native Ad View
      *
      * @param slot_Id -> Cloud Tech Native AD ID
-     * @param fb_id -> Facebook Native Placement ID   （set "nil",if you needn't Facebook Ads）
-     * @param mob_id ->  Admob Native AD ID    (set "nil",if you needn't Admob Ads)
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
@@ -112,8 +102,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      */
      
     +(void)getNativeADswithSlotId:(NSString*)slot_id
-                         fbId:(NSString*)fb_id
-                      admobId:(NSString*)mob_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
@@ -250,7 +238,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 #### Banner advertisement：
 ```
 - (void)addBannerAd {
-    [CTService getBannerADswithSlotId:@"7" fbId:@"119578928469786_119603761800636" admobId:@"ca-app-pub-4316706184733141/9204698312" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES isTest:NO success:^(UIView *NativeView) {
+    [CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES isTest:NO success:^(UIView *NativeView) {
     //Requset successful,Add NativeView to parentView
         [self.view addSubview:NativeView];
     } failure:^(NSError *error) {
@@ -264,7 +252,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 #### Interstitial advertisement：
 ```
 - (void)addInterstitialAd{
-    [CTService preloadInterstitialWithSlotId:@"9" fbId:@"119578928469786_141326032961742" admobId:@"ca-app-pub-4316706184733141/1681431517" delegate:self isTest:YES success:^(UIView *InterstitialView) {
+    [CTService preloadInterstitialWithSlotId:@"9" delegate:self isTest:YES success:^(UIView *InterstitialView) {
         dispatch_async(dispatch_get_main_queue(), ^{
         //Requset successful,Add InterstitialView to parentView
             [self.view addSubview:InterstitialView];
@@ -281,7 +269,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 #### Native advertisement：
 ```
-    [CTService getNativeADswithSlotId:@"8" fbId:@"119578928469786_119603761800636" admobId:@"ca-app-pub-2095463017322759/8628270629" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300) needCloseButton:NO isTest:YES success:^(UIView *NativeView) {
+    [CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300) needCloseButton:NO isTest:YES success:^(UIView *NativeView) {
     	//Requset successful,Add NativeView to parentView
             [cell addSubview:NativeView];
         } failure:^(NSError *error)
