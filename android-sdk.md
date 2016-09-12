@@ -11,7 +11,7 @@
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
 * Build tool：Gradle
-* After download, copy file cloudssp_1.0.jar into target project folder: [ModuleName]/libs/cloudssp_1.0.jar
+* After download, copy file cloudssp_1.0.jar into target project folder:[ModuleName]/libs/cloudssp_1.0.jar
 * Update the project's build.gradle with below code:
 
 ```
@@ -19,17 +19,21 @@
     classpath 'com.google.gms:google-services:3.0.0'  
 ``` 
 
-* Update the module's build.gradle with dependency：（If you don't need the facebook or Admob ADs， the related dependence is not needed.）
+* Update the module's build.gradle with dependency：
 
 ```
-apply plugin: 'com.google.gms.google-services'
+	apply plugin: 'com.google.gms.google-services'
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.google.firebase:firebase-ads:9.0.0'
-    compile 'com.facebook.android:audience-network-sdk:4.13.0'
-    compile files('libs/cloudssp_1.0.jar')
-}
+	dependencies {
+    	compile fileTree(include: ['*.jar'], dir: 'libs')
+    	compile 'com.google.firebase:firebase-ads:9.0.0'
+    	compile 'com.facebook.android:audience-network-sdk:4.13.0'
+    	compile files('libs/cloudssp_1.0.jar')
+    		
+    	// if you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
+    	//If you don't need the facebook or Admob ADs,the related dependence is not needed.
+	}
+	
 ```
 
 * Update AndroidManifest.xml as below:
@@ -49,8 +53,17 @@ dependencies {
         </activity>
 
         <activity android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+      		android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+            
+      	<receiver android:name="com.ye.tp.AFLReceiver">
+        	<intent-filter>
+            	<action 
+            	android:name="android.intent.action.PACKAGE_ADDED" />
+            	<data android:scheme="package" />
+        	</intent-filter>
+    	</receiver>
+       
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
@@ -69,6 +82,7 @@ dependencies {
 ```
         <meta-data android:name="com.google.android.gms.version"                 
             android:value="@integer/google_play_services_version" />
+            
         <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -85,6 +99,15 @@ dependencies {
         <activity android:name="com.google.android.gms.ads.AdActivity"                    
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
+            
+        <receiver android:name="com.ye.tp.AFLReceiver">
+        	<intent-filter>
+            	<action
+            	 android:name="android.intent.action.PACKAGE_ADDED" />
+            	<data android:scheme="package" />
+        	</intent-filter>
+    	</receiver>
+       
 ```
 
 
@@ -93,44 +116,32 @@ dependencies {
 ##### CTService: The calling interface for the SDK.
 
 ```
- 
+
     /**
      * Get banner style advertisement.
-     * @param slotId banner advertisement space id
-     * @param fbId facebook placement id.    （set "null" ,if you needn't Facebook Ads）
-     * @param adMobAppId admob application id (set "null",if you needn't Admob Ads)
-     * @param adMobUnitId admit banner id     (just as above)
-     * @param isShowCloseButton show close button at the top-right corner of the advertisement
-     * @param context Activity or application context.
-     * @param isTest Use test advertisement or not
-     * @param adListener Callback for the advertisement load process.
-     * @return An container view which include advertisement.
+     * @param slotId 				banner advertisement space id
+     * @param isShowCloseButton 	the switch of close-button 
+     * @param context				Activity or application context.
+     * @param isTest 				Use test advertisement or not
+     * @param adListener 			Callback for the advertisement load process.
+     * @return 					An container view which include advertisement.
      */
     public static CTNative getBanner(String slotId,
-                                      String fbId,
-                                      String adMobAppId,
-                                      String adMobUnitId,
                                       boolean isShowCloseButton,
                                       Context context,
                                       Boolean isTest,
-                                      CTAdEventListener adListener) 
+                                      CTAdEventListener adListener)
 
     /**
      * Preload interstitial advertisement
-     * @param slotId interstitial advertisement space id
-     * @param fbId facebook placement id.     （set "null" ,if you needn't Facebook Ads）
-     * @param adMobAppId admob application id   (set "null",if you needn't Admob Ads)
-     * @param adMobUnitId admit interstitial id  (just as above)
-     * @param isShowCloseButton show close button at the top-right corner of the advertisement
-     * @param context Activity or application context.
-     * @param isTest Use test advertisement or not
-     * @param adListener Callback for the advertisement load process.
-     * @return An container view which include advertisement.
+     * @param slotId 				interstitial advertisement space id
+     * @param isShowCloseButton 	the switch of close-button 
+     * @param context 				Activity or application context.
+     * @param 						isTest Use test advertisement or not
+     * @param adListener 			Callback for the advertisement load process.
+     * @return 					An container view which include advertisement.
      */
     public static CTNative preloadInterstitial(String slotId,
-                                               String fbId,
-                                               String adMobAppId,
-                                               String adMobUnitId,
                                                boolean isShowCloseButton,
                                                Context context,
                                                Boolean isTest,
@@ -139,20 +150,14 @@ dependencies {
 
     /**
      * Get native advertisement
-     * @param slotId natvie advertisement space id
-     * @param fbId facebook placement id.        （set "null" ,if you needn't Facebook Ads）
-     * @param adMobAppId admob application id    (set "null",if you needn't Admob Ads)
-     * @param adMobUnitId admit native id (Not supported at present, pass null is ok) (just as above)
-     * @param isShowCloseButton show close button at the top-right corner of the advertisement
-     * @param context Activity or application context.
-     * @param isTest Use test advertisement or not
-     * @param adListener Callback for the advertisement load process.
-     * @return An container view which include advertisement.
+     * @param slotId 				natvie advertisement space id
+     * @param isShowCloseButton 	the switch of close-button      
+     * @param context 				Activity or application context.
+     * @param isTest				Use test advertisement or not
+     * @param adListener 			Callback for the advertisement load process.
+     * @return 					An container view which include advertisement.
      */
     public static CTNative getNative(String slotId,
-                                     String fbId,
-                                     String adMobAppId,
-                                     String adMobUnitId,
                                      boolean isShowCloseButton,
                                      Context context,
                                      Boolean isTest,
@@ -160,14 +165,12 @@ dependencies {
 
     /**
      * Show interstitial advertisement after you get it success.
-     *
      * @param adView The advertisement container which return by preload
      */
     public static void showInterstitial(CTNative adView)
 
     /**
      * Close the interstitial advertisement
-     *
      * @param adView The advertisement container which return by preload
      */
     public static void closeInterstitial(CTNative adView) 
@@ -332,105 +335,88 @@ dependencies {
 
 ##### Banner advertisement：
 ```
-    public void loadAd() {
-        CTNative adView = CTService.getBanner(Config.slotIdBanner, Config.fbId, Config.ADMOB_APP_ID,         
-                Config.ADMOB_AD_UNIT_ID_BANNER,true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
+  
+  	 CTService.getBanner(Config.slotIdBanner, true, ContextHolder.getContext(),
+                false, new MyCTAdEventListener(){
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null){
                             container.setVisibility(View.VISIBLE);
                             container.removeAllViews();
-                            container.addView(result);  
+                            container.addView(result);   //把广告添加到容器
                         }
-
                         super.onAdviewGotAdSucceed(result);
                     }
 
                     @Override
                     public void onAdviewGotAdFail(CTNative result) {
-
                         super.onAdviewGotAdFail(result);
                     }
 
                     @Override
                     public void onAdviewClicked(CTNative result) {
-
                         super.onAdviewClicked(result);
                     }
 
                     @Override
                     public void onAdviewClosed(CTNative result) {
-
                         container.removeAllViews();
                         container.setVisibility(View.GONE);
-
+    
                         super.onAdviewClosed(result);
                     }
                 });
-    }
-
 ```
 
 ##### Interstitial advertisement：
 ```
-    public void loadAd() {
-        CTNative  adView = CTService.preloadInterstitial(Config.slotIdInterstitial,
-                Config.fbId, Config.ADMOB_APP_ID, Config.ADMOB_AD_UNIT_ID_INTERSTITIAL,
-                true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
-
+    CTService.preloadInterstitial(Config.slotIdInterstitial,true,
+    		 ContextHolder.getContext(), false, new MyCTAdEventListener(){
                     @Override
                     public void onInterstitialLoadSucceed(CTNative result) {
                         super.onInterstitialLoadSucceed(result);
                     }
 
                     @Override
-                    public void onAdviewGotAdSucceed(CTNative result) {
-                        if (result != null && result.isLoaded()){
+                    public void onAdviewGotAdSucceed(CTNative result){                          
+                     	if (result != null && result.isLoaded()){
                             CTService.showInterstitial(result);
                         }
-
                         super.onAdviewGotAdSucceed(result);
                     }
-                });
-        
-    }
-    
+                });    
 ```
 
 ##### Native advertisement：
 
 ```
-    public void loadAd() {
-         CTNative  adView = CTService.getNative(Config.slotIdNative, Config.fbId, null, null,
-                true, ContextHolder.getContext(), false, new MyCTAdEventListener(){
+    CTService.getNative(Config.slotIdNative, false, ContextHolder.getContext(), 
+    			false, new MyCTAdEventListener(){
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
-                        showAd();
-
+                        if (result != null) {
+                            container.removeAllViews();
+                            container.addView(result);
+                        }
                         super.onAdviewGotAdSucceed(result);
                     }
 
                     @Override
                     public void onAdviewGotAdFail(CTNative result) {
-
                         super.onAdviewGotAdFail(result);
                     }
 
                     @Override
                     public void onAdviewClicked(CTNative result) {
-
                         super.onAdviewClicked(result);
                     }
 
                     @Override
                     public void onAdviewClosed(CTNative result) {
-                        hideAd();
-
+                        container.removeAllViews();
                         super.onAdviewClosed(result);
                     }
                 });
-    }
-
 ```
 
 ###<a name="reference">How to apply Facebook/Admob advertisement</a>：
