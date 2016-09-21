@@ -30,7 +30,7 @@
     	compile 'com.facebook.android:audience-network-sdk:4.13.0'
     	compile files('libs/cloudssp_1.0.jar')
     		
-    	// if you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
+    	//If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
     	//If you don't need the facebook or Admob ADs,the related dependence is not needed.
 	}
 	
@@ -39,6 +39,7 @@
 * Update AndroidManifest.xml as below:
 
 ```
+
         <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -56,13 +57,6 @@
       		android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
             
-      	<receiver android:name="com.ye.tp.AFLReceiver">
-        	<intent-filter>
-            	<action 
-            	android:name="android.intent.action.PACKAGE_ADDED" />
-            	<data android:scheme="package" />
-        	</intent-filter>
-    	</receiver>
        
 ```
 
@@ -80,6 +74,7 @@
 *  Update AndroidManifest.xml as below:
 
 ```
+      
         <meta-data android:name="com.google.android.gms.version"                 
             android:value="@integer/google_play_services_version" />
             
@@ -99,14 +94,6 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"                    
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-            
-        <receiver android:name="com.ye.tp.AFLReceiver">
-        	<intent-filter>
-            	<action
-            	 android:name="android.intent.action.PACKAGE_ADDED" />
-            	<data android:scheme="package" />
-        	</intent-filter>
-    	</receiver>
        
 ```
 
@@ -116,6 +103,13 @@
 ##### CTService: The calling interface for the SDK.
 
 ```
+	
+	/**
+     * init the sdk
+     * @param context  	applicationContext is better
+     */
+    public static void init(Context context)
+	
 
     /**
      * Get banner style advertisement.
@@ -272,13 +266,33 @@
 
 
 ###<a name="sample">Sample code</a>
+
+* Init the sdk
+
+	We recommend using a global android Application class to initialize the SDK. If you don't have one in your app already, create it.
+	In your Application class find or create the onCreate method and add the following code to initialize the SDK:
+
+```
+	import com.cloudtech.ads.core.CTService;
 	
+	@Override
+    public void onCreate() {
+        super.onCreate();
+
+        CTService.init(this.getApplicationContext());
+
+    }
+	
+	
+```
+		
+
 * About CTAdEventListerner
    
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
     
 ```
-    public class MyCTAdEventListener implements CTAdEventListener {
+public class MyCTAdEventListener implements CTAdEventListener {
    
     @Override
     public void onAdviewGotAdSucceed(CTNative result) {
