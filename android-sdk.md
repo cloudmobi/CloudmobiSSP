@@ -9,9 +9,9 @@
 
 ###<a name="install">SDK download and setup</a>
 
-* [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
+* [Download the SDK](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
-* After download, copy file cloudssp_1.0.jar into target project folder:[ModuleName]/libs/cloudssp_1.0.jar
+* After download, copy file cloudssp_x.jar into target project folder:[ModuleName]/libs/cloudssp_x.jar
 * Update the project's build.gradle with below code:
 
 ```
@@ -28,7 +28,7 @@
     	compile fileTree(include: ['*.jar'], dir: 'libs')
     	compile 'com.google.firebase:firebase-ads:9.0.0'
     	compile 'com.facebook.android:audience-network-sdk:4.13.0'
-    	compile files('libs/cloudssp_1.0.jar')
+    	compile files('libs/cloudssp_x.jar')
     		
     	//If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
     	//If you don't need the facebook or Admob ADs,the related dependence is not needed.
@@ -61,9 +61,11 @@
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-* [Download four jars for eclipse as follows :](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
- cloudssp_1.0.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
-（If you don't need the facebook or Admob ADs， the related dependence is not needed.）
+* [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+ cloudssp_x.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
+ 
+	（If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  If you don't need the facebook or Admob ADs,the related dependence is not needed.）
+
 * Build tool：Ant
 * Copy the four jars into target project folder /libs/ , and Add them to build path.
 *  Add the follows in strings.xml
@@ -104,13 +106,6 @@
 
 ```
 	
-	/**
-     * init the sdk
-     * @param context  	applicationContext is better
-     */
-    public static void init(Context context)
-	
-
     /**
      * Get banner style advertisement.
      * @param slotId 				banner advertisement space id
@@ -125,6 +120,7 @@
                                       Context context,
                                       Boolean isTest,
                                       CTAdEventListener adListener)
+
 
     /**
      * Preload interstitial advertisement
@@ -156,12 +152,32 @@
                                      Context context,
                                      Boolean isTest,
                                      CTAdEventListener adListener) 
+                                     
+           
+                                     
+    /**
+     * get advanceNative advertisement(namely,get the elements of ads)
+     * @param slotId  			the id for cloudssp-ads
+     * @param context  			context Activity or application context.
+     * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_10_TO_10)
+     * @param isTest   			Use test advertisement or not
+     * @param adListener  		Callback for the advertisement load process
+     * @return				the object to get the elements
+     */
+    public static CTAdvanceNative getAdvanceNative(String slotId,
+                                                   Context context,
+                                                   Boolean isTest,
+                                                   CTImageType imageType,
+                                                   CTAdEventListener adListener)  
+                                                   
 
     /**
      * Show interstitial advertisement after you get it success.
      * @param adView The advertisement container which return by preload
      */
     public static void showInterstitial(CTNative adView)
+
 
     /**
      * Close the interstitial advertisement
@@ -175,11 +191,13 @@
 ##### CTNative: A framelayout container view which hold the advertisement.
 
 ```
+   
     /**
      * Get all error logs which return by the advertisement query process.
      * @return Error List
      */
     public List<CTError> getErrors()
+
 
     /**
      * Is current advertisement load successfully.
@@ -189,9 +207,77 @@
 ```
 
 
+
+##### CTAdvanceNative: An object which hold the elements of advertisment.
+
+```
+	
+	/**
+	 * get the imageUrl of ads
+	 */
+    public String getImageUrl() 
+
+    /**
+     * get image Bitmap 
+     * @return
+     */
+    public Bitmap getImageBitmap()
+
+	/**
+	 * get the iconUrl of ads.
+	 */
+    public String getIconUrl()
+
+    /**
+     * get icon Bitmap
+     * @return
+     */
+    public Bitmap getIconBitmap()
+    
+    /**
+	 * get the title of ads
+	 */
+    public String getTitle() 
+    
+    /**
+	 * get the desc of ads
+	 */
+    public String getDesc() 
+    
+    /**
+	 * get the callToAction of ads
+	 */
+    public String getButtonStr()
+    
+    /**
+	 * get the rates of ads
+	 */
+    public String getRate() 
+    
+    /**
+	 * get the choicesLinkUrl of ads
+	 */
+    public String getChoicesLinkUrl()  
+    
+    /**
+     * setup your ad Layout
+     * @param adLayout
+     */
+    public void setupAdLayout(View adLayout)  
+    
+    /**
+     * register your ad view for click
+     * @param v
+     */
+	public void registerViewForInteraction(View v) 
+	
+```
+
+
 ##### CTAdEventListener: Call back interface for the advertisement loading process.
 
 ```
+
     /**
      * Load and render advertisement successful.
      */
@@ -265,27 +351,7 @@
 |                    |                      |
 
 
-###<a name="sample">Sample code</a>
-
-* Init the sdk
-
-	We recommend using a global android Application class to initialize the SDK. If you don't have one in your app already, create it.
-	In your Application class find or create the onCreate method and add the following code to initialize the SDK:
-
-```
-	import com.cloudtech.ads.core.CTService;
-	
-	@Override
-    public void onCreate() {
-        super.onCreate();
-
-        CTService.init(this.getApplicationContext());
-
-    }
-	
-	
-```
-		
+###<a name="sample">Sample code</a>		
 
 * About CTAdEventListerner
    
@@ -432,6 +498,146 @@ public class MyCTAdEventListener implements CTAdEventListener {
                     }
                 });
 ```
+
+
+##### Advance Native advertisement：
+
+The container and the layout for ad:
+
+```
+	
+	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);                                                     	
+	ViewGroup adLayout = (ViewGroup)View.inflate(ContextHolder.getContext(),R.layout.advance_native_layout, null);
+	
+```
+
+The method to load ads:
+
+```
+
+ 	CTService.getAdvanceNative(Config.slotIdNative, ContextHolder.getContext(), 
+ 			false, CTImageType.TYPE_19_TO_10, new MyCTAdEventListener(){
+                    @Override
+                    public void onAdviewGotAdSucceed(CTNative result) {
+                        if (result == null){
+                            return;
+                        }
+                        CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
+                        showAd(ctAdvanceNative);
+
+                        super.onAdviewGotAdSucceed(result);
+                    }
+
+                    @Override
+                    public void onAdviewGotAdFail(CTNative result) {
+                        super.onAdviewGotAdFail(result);
+                    }
+
+                    @Override
+                    public void onAdviewClicked(CTNative result) {
+                        super.onAdviewClicked(result);
+                    }
+
+                });
+                                      
+                
+```
+
+The layout defined for the Ad UI：
+
+```   
+ 
+	<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent">
+
+    	<ImageView
+        	android:id="@+id/iv_img"
+       		android:layout_width="match_parent"
+        	android:layout_height="200dp"
+        	fresco:placeholderImage="@mipmap/ic_launcher"/>
+
+    	<RelativeLayout
+       		android:id="@+id/rl_title"
+        	android:layout_below="@id/iv_img"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_margin="5dp">
+
+        	<ImageView
+            	android:id="@+id/iv_icon"
+            	android:layout_width="50dp"
+            	android:layout_height="50dp"
+            	fresco:placeholderImage="@mipmap/ic_launcher"/>
+
+        	<TextView
+            	android:id="@+id/tv_title"
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:singleLine="true"
+            	android:layout_marginLeft="5dp"
+            	android:layout_toRightOf="@id/iv_icon"
+            	android:text="title"
+            	android:textColor="@android:color/darker_gray"
+            	android:textSize="18dp"/>
+            
+    	</RelativeLayout>
+
+    	<TextView
+        	android:id="@+id/tv_desc"
+        	android:layout_below="@id/rl_title"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:lines="5"
+        	android:layout_margin="5dp"
+        	android:text="desc"
+        	android:textColor="@android:color/darker_gray"
+        	android:textSize="15dp" />
+
+    	<Button
+        	android:id="@+id/bt_click"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_margin="10dp"
+        	android:layout_alignParentBottom="true"/>
+
+	</RelativeLayout>
+
+``` 
+
+Show the ads
+
+``` 
+
+	private void showAd(CTAdvanceNative ctAdvanceNative) {
+
+        ImageView img = (ImageView)adLayout.findViewById(R.id.iv_img);
+        ImageView icon = (ImageView)adLayout.findViewById(R.id.iv_icon);
+        TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
+        TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
+        Button click = (Button)adLayout.findViewById(R.id.bt_click);
+
+
+        img.setImageBitmap(ctAdvanceNative.getImageBitmap());
+        icon.setImageBitmap(ctAdvanceNative.getIconBitmap());
+        title.setText(ctAdvanceNative.getTitle());
+        desc.setText(ctAdvanceNative.getDesc());
+        click.setText(ctAdvanceNative.getButtonStr());
+
+		//register your adLayout for click
+        ctAdvanceNative.setupAdLayout(adLayout);
+        //IMPORTANT: add CTAdvanceNative into your UI instead adLayout defined by yourself.
+        ctAdvanceNative.registerViewForInteraction(adLayout);
+        
+
+        container.removeAllViews();
+        container.addView(ctAdvanceNative);
+
+    }
+
+```
+
 
 ###<a name="reference">How to apply Facebook/Admob advertisement</a>：
 * [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
