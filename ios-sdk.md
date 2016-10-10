@@ -25,8 +25,10 @@
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
 * Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
+*  Introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
 
-###<a name="api">SDK API reference</a>：
+
+###<a name="api">SDK API reference</a>
 
 ```
  
@@ -37,7 +39,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
-     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Banner Ad View
      * @param failure -> The request failed Block, retuen error
@@ -47,7 +48,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
-                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* bannerView))success
                       failure:(void (^)(NSError *error))failure;
@@ -60,15 +60,12 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
-     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Interstitial Ad View
      * @param failure -> The request failed Block, retuen error
      */
-     
     +(void)preloadInterstitialWithSlotId:(NSString*)slot_id
                             delegate:(id)delegate
-                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
@@ -95,20 +92,36 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param delegate -> Set Delegate of Ad event
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
-     * @param keyWords -> Keep parameters
      * @param isTest -> Use test advertisement or not
-     * @param success -> The request is successful Block, return Interstitial Ad View
+     * @param success -> The request is successful Block, return Native Ad View
      * @param failure -> The request failed Block, retuen error
      */
-     
     +(void)getNativeADswithSlotId:(NSString*)slot_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
-                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
+
+
+
+	/**
+     * Get Native Element Ad 
+     *
+     * @param slot_Id -> Cloud Tech Native AD ID
+     * @param delegate -> Set Delegate of Ad event
+     * @param WHRate -> Set Image Rate
+     * @param isTest -> Use test advertisement or not
+     * @param success -> The request is successful Block, return Native Element Ad
+     * @param failure -> The request failed Block, retuen error
+     */
+	+(void)getElementNativeADswithSlotId:(NSString*)slot_id
+                            delegate:(id)delegate
+                 imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                              isTest:(BOOL)isTest
+                             success:(void (^)(CTNativeElementAdModel* elementModel))success
+                             failure:(void (^)(NSError *error))failure;
 
     
 ```
@@ -206,6 +219,38 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
  
 ```
 
+###### CTElementAdDelegate Class Methods：Call back interface for the advertisement loading process.
+
+```
+    /**
+     * User click the advertisement. 
+     */
+    -(void)CTElementAdDidClick:(CTElement *)ElementAd;
+
+    /**
+     * Advertisement landing page will show.
+     */
+    -(void)CTElementAdDidIntoLandingPage:(CTElement *)ElementAd;
+
+    /**
+     * User left the advertisement landing page. 
+     */
+    -(void)CTElementAdDidLeaveLandingPage:(CTElement *)ElementAd;
+
+    /**
+     * User close the advertisement.
+     */
+    -(void)CTElementAdClosed:(CTElement *)ElementAd;
+
+    /**
+     * Leave App
+     */
+    -(void)CTElementAdWillLeaveApplication:(CTElement *)ElementAd;
+
+ 
+```
+
+
 ###<a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
@@ -279,6 +324,85 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      }]; 
 
 ```
+
+#### Element Native advertisement：
+
+
+First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
+
+```
+	
+	#import <CTSDK/CTSDK.h>
+	#import <CTSDK/CTElementAd.h>
+	@interface CTView : CTElementAd
+	@property (nonatomic, strong)UIImageView *logoImage;
+	@property (nonatomic, strong)UILabel *titleLable;
+	@property (nonatomic, strong)UIImageView *iconImage;
+	@property (nonatomic, strong)UIImageView *imageImage;
+	@property (nonatomic, strong)UILabel *descLable;
+	@property (nonatomic, strong)UIButton *button;
+	@property (nonatomic, strong)UILabel *starLable;
+	@end
+```
+
+Layout for example:
+
+
+```
+
+	#import "CTView.h"
+        @implementation CTView
+        - (instancetype)initWithFrame:(CGRect)frame
+        {
+            if (self = [super initWithFrame:frame]) {
+                self.backgroundColor = [UIColor grayColor];
+                self.logoImage = [[UIImageView alloc]initWithFrame:CGRectMake(frame.size.width - 16, 0, 16, 16)];
+                self.titleLable = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, frame.size.width-65, 50)];
+                self.iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+                self.imageImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 50, frame.size.width, 120)];
+                self.descLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 170, frame.size.width/2.0, 30)];
+                self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+                self.button.frame = CGRectMake(frame.size.width/2.0, 170, frame.size.width/2.0, 30);
+                [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [self addSubview:self.logoImage];
+                [self addSubview:self.titleLable];
+                [self addSubview:self.iconImage];
+                [self addSubview:self.imageImage];
+                [self addSubview:self.descLable];
+                [self addSubview:self.button];
+                [self addSubview:self.starLable];
+            }
+            return self;
+        }
+        @end
+
+```
+
+Then call to The method to load ads:
+
+```
+
+    [CTService getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne isTest:NO success:^(CTNativeElementAdModel *elementModel)
+    {
+        CTView *cview = [[CTView alloc]init];
+        cview.adElementmodel = elementModel;
+        cview.backgroundColor = [UIColor grayColor];
+        cview.frame = CGRectMake(30, 30, self.view.frame.size.width -60, 450);
+        [self.view addSubview:cview];
+        cview.titleLable.text = elementModel.title;
+        cview.iconImage.image = [self getImageFromURL:elementModel.icon];
+        cview.imageImage.image = [self getImageFromURL:elementModel.image];
+        cview.descLable.text = elementModel.desc;
+        [cview.button setTitle:elementModel.button forState:UIControlStateNormal];
+        cview.starLable.text = [NSString stringWithFormat:@"%f",elementModel.star];
+        cview.logoImage.image = elementModel.ADsignImage;
+     } failure:^(NSError *error)
+    {
+        
+    }]; 
+
+```
+
 
 ###<a name="reference">How to apply Facebook/Admob advertisement：</a>：
 * [Facebook Ad SDK Insert Description](https://developers.facebook.com/docs/audience-network)
