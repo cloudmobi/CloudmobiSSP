@@ -9,7 +9,7 @@
 
 ###<a name="install">SDK download and setup</a>
 
-* [Download the SDK](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
 * Build tool：Gradle
 * After download, copy file cloudssp_x.jar into target project folder:[ModuleName]/libs/cloudssp_x.jar
 * Update the project's build.gradle with below code:
@@ -61,7 +61,7 @@
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-* [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* [Download four jars for eclipse as follows :](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
  cloudssp_x.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
  
 	（If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  If you don't need the facebook or Admob ADs,the related dependence is not needed.）
