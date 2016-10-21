@@ -48,6 +48,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
+                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* bannerView))success
                       failure:(void (^)(NSError *error))failure;
@@ -64,8 +65,11 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param success -> The request is successful Block, return Interstitial Ad View
      * @param failure -> The request failed Block, retuen error
      */
+     
     +(void)preloadInterstitialWithSlotId:(NSString*)slot_id
                             delegate:(id)delegate
+                        isFullScreen:(BOOL)isFull
+                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
@@ -100,6 +104,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
+                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
@@ -119,6 +124,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	+(void)getElementNativeADswithSlotId:(NSString*)slot_id
                             delegate:(id)delegate
                  imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(CTNativeElementAdModel* elementModel))success
                              failure:(void (^)(NSError *error))failure;
