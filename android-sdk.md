@@ -9,7 +9,7 @@
 
 ###<a name="install">SDK download and setup</a>
 
-* [Download the SDK](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* [Download the SDK](https://raw.githubusercontent.com/cloudmobi/CloudmobiSSP/master/AndroidSDK.zip)
 * Build tool：Gradle
 * After download, copy file cloudssp_x.jar into target project folder:[ModuleName]/libs/cloudssp_x.jar
 * Update the project's build.gradle with below code:
@@ -39,7 +39,14 @@
 * Update AndroidManifest.xml as below:
 
 ```
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
+		
         <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -61,7 +68,7 @@
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-* [Download four jars for eclipse as follows :](http://git.oschina.net/CloudTech/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* [Download four jars for eclipse as follows :](https://raw.githubusercontent.com/cloudmobi/CloudmobiSSP/master/AndroidSDK.zip)
  cloudssp_x.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
  
 	（If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  If you don't need the facebook or Admob ADs,the related dependence is not needed.）
@@ -76,7 +83,14 @@
 *  Update AndroidManifest.xml as below:
 
 ```
-      
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
+    
         <meta-data android:name="com.google.android.gms.version"                 
             android:value="@integer/google_play_services_version" />
             
