@@ -59,7 +59,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      *
      * @param slot_Id -> Cloud Tech Intersitital AD ID
      * @param delegate -> Set Delegate of Ad event
-     * @param frame -> Set Ad Frame
+     * @param isFullScreen -> If is Screen，set Yes,else set No
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Interstitial Ad View
@@ -289,7 +289,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 #### Banner advertisement：
 ```
 - (void)addBannerAd {
-    [CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES isTest:NO success:^(UIView *NativeView) {
+    [CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
     //Requset successful,Add NativeView to parentView
         [self.view addSubview:NativeView];
     } failure:^(NSError *error) {
@@ -303,7 +303,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 #### Interstitial advertisement：
 ```
 - (void)addInterstitialAd{
-    [CTService preloadInterstitialWithSlotId:@"9" delegate:self isTest:YES success:^(UIView *InterstitialView) {
+    [CTService preloadInterstitialWithSlotId:@"9" delegate:self isFullScreen:NO keyWords:nil isTest:YES success:^(UIView *InterstitialView) {
         dispatch_async(dispatch_get_main_queue(), ^{
         //Requset successful,Add InterstitialView to parentView
             [self.view addSubview:InterstitialView];
@@ -320,7 +320,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 #### Native advertisement：
 ```
-    [CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300) needCloseButton:NO isTest:YES success:^(UIView *NativeView) {
+    [CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
     	//Requset successful,Add NativeView to parentView
             [cell addSubview:NativeView];
         } failure:^(NSError *error)
@@ -388,7 +388,7 @@ Then call to The method to load ads:
 
 ```
 
-    [CTService getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne isTest:NO success:^(CTNativeElementAdModel *elementModel)
+    [CTService getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(CTNativeElementAdModel *elementModel)
     {
         CTView *cview = [[CTView alloc]init];
         cview.adElementmodel = elementModel;
