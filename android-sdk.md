@@ -274,16 +274,18 @@
     public String getChoicesLinkUrl()  
     
     /**
-     * setup your ad Layout
+     * Add AD layout to AD container
+     * Mandatory. Add the customized ad layout  to ad container. the caller must call this method to defince click behavior.
      * @param adLayout
      */
-    public void setupAdLayout(View adLayout)  
+    public void addADLayoutToADContainer(View adLayout)  
     
-    /**
-     * register your ad view for click
+    /*
+     * Define the AD click/interaction area
+     * Optional. Set the ad click area. the default click area is the whole ad layout.
      * @param v
      */
-	public void registerViewForInteraction(View v) 
+    public void registeADClickArea(View v) 
 	
 ```
 
@@ -639,10 +641,10 @@ Show the ads
         desc.setText(ctAdvanceNative.getDesc());
         click.setText(ctAdvanceNative.getButtonStr());
 
-		//register your adLayout for click
-        ctAdvanceNative.setupAdLayout(adLayout);
-        //IMPORTANT: add CTAdvanceNative into your UI instead adLayout defined by yourself.
-        ctAdvanceNative.registerViewForInteraction(adLayout);
+		 //Mandatory. Add the customized ad layout  to ad container. the caller must call this method to defince click behavior.
+        ctAdvanceNative.addADLayoutToADContainer(adLayout);
+        //Optional. Set the ad click area. the default click area is the whole ad layout.
+        ctAdvanceNative.registeADClickArea(adLayout);;
         
 
         container.removeAllViews();
