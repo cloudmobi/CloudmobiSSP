@@ -185,6 +185,22 @@
                                                    CTImageType imageType,
                                                    CTAdEventListener adListener)  
                                                    
+    /**
+     * Get the specified number of Ads. The actual number willl decied by server side, between [1,reqAdNumber]
+     * @param reqAdNumber  the number of request Ads
+     * @param slotId     cloudtech Ads slot id
+     * @param context    Android context
+     * @param imageType  Image type for the picture.
+     * @param adListener Callback for the advertisement load process.
+     *
+     * @return
+     */
+    public static void getMultiNativeAds(int reqAdNumber, 
+                                         String slotId, 
+                                         Context context, 
+                                         CTImageType imageType, 
+                                         MultiAdsEventListener adListener)
+
 
     /**
      * Show interstitial advertisement after you get it success.
