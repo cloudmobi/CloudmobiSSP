@@ -36,21 +36,22 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Banner Ad View
      *
      * @param slot_Id -> Cloud Tech Banner AD ID
-     * @param delegate -> Set Delegate of Ad event
+     * @param delegate -> Set Delegate of Ad event(<CTBannerDelegate>)
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param keyWords -> About Ad keywords
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Banner Ad View
      * @param failure -> The request failed Block, retuen error
      */
      
-    +(void)getBannerADswithSlotId:(NSString*)slot_id
+    +(void)getBannerADswithSlotId:(NSString *)slot_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
                      keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
-                      success:(void (^)(UIView* bannerView))success
+                      success:(void (^)(UIView *bannerView))success
                       failure:(void (^)(NSError *error))failure;
  
 
@@ -58,9 +59,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Interstitial Ad View
      *
      * @param slot_Id -> Cloud Tech Intersitital AD ID
-     * @param delegate -> Set Delegate of Ad event
-     * @param isFullScreen -> If is Screen，set Yes,else set No
-     * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param delegate -> Set Delegate of Ad event(<CTInterstitialDelegate>)
+     * @param isFull -> If is Screen，set Yes,else set No
+     * @param keyWords -> About Ad keywords
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Interstitial Ad View
      * @param failure -> The request failed Block, retuen error
@@ -93,9 +94,10 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Native Ad View
      *
      * @param slot_Id -> Cloud Tech Native AD ID
-     * @param delegate -> Set Delegate of Ad event
+     * @param delegate -> Set Delegate of Ad event(<CTNativeDelegate>)
      * @param frame -> Set Ad Frame
      * @param isNeedBtn -> show close button at the top-right corner of the advertisement
+     * @param keyWords -> About Ad keywords
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Native Ad View
      * @param failure -> The request failed Block, retuen error
@@ -115,8 +117,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * Get Native Element Ad 
      *
      * @param slot_Id -> Cloud Tech Native AD ID
-     * @param delegate -> Set Delegate of Ad event
+     * @param delegate -> Set Delegate of Ad event(<CTElementAdDelegate>)
      * @param WHRate -> Set Image Rate
+     * @param keyWords -> About Ad keywords
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Native Element Ad
      * @param failure -> The request failed Block, retuen error
@@ -127,9 +130,32 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                             keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(CTNativeElementAdModel* elementModel))success
-                             failure:(void (^)(NSError *error))failure;
+                             failure:(void (^)(NSError *error))failure;                                                                                       
 
-    
+
+
+	
+    /**
+     * Get Multiterm Element Native ADs 
+     *
+     * @param slot_Id -> Cloud Tech Native AD ID
+     * @param num -> Request Ads number
+     * @param delegate -> Set Delegate of Ads event(<CTElementAdDelegate>)
+     * @param WHRate -> Set Image Rate
+     * @param keyWords -> About Ad keywords
+     * @param isTest -> Use test advertisement or not
+     * @param success -> The request is successful Block, return Native Element Ad
+     * @param failure -> The request failed Block, retuen error
+     */
+    +(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
+                                    adNumbers:(NSInteger)num
+                                     delegate:(id)delegate
+                          imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                                     keyWords:(NSString *)keyWords
+                                       isTest:(BOOL)isTest
+                                      success:(void (^)(NSArray *elementArr))success
+                                      failure:(void (^)(NSError *error))failure;
+
 ```
 
 
@@ -408,6 +434,40 @@ Then call to The method to load ads:
     }]; 
 
 ```
+
+#### Multiterm Element Native advertisement：
+
+
+```
+	[CTService getMultitermElementNativeADswithSlotId:@"265" adNumbers:2 delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(NSArray *elementArr) {
+                @strongify(self);
+                CTView *cview = [[CTView alloc]initWithFrame:CGRectMake(30, 30, self.view.frame.size.width -60, 200)];
+                cview.adElementmodel = [elementArr objectAtIndex:0];
+                cview.backgroundColor = [UIColor grayColor];
+                [self.view addSubview:cview];
+                cview.titleLable.text = cview.adElementmodel.title;
+                cview.descLable.text = cview.adElementmodel.desc;
+                [cview.button setTitle:cview.adElementmodel.button forState:UIControlStateNormal];
+                cview.starLable.text = [NSString stringWithFormat:@"%f",cview.adElementmodel.star];
+                cview.logoImage.image = cview.adElementmodel.ADsignImage;
+                
+                CTView *cview1 = [[CTView alloc]initWithFrame:CGRectMake(30, 250, self.view.frame.size.width -60, 200)];
+                cview1.adElementmodel = [elementArr objectAtIndex:1];
+                cview1.backgroundColor = [UIColor grayColor];
+                [self.view addSubview:cview1];
+                cview1.titleLable.text = cview1.adElementmodel.title;
+                cview1.descLable.text = cview1.adElementmodel.desc;
+                [cview1.button setTitle:cview1.adElementmodel.button forState:UIControlStateNormal];
+                cview1.starLable.text = [NSString stringWithFormat:@"%f",cview1.adElementmodel.star];
+                cview1.logoImage.image = cview1.adElementmodel.ADsignImage;
+
+                
+            } failure:^(NSError *error) {
+                
+            }];
+
+```
+
 
 
 ###<a name="reference">How to apply Facebook/Admob advertisement：</a>：
