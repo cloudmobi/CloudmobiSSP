@@ -651,15 +651,10 @@ Show the ads
 		desc.setText(ctAdvanceNative.getDesc());
 		click.setText(ctAdvanceNative.getButtonStr());
 
-		//必须,将广告view添加到container中,并默认注册为点击区域
+		// Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
 		ctAdvanceNative.addADLayoutToADContainer(adLayout);
-		//非必须,如果需要单独注册点击区域,调此处设置
+		//Optional. Set the ad click area,the default click area is the whole ad layout.
 		ctAdvanceNative.registeADClickArea(adLayout);
-
-		container.removeAllViews();
-		container.addView(ctAdvanceNative);
-
-    	}
 
 ```
 
