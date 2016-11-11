@@ -126,13 +126,11 @@
      * @param context  			context Activity or application context.
      * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_10_TO_10)
-     * @param isTest   			Use test advertisement or not
      * @param adListener  		Callback for the advertisement load process
      * @return				the object to get the elements
      */
     public static CTAdvanceNative getAdvanceNative(String slotId,
                                                    Context context,
-                                                   Boolean isTest,
                                                    CTImageType imageType,
                                                    CTAdEventListener adListener) 
 	
@@ -142,14 +140,12 @@
      * @param slotId 				banner advertisement space id
      * @param isShowCloseButton 	the switch of close-button 
      * @param context				Activity or application context.
-     * @param isTest 				Use test advertisement or not
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
      */
     public static CTNative getBanner(String slotId,
                                       boolean isShowCloseButton,
                                       Context context,
-                                      Boolean isTest,
                                       CTAdEventListener adListener)
 
 
@@ -159,14 +155,12 @@
      * @param slotId 				interstitial advertisement space id
      * @param isShowCloseButton 	the switch of close-button 
      * @param context 				Activity or application context.
-     * @param 						isTest Use test advertisement or not
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
      */
     public static CTNative preloadInterstitial(String slotId,
                                                boolean isShowCloseButton,
                                                Context context,
-                                               Boolean isTest,
                                                CTAdEventListener adListener)
 
 
@@ -176,18 +170,16 @@
      * @param slotId 				natvie advertisement space id
      * @param isShowCloseButton 	the switch of close-button      
      * @param context 				Activity or application context.
-     * @param isTest				Use test advertisement or not
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
      */
     public static CTNative getNative(String slotId,
                                      boolean isShowCloseButton,
                                      Context context,
-                                     Boolean isTest,
                                      CTAdEventListener adListener) 
                                      
            
-                                                                               
+           
     /**
      * Get the specified number of Ads. The actual number willl decied by server side, between [1,reqAdNumber]
      * @param reqAdNumber  the number of request Ads
