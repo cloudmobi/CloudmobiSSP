@@ -120,6 +120,23 @@
 
 ```
 	
+	 /**
+     * get advanceNative advertisement(namely,get the elements of ads)
+     * @param slotId  			the id for cloudssp-ads
+     * @param context  			context Activity or application context.
+     * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_10_TO_10)
+     * @param isTest   			Use test advertisement or not
+     * @param adListener  		Callback for the advertisement load process
+     * @return				the object to get the elements
+     */
+    public static CTAdvanceNative getAdvanceNative(String slotId,
+                                                   Context context,
+                                                   Boolean isTest,
+                                                   CTImageType imageType,
+                                                   CTAdEventListener adListener) 
+	
+	
     /**
      * Get banner style advertisement.
      * @param slotId 				banner advertisement space id
@@ -134,6 +151,7 @@
                                       Context context,
                                       Boolean isTest,
                                       CTAdEventListener adListener)
+
 
 
     /**
@@ -152,6 +170,7 @@
                                                CTAdEventListener adListener)
 
 
+
     /**
      * Get native advertisement
      * @param slotId 				natvie advertisement space id
@@ -168,23 +187,7 @@
                                      CTAdEventListener adListener) 
                                      
            
-                                     
-    /**
-     * get advanceNative advertisement(namely,get the elements of ads)
-     * @param slotId  			the id for cloudssp-ads
-     * @param context  			context Activity or application context.
-     * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_10_TO_10)
-     * @param isTest   			Use test advertisement or not
-     * @param adListener  		Callback for the advertisement load process
-     * @return				the object to get the elements
-     */
-    public static CTAdvanceNative getAdvanceNative(String slotId,
-                                                   Context context,
-                                                   Boolean isTest,
-                                                   CTImageType imageType,
-                                                   CTAdEventListener adListener)  
-                                                   
+                                                                               
     /**
      * Get the specified number of Ads. The actual number willl decied by server side, between [1,reqAdNumber]
      * @param reqAdNumber  the number of request Ads
@@ -247,9 +250,9 @@
      */
     public String getImageUrl() 
 
-   /**
-    * get the iconUrl of ads.
-    */
+    /**
+     * get the iconUrl of ads.
+     */
     public String getIconUrl()
     
     /**
@@ -273,9 +276,14 @@
     public String getRate() 
     
     /**
-	 * get the choicesLinkUrl of ads
+	 * get the adchoiceIconUrl of ads
 	 */
-    public String getChoicesLinkUrl()  
+    public String getAdChoiceIconUrl() 
+    
+	/**
+	 * get the adChoiceLinkUrl of ads
+	 */
+    public String getAdChoiceLinkUrl()  
     
     /**
      * Add AD layout to AD container
@@ -569,66 +577,76 @@ The layout defined for the Ad UI：
  
 	<?xml version="1.0" encoding="utf-8"?>
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    		android:layout_width="match_parent"
-    		android:layout_height="match_parent"
-    		xmlns:fresco="http://schemas.android.com/apk/res-auto">
-
-    	<com.facebook.drawee.view.SimpleDraweeView
-		android:id="@+id/iv_img"
-		android:layout_width="match_parent"
-		android:layout_height="200dp"
-		fresco:placeholderImage="@mipmap/ic_launcher"
-		android:background="@mipmap/ic_launcher"/>
+    	xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent">
 
 
-	    <RelativeLayout
-		android:id="@+id/rl_title"
-		android:layout_below="@id/iv_img"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_margin="5dp">
 
-		<com.facebook.drawee.view.SimpleDraweeView
-		    android:id="@+id/iv_icon"
-		    android:layout_width="50dp"
-		    android:layout_height="50dp"
-		    fresco:placeholderImage="@mipmap/ic_launcher"
-		    android:background="@mipmap/ic_launcher"/>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@mipmap/ic_launcher"
+        fresco:placeholderImage="@mipmap/ic_launcher" />
 
 
-		<TextView
-		    android:id="@+id/tv_title"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:singleLine="true"
-		    android:layout_marginLeft="5dp"
-		    android:layout_toRightOf="@id/iv_icon"
-		    android:text="title"
-		    android:textColor="@android:color/darker_gray"
-		    android:textSize="18dp"/>
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_img"
+        android:layout_margin="5dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/ic_launcher"
+            fresco:placeholderImage="@mipmap/ic_launcher" />
 
 
-	    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/iv_icon"
+            android:singleLine="true"
+            android:text="title"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18dp" />
 
 
-	    <TextView
-		android:id="@+id/tv_desc"
-		android:layout_below="@id/rl_title"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:lines="5"
-		android:layout_margin="5dp"
-		android:text="desc"
-		android:textColor="@android:color/darker_gray"
-		android:textSize="15dp" />
+    </RelativeLayout>
 
-	    <Button
-		android:id="@+id/bt_click"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_margin="10dp"
-		android:layout_alignParentBottom="true"/>
 
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_title"
+        android:layout_margin="5dp"
+        android:lines="5"
+        android:text="desc"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/bt_click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ad_choice_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        fresco:placeholderImage="@mipmap/ic_launcher" />
+	
 	</RelativeLayout>
 
 ``` 
@@ -640,21 +658,38 @@ Show the ads
 	private void showAd(CTAdvanceNative ctAdvanceNative) {
 
 		SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
-		SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
-		TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
-		TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
-		Button click = (Button)adLayout.findViewById(R.id.bt_click);
+        SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
+        TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
+        TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
+        Button click = (Button)adLayout.findViewById(R.id.bt_click);
+        SimpleDraweeView ad_choice_icon = (SimpleDraweeView)adLayout.findViewById(R.id.ad_choice_icon);
 
-		img.setImageURI(Uri.parse(ctAdvanceNative.getImageUrl()));
-		icon.setImageURI(Uri.parse(ctAdvanceNative.getIconUrl()));
-		title.setText(ctAdvanceNative.getTitle());
-		desc.setText(ctAdvanceNative.getDesc());
-		click.setText(ctAdvanceNative.getButtonStr());
 
-		// Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
+        img.setImageURI(Uri.parse(ctAdvanceNative.getImageUrl()));
+        icon.setImageURI(Uri.parse(ctAdvanceNative.getIconUrl()));
+        title.setText(ctAdvanceNative.getTitle());
+        desc.setText(ctAdvanceNative.getDesc());
+        click.setText(ctAdvanceNative.getButtonStr());
+        ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
+
+
+        // Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
 		ctAdvanceNative.addADLayoutToADContainer(adLayout);
 		//Optional. Set the ad click area,the default click area is the whole ad layout.
 		ctAdvanceNative.registeADClickArea(adLayout);
+
+
+        ad_choice_icon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), ctAdvanceNative.getAdChoiceLinkUrl(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        container.removeAllViews();
+        container.addView(ctAdvanceNative);
+
+		
 
 ```
 
