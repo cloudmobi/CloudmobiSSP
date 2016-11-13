@@ -31,6 +31,50 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ###<a name="api">SDK API reference</a>
 
 ```
+
+	/**
+     * Get Native Element Ad 
+     *
+     * @param slot_Id -> Cloud Tech Native AD ID
+     * @param delegate -> Set Delegate of Ad event(<CTElementAdDelegate>)
+     * @param WHRate -> Set Image Rate（1.9:1 or 1:1）
+     * @param keyWords -> About Ad keywords
+     * @param isTest -> Use test advertisement or not
+     * @param success -> The request is successful Block, return Native Element Ad
+     * @param failure -> The request failed Block, retuen error
+     */
+	+(void)getElementNativeADswithSlotId:(NSString*)slot_id
+                            delegate:(id)delegate
+                 imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                            keyWords:(NSString *)keyWords
+                              isTest:(BOOL)isTest
+                             success:(void (^)(CTNativeElementAdModel* elementModel))success
+                             failure:(void (^)(NSError *error))failure;                                                                                       
+
+
+
+	
+    /**
+     * Get Multiterm Element Native ADs 
+     *
+     * @param slot_Id -> Cloud Tech Native AD ID
+     * @param num -> Request Ads number
+     * @param delegate -> Set Delegate of Ads event(<CTElementAdDelegate>)
+     * @param WHRate -> Set Image Rate
+     * @param keyWords -> About Ad keywords
+     * @param isTest -> Use test advertisement or not
+     * @param success -> The request is successful Block, return Native Element Ad
+     * @param failure -> The request failed Block, retuen error
+     */
+    +(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
+                                    adNumbers:(NSInteger)num
+                                     delegate:(id)delegate
+                          imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                                     keyWords:(NSString *)keyWords
+                                       isTest:(BOOL)isTest
+                                      success:(void (^)(NSArray *elementArr))success
+                                      failure:(void (^)(NSError *error))failure;
+
  
     /**
      * Get Banner Ad View
@@ -112,52 +156,38 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                       failure:(void (^)(NSError *error))failure;
 
 
-
-	/**
-     * Get Native Element Ad 
-     *
-     * @param slot_Id -> Cloud Tech Native AD ID
-     * @param delegate -> Set Delegate of Ad event(<CTElementAdDelegate>)
-     * @param WHRate -> Set Image Rate
-     * @param keyWords -> About Ad keywords
-     * @param isTest -> Use test advertisement or not
-     * @param success -> The request is successful Block, return Native Element Ad
-     * @param failure -> The request failed Block, retuen error
-     */
-	+(void)getElementNativeADswithSlotId:(NSString*)slot_id
-                            delegate:(id)delegate
-                 imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                            keyWords:(NSString *)keyWords
-                              isTest:(BOOL)isTest
-                             success:(void (^)(CTNativeElementAdModel* elementModel))success
-                             failure:(void (^)(NSError *error))failure;                                                                                       
-
-
-
-	
-    /**
-     * Get Multiterm Element Native ADs 
-     *
-     * @param slot_Id -> Cloud Tech Native AD ID
-     * @param num -> Request Ads number
-     * @param delegate -> Set Delegate of Ads event(<CTElementAdDelegate>)
-     * @param WHRate -> Set Image Rate
-     * @param keyWords -> About Ad keywords
-     * @param isTest -> Use test advertisement or not
-     * @param success -> The request is successful Block, return Native Element Ad
-     * @param failure -> The request failed Block, retuen error
-     */
-    +(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
-                                    adNumbers:(NSInteger)num
-                                     delegate:(id)delegate
-                          imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                                     keyWords:(NSString *)keyWords
-                                       isTest:(BOOL)isTest
-                                      success:(void (^)(NSArray *elementArr))success
-                                      failure:(void (^)(NSError *error))failure;
-
 ```
 
+###### CTElementAdDelegate（CTMultitermAdDelegate）Class Methods：Call back interface for the advertisement loading process.
+
+```
+    /**
+     * User click the advertisement. 
+     */
+    -(void)CTElementAdDidClick:(CTElement *)ElementAd;
+
+    /**
+     * Advertisement landing page will show.
+     */
+    -(void)CTElementAdDidIntoLandingPage:(CTElement *)ElementAd;
+
+    /**
+     * User left the advertisement landing page. 
+     */
+    -(void)CTElementAdDidLeaveLandingPage:(CTElement *)ElementAd;
+
+    /**
+     * User close the advertisement.
+     */
+    -(void)CTElementAdClosed:(CTElement *)ElementAd;
+
+    /**
+     * Leave App
+     */
+    -(void)CTElementAdWillLeaveApplication:(CTElement *)ElementAd;
+
+ 
+```）
 
 ###### CTBannerDelegate Class Methods：Call back interface for the advertisement loading process.
 
@@ -251,36 +281,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
  
 ```
 
-###### CTElementAdDelegate Class Methods：Call back interface for the advertisement loading process.
-
-```
-    /**
-     * User click the advertisement. 
-     */
-    -(void)CTElementAdDidClick:(CTElement *)ElementAd;
-
-    /**
-     * Advertisement landing page will show.
-     */
-    -(void)CTElementAdDidIntoLandingPage:(CTElement *)ElementAd;
-
-    /**
-     * User left the advertisement landing page. 
-     */
-    -(void)CTElementAdDidLeaveLandingPage:(CTElement *)ElementAd;
-
-    /**
-     * User close the advertisement.
-     */
-    -(void)CTElementAdClosed:(CTElement *)ElementAd;
-
-    /**
-     * Leave App
-     */
-    -(void)CTElementAdWillLeaveApplication:(CTElement *)ElementAd;
-
- 
-```
 
 
 ###<a name="errorcode">Error Code From SDK</a>：
@@ -308,54 +308,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 | ERR\_018\_AD_CLOSED  |Ad slotId has been closed|
 | ERR\_999\_OTHERS     | All other errors  |
 |                    |                      |
-
+```
 
 ###<a name="sample">Sample code</a>
-
-#### Banner advertisement：
-```
-- (void)addBannerAd {
-    [CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
-    //Requset successful,Add NativeView to parentView
-        [self.view addSubview:NativeView];
-    } failure:^(NSError *error) {
-    //Request failed
-        NSLog(@"No request to the advertising success：%@",error);
-    }];
-}
-
-```
-
-#### Interstitial advertisement：
-```
-- (void)addInterstitialAd{
-    [CTService preloadInterstitialWithSlotId:@"9" delegate:self isFullScreen:NO keyWords:nil isTest:YES success:^(UIView *InterstitialView) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-        //Requset successful,Add InterstitialView to parentView
-            [self.view addSubview:InterstitialView];
-        //call the interstitialShow show ad view
-            [CTService interstitialShow];
-        });
-    } failure:^(NSError *error) {
-    	//Request failed
-        NSLog(@"No request to the advertising success：%@",error);
-    }];
-}
-
-```
-
-#### Native advertisement：
-```
-    [CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
-    	//Requset successful,Add NativeView to parentView
-            [cell addSubview:NativeView];
-        } failure:^(NSError *error)
-        {
-		//Request failed
-        NSLog(@"No request to the advertising success：%@",error);
-     }]; 
-
-```
 
 #### Element Native advertisement：
 
@@ -465,6 +420,50 @@ Then call to The method to load ads:
             } failure:^(NSError *error) {
                 
             }];
+
+```
+#### Banner advertisement：
+```
+- (void)addBannerAd {
+    [CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
+    //Requset successful,Add NativeView to parentView
+        [self.view addSubview:NativeView];
+    } failure:^(NSError *error) {
+    //Request failed
+        NSLog(@"No request to the advertising success：%@",error);
+    }];
+}
+
+```
+
+#### Interstitial advertisement：
+```
+- (void)addInterstitialAd{
+    [CTService preloadInterstitialWithSlotId:@"9" delegate:self isFullScreen:NO keyWords:nil isTest:YES success:^(UIView *InterstitialView) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+        //Requset successful,Add InterstitialView to parentView
+            [self.view addSubview:InterstitialView];
+        //call the interstitialShow show ad view
+            [CTService interstitialShow];
+        });
+    } failure:^(NSError *error) {
+    	//Request failed
+        NSLog(@"No request to the advertising success：%@",error);
+    }];
+}
+
+```
+
+#### Native advertisement：
+```
+    [CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
+    	//Requset successful,Add NativeView to parentView
+            [cell addSubview:NativeView];
+        } failure:^(NSError *error)
+        {
+		//Request failed
+        NSLog(@"No request to the advertising success：%@",error);
+     }]; 
 
 ```
 
