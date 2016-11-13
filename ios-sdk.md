@@ -31,13 +31,12 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ###<a name="api">SDK API reference</a>
 
 ```
-
-	/**
+ 	/**
      * Get Native Element Ad 
      *
      * @param slot_Id -> Cloud Tech Native AD ID
      * @param delegate -> Set Delegate of Ad event(<CTElementAdDelegate>)
-     * @param WHRate -> Set Image Rate（1.9:1 or 1:1）
+     * @param WHRate -> Set Image Rate
      * @param keyWords -> About Ad keywords
      * @param isTest -> Use test advertisement or not
      * @param success -> The request is successful Block, return Native Element Ad
@@ -75,6 +74,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                                       success:(void (^)(NSArray *elementArr))success
                                       failure:(void (^)(NSError *error))failure;
 
+ 
  
     /**
      * Get Banner Ad View
@@ -155,10 +155,12 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
 
-
+	
 ```
 
-###### CTElementAdDelegate（CTMultitermAdDelegate）Class Methods：Call back interface for the advertisement loading process.
+
+
+###### CTElementAdDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
     /**
@@ -187,8 +189,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
     -(void)CTElementAdWillLeaveApplication:(CTElement *)ElementAd;
 
  
-```）
-
+```
 ###### CTBannerDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
@@ -282,7 +283,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ```
 
 
-
 ###<a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
@@ -308,9 +308,10 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 | ERR\_018\_AD_CLOSED  |Ad slotId has been closed|
 | ERR\_999\_OTHERS     | All other errors  |
 |                    |                      |
-```
+
 
 ###<a name="sample">Sample code</a>
+
 
 #### Element Native advertisement：
 
@@ -392,6 +393,7 @@ Then call to The method to load ads:
 
 #### Multiterm Element Native advertisement：
 
+First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
 
 ```
 	[CTService getMultitermElementNativeADswithSlotId:@"265" adNumbers:2 delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(NSArray *elementArr) {
