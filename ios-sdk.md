@@ -31,6 +31,8 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ###<a name="api">SDK API reference</a>
 
 ```
+	We recommend use Element Interface！！！
+	
  	/**
      * Get Native Element Ad 
      *
@@ -74,8 +76,26 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                                       success:(void (^)(NSArray *elementArr))success
                                       failure:(void (^)(NSError *error))failure;
 
- 
- 
+ 	
+ 	/**
+     * Get AppWall View 
+     *
+     * @param slot_Id		Cloud Tech Native AD ID
+     * @param delegate		Set Delegate of Ads event(<CTElementAdDelegate>)
+     * @param frame			Set AppWallView frame
+     * @param keyWords		About Ad keywords
+     * @param isTest		Use test advertisement or not
+     * @param success		The request is successful Block, return appWall View
+     * @param failure		The request failed Block, retuen error
+     */
+    +(void)getAppWallWithSlotID:(NSString *)slot_id
+                   delegate:(id)delegate
+                      frame:(CGRect)frame
+                   keyWords:(NSString *)keyWords
+                     isTest:(BOOL)isTest
+                    success:(void(^)(UIView *Adview))success
+                    failure:(void(^)(NSError *error))failure;                     
+                    
     /**
      * Get Banner Ad View
      *
@@ -422,6 +442,17 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	}];
 
 ```
+
+#### AppWall advertisement View：
+```
+	[CTService getAppWallWithSlotID:@"260" delegate:self frame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) keyWords:nil isTest:YES success:^(UIView *Adview) {
+        [self.view addSubview:Adview];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error.description);
+    }];
+
+```
+
 #### Banner advertisement：
 ```
 	[CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
