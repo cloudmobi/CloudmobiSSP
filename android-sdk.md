@@ -67,6 +67,14 @@
        
 ```
 
+* Add below rules for code obfuscation in proguard-rules.pro:
+```
+	-keepclassmembers class * {
+   		@android.webkit.JavascriptInterface <methods>;
+	}	
+
+```
+
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
 * [Download four jars for eclipse as follows :](https://raw.githubusercontent.com/cloudmobi/CloudmobiSSP/master/AndroidSDK.zip)
  cloudssp_x.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
@@ -112,9 +120,17 @@
             android:theme="@android:style/Theme.Translucent" />
        
 ```
+* Add below rules for code obfuscation in proguard-project.txt:
+```
+	-keepclassmembers class * {
+   		@android.webkit.JavascriptInterface <methods>;
+	}	
+
+```
 
 
 ###<a name="api">SDK API reference</a>：
+
 
 ##### CTService: The calling interface for the SDK.
 
