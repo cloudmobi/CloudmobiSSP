@@ -665,9 +665,9 @@ Show the ads
 
 ``` 
 
-	private void showAd(CTAdvanceNative ctAdvanceNative) {
+    private void showAd(CTAdvanceNative ctAdvanceNative) {
 
-		SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
+	SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
         SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
@@ -684,9 +684,9 @@ Show the ads
 
 
         // Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
-		ctAdvanceNative.addADLayoutToADContainer(adLayout);
-		//Optional. Set the ad click area,the default click area is the whole ad layout.
-		ctAdvanceNative.registeADClickArea(adLayout);
+	ctAdvanceNative.addADLayoutToADContainer(adLayout);
+	//Optional. Set the ad click area,the default click area is the whole ad layout.
+	ctAdvanceNative.registeADClickArea(adLayout);
 
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
@@ -698,7 +698,7 @@ Show the ads
 
         container.removeAllViews();
         container.addView(ctAdvanceNative);
-
+   }
 		
 
 ```
@@ -707,7 +707,7 @@ Show the ads
 ###<a name="appwall">Integrate AD appwall in Android Studio</a>：
 
 ##### Setup the build.gradle:
-Copy the appwall_x.aar and cloudssp_x.jar to foloder libs. and add below code to build.gradle.
+Copy the cloudssp_appwall_x.aar and cloudssp_x.jar to foloder libs. and add below code to build.gradle.
 
 ``` 
 
