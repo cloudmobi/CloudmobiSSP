@@ -1,6 +1,6 @@
 
 ###<a name="index">Index</a>
-* [SDK download and setup](#install)
+* [SDK download and Setup AndroidStudio](#install)
 * [Setup Eclipse without Gradle](#eclipse)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
@@ -8,9 +8,9 @@
 * [Integrate AD appwall in Android Studio](#appwall)
 * [How to apply Facebook/Admob advertisement](#reference)
 
-###<a name="install">SDK download and setup</a>
+###<a name="install">SDK download and Setup AndroidStudio</a>
 
-* [Download the SDK](https://raw.githubusercontent.com/cloudmobi/CloudmobiSSP/master/AndroidSDK.zip)
+* [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
 * After download, copy file cloudssp_x.jar into target project folder:[ModuleName]/libs/cloudssp_x.jar
 * Update the project's build.gradle with below code:
@@ -26,7 +26,6 @@
 	apply plugin: 'com.google.gms.google-services'
 
 	dependencies {
-    	compile fileTree(include: ['*.jar'], dir: 'libs')
     	compile 'com.google.firebase:firebase-ads:9.0.0'
     	compile 'com.facebook.android:audience-network-sdk:4.13.0'
     	compile files('libs/cloudssp_x.jar')
@@ -69,6 +68,7 @@
 ```
 
 * Add below rules for code obfuscation in proguard-rules.pro:
+
 ```
 	-keepclassmembers class * {
    		@android.webkit.JavascriptInterface <methods>;
@@ -77,7 +77,7 @@
 ```
 
 ###<a name="eclipse">Setup Eclipse without gradle</a>：
-* [Download four jars for eclipse as follows :](https://raw.githubusercontent.com/cloudmobi/CloudmobiSSP/master/AndroidSDK.zip)
+* [Download four jars for eclipse as follows :](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
  cloudssp_x.jar , AudienceNetwork.jar , google-play-services-ads-lite.jar , google-play-services-basement.jar
  
 	（If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  If you don't need the facebook or Admob ADs,the related dependence is not needed.）
@@ -122,6 +122,7 @@
        
 ```
 * Add below rules for code obfuscation in proguard-project.txt:
+
 ```
 	-keepclassmembers class * {
    		@android.webkit.JavascriptInterface <methods>;
@@ -296,6 +297,7 @@
     /**
      * Add AD layout to AD container
      * Mandatory. Add the customized ad layout  to ad container. the caller must call this method to defince click behavior.
+     *
      * @param adLayout
      */
     public void addADLayoutToADContainer(View adLayout)  
@@ -303,6 +305,7 @@
     /*
      * Define the AD click/interaction area
      * Optional. Set the ad click area. the default click area is the whole ad layout.
+     *
      * @param v
      */
     public void registeADClickArea(View v) 
@@ -453,7 +456,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ```
   
   	 CTService.getBanner(Config.slotIdBanner, true, ContextHolder.getContext(),
-                false, new MyCTAdEventListener(){
+               	 new MyCTAdEventListener(){
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null){
@@ -487,7 +490,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ##### Interstitial advertisement：
 ```
     CTService.preloadInterstitial(Config.slotIdInterstitial,true,
-    		 ContextHolder.getContext(), false, new MyCTAdEventListener(){
+    		 ContextHolder.getContext(), new MyCTAdEventListener(){
                     @Override
                     public void onInterstitialLoadSucceed(CTNative result) {
                         super.onInterstitialLoadSucceed(result);
@@ -507,7 +510,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ```
     CTService.getNative(Config.slotIdNative, false, ContextHolder.getContext(), 
-    			false, new MyCTAdEventListener(){
+    			new MyCTAdEventListener(){
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null) {
@@ -541,7 +544,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
 The container and the layout for ad:
 
 ```
-	
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);                                                     	
 	ViewGroup adLayout = (ViewGroup)View.inflate(ContextHolder.getContext(),R.layout.advance_native_layout, null);
 	
@@ -552,7 +554,7 @@ The method to load ads:
 ```
 
  	CTService.getAdvanceNative(Config.slotIdNative, ContextHolder.getContext(), 
- 			false, CTImageType.TYPE_19_TO_10, new MyCTAdEventListener(){
+ 			 CTImageType.TYPE_19_TO_10, new MyCTAdEventListener(){
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result == null){
@@ -702,13 +704,12 @@ Show the ads
 ```
 
 
-###<a name="appwall">Integrate AD app wall in Android Studio</a>：
+###<a name="appwall">Integrate AD appwall in Android Studio</a>：
 
 ##### Setup the build.gradle:
-Copy the easyad-release.aar and cloudtech-release.jar to foloder libs. and add below code to build.gradle.
+Copy the appwall_1.0.0.aar and cloudssp_1.0.8.jar to foloder libs. and add below code to build.gradle.
 
 ``` 
-
 
 repositories {
     flatDir {
@@ -717,19 +718,16 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:cardview-v7:24.0.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile(name: 'easyad-release', ext: 'aar')
+    compile(name: 'appwall_1.0.0', ext: 'aar')
 
 }
 
 ```
 
-##### Show the app wall from code:
-API: AppwallHelper.showAppwall
+#####API Reference:  AppwallHelper
 
 ``` 
 
@@ -744,7 +742,7 @@ API: AppwallHelper.showAppwall
 
 ```
 
-Sample code:
+#####Sample code
 
 ``` 
     AppwallHelper.showAppwall(MainActivity.this, slotId);
