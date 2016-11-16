@@ -702,6 +702,60 @@ Show the ads
 ```
 
 
+###<a name="appwall">Integrate the AD app wall In Android Studio</a>：
+
+##### Setup the build.gradle:
+Copy the easyad-release.aar and cloudtech-release.jar to foloder libs. and add below code to build.gradle.
+
+``` 
+
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile(name: 'easyad-release', ext: 'aar')
+
+}
+
+```
+
+##### Show the app wall from code:
+API: AppwallHelper.showAppwall
+
+``` 
+
+	/**
+     * Start the app wall UI.
+     * @param Context context
+     * @param slotId     cloudtech Ads slot id
+     *
+     * @return
+     */
+    public static void getMultiNativeAds(int reqAdNumber, 
+                                         String slotId, 
+                                         Context context, 
+                                         CTImageType imageType, 
+                                         MultiAdsEventListener adListener)
+
+
+```
+
+Sample code:
+
+``` 
+    AppwallHelper.showAppwall(MainActivity.this, slotId);
+
+```
+
 ###<a name="reference">How to apply Facebook/Admob advertisement</a>：
 * [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 * [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
