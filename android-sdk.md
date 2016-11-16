@@ -5,6 +5,7 @@
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Sample code](#sample)
+* [Integrate AD app wall in Android Studio](#appwall)
 * [How to apply Facebook/Admob advertisement](#reference)
 
 ###<a name="install">SDK download and setup</a>
@@ -702,7 +703,7 @@ Show the ads
 ```
 
 
-###<a name="appwall">Integrate the AD app wall In Android Studio</a>：
+###<a name="appwall">Integrate AD app wall in Android Studio</a>：
 
 ##### Setup the build.gradle:
 Copy the easyad-release.aar and cloudtech-release.jar to foloder libs. and add below code to build.gradle.
