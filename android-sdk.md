@@ -5,7 +5,7 @@
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Sample code](#sample)
-* [Integrate AD app wall in Android Studio](#appwall)
+* [Integrate AD appwall in Android Studio](#appwall)
 * [How to apply Facebook/Admob advertisement](#reference)
 
 ###<a name="install">SDK download and setup</a>
@@ -137,7 +137,7 @@
 
 ```
 	
-	 /**
+    /**
      * get advanceNative advertisement(namely,get the elements of ads)
      * @param slotId  			the id for cloudssp-ads
      * @param context  			context Activity or application context.
@@ -181,7 +181,6 @@
                                                CTAdEventListener adListener)
 
 
-
     /**
      * Get native advertisement
      * @param slotId 				natvie advertisement space id
@@ -198,7 +197,7 @@
            
            
     /**
-     * Get the specified number of Ads. The actual number willl decied by server side, between [1,reqAdNumber]
+     * Get the specified number of Ads. The actual number will decied by server side, between [1,reqAdNumber]
      * @param reqAdNumber  the number of request Ads
      * @param slotId     cloudtech Ads slot id
      * @param context    Android context
@@ -460,7 +459,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
                         if (result != null){
                             container.setVisibility(View.VISIBLE);
                             container.removeAllViews();
-                            container.addView(result);   //把广告添加到容器
+                            container.addView(result);
                         }
                         super.onAdviewGotAdSucceed(result);
                     }
@@ -734,18 +733,13 @@ API: AppwallHelper.showAppwall
 
 ``` 
 
-	/**
+    /**
      * Start the app wall UI.
      * @param Context context
      * @param slotId     cloudtech Ads slot id
      *
-     * @return
      */
-    public static void getMultiNativeAds(int reqAdNumber, 
-                                         String slotId, 
-                                         Context context, 
-                                         CTImageType imageType, 
-                                         MultiAdsEventListener adListener)
+    public static void showAppwall(Context context, String slotId) 
 
 
 ```
