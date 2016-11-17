@@ -78,22 +78,23 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
  	
  	/**
-     * Get AppWall View 
-     *
+     * Get AppWall ViewController
+     * First,you should Call createAppWallViewController method,Then detrusion this ViewController，in the end，call getAppWallWithSlotID method！
      * @param slot_Id		Cloud Tech Native AD ID
-     * @param delegate		Set Delegate of Ads event(<CTElementAdDelegate>)
-     * @param frame			Set AppWallView frame
-     * @param keyWords		About Ad keywords
+     * @param customColor	If you want set custom UI,you should create CTCustomColor object
+     * @param delegate		Set Delegate of Ads event (<CTAppWallDelegate>)
      * @param isTest		Use test advertisement or not
-     * @param success		The request is successful Block, return appWall View
+     * @param success		The request is successful Block
      * @param failure		The request failed Block, retuen error
      */
+     
+    +(UIViewController *)createAppWallViewController;
+    
     +(void)getAppWallWithSlotID:(NSString *)slot_id
+                customColor:(CTCustomColor *)customColor
                    delegate:(id)delegate
-                      frame:(CGRect)frame
-                   keyWords:(NSString *)keyWords
                      isTest:(BOOL)isTest
-                    success:(void(^)(UIView *Adview))success
+                    success:(void(^)())success
                     failure:(void(^)(NSError *error))failure;                     
                     
     /**
@@ -240,7 +241,40 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
  
 ```
+
+
 ###### CTInterstitialDelegate Class Methods：Call back interface for the advertisement loading process.
+
+```
+    /**
+     * User click the advertisement. 
+     */
+    -(void)CTInterstitialDidClick:(CTInterstitial*)interstitialAD;
+
+    /**
+     * Advertisement landing page will show.
+     */
+    -(void)CTInterstitialDidIntoLandingPage:(CTInterstitial*)interstitialAD;
+
+    /**
+     * User left the advertisement landing page. 
+     */
+    -(void)CTInterstitialDidLeaveLandingPage:(CTInterstitial*)interstitialAD;
+
+    /**
+     * User close the advertisement.
+     */
+    -(void)CTInterstitialClosed:(CTInterstitial*)interstitialAD;
+
+    /**
+     * Leave App
+     */
+    -(void)CTInterstitialWillLeaveApplication:(CTInterstitial*)interstitialAD;
+
+ 
+```
+
+###### CTNativeDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
     /**
@@ -271,36 +305,34 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
  
 ```
 
-###### CTNativeDelegate Class Methods：Call back interface for the advertisement loading process.
+
+###### CTAppWallDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
     /**
-     * User click the advertisement. 
-     */
-    -(void)CTInterstitialDidClick:(CTInterstitial*)interstitialAD;
-
-    /**
-     * Advertisement landing page will show.
-     */
-    -(void)CTInterstitialDidIntoLandingPage:(CTInterstitial*)interstitialAD;
-
-    /**
-     * User left the advertisement landing page. 
-     */
-    -(void)CTInterstitialDidLeaveLandingPage:(CTInterstitial*)interstitialAD;
-
-    /**
-     * User close the advertisement.
-     */
-    -(void)CTInterstitialClosed:(CTInterstitial*)interstitialAD;
-
-    /**
-     * Leave App
-     */
-    -(void)CTInterstitialWillLeaveApplication:(CTInterstitial*)interstitialAD;
-
+	 * User click the advertisement.
+	 */
+	-(void)CTAppWallDidClick:(CTElementAd *)ElementAd;
+	/**
+	 * Advertisement landing page will show.
+	 */
+	-(void)CTAppWallDidIntoLandingPage:(CTElementAd *)ElementAd;
+	/**
+	 * User left the advertisement landing page.
+	 */
+	-(void)CTAppWallDidLeaveLandingPage:(CTElementAd *)ElementAd;
+	/**
+	 * Leave App
+	 */
+	-(void)CTAppWallWillLeaveApplication:(CTElementAd *)ElementAd;
+	/**
+	 * User close the advertisement.
+	 */
+	-(void)CTAppWallClosed;
+	
  
 ```
+
 
 
 ###<a name="errorcode">Error Code From SDK</a>：
@@ -445,8 +477,24 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 #### AppWall advertisement View：
 ```
-	[CTService getAppWallWithSlotID:@"260" delegate:self frame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) keyWords:nil isTest:YES success:^(UIView *Adview) {
-        [self.view addSubview:Adview];
+	//Custom UI
+    CTCustomColor *customUI = [[CTCustomColor alloc]init];
+    customUI.normlBackgroundColor = [UIColor whiteColor];
+    customUI.buttonBackgroundColor = [UIColor redColor];
+    customUI.normlBackgroundColor = [UIColor yellowColor];
+    customUI.btnNormlTextColor = [UIColor yellowColor];
+    customUI.btnSelectedTextColor = [UIColor greenColor];
+    customUI.cellBackgroundColor = [UIColor grayColor];
+    customUI.cellTitleColor = [UIColor purpleColor];
+    customUI.cellHeadTitleColor = [UIColor blueColor];
+    customUI.marketColor = [UIColor blueColor];
+    customUI.sliderViewColor = [UIColor grayColor];
+    //First,you should call this method,and detrusion this viewController
+    UIViewController *vc = [CTService createAppWallViewController];
+    [self presentViewController:vc animated:YES completion:nil];
+    //Then,call getAppWallWithSlotId method
+    [CTService getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^(UIView *Adview) {
+        NSLog(@"Success");
     } failure:^(NSError *error) {
         NSLog(@"%@",error.description);
     }];
