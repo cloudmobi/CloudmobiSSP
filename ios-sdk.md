@@ -491,13 +491,19 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
     customUI.sliderViewColor = [UIColor grayColor];
     //First,you should call this method,and detrusion this viewController
     UIViewController *vc = [CTService createAppWallViewController];
+    //If you use Navi push vc,you should call this Method in you Navi VC
+    - (UIInterfaceOrientationMask)supportedInterfaceOrientations
+	{
+	   return [[self.viewControllers lastObject] supportedInterfaceOrientations];
+	}
+	//Else
     [self presentViewController:vc animated:YES completion:nil];
     //Then,call getAppWallWithSlotId method
-    [CTService getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^(UIView *Adview) {
+    [CTService getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^() {
         NSLog(@"Success");
     } failure:^(NSError *error) {
         NSLog(@"%@",error.description);
-    }];
+    }];    
 
 ```
 
