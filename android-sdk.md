@@ -143,7 +143,7 @@
      * @param slotId  			the id for cloudssp-ads
      * @param context  			context Activity or application context.
      * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_10_TO_10)
+     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
      * @param adListener  		Callback for the advertisement load process
      * @return				the object to get the elements
      */
