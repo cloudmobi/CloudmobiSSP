@@ -722,6 +722,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.0.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile(name: 'appwall_x', ext: 'aar')
+    compile files('libs/cloudssp_x.jar')
 
 }
 
@@ -745,7 +746,7 @@ dependencies {
 #####Sample code
 
 ``` 
-    AppwallHelper.showAppwall(MainActivity.this, slotId);
+    AppwallHelper.showAppwall(context, slotId);
 
 ```
 
