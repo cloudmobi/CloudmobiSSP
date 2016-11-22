@@ -12,11 +12,11 @@
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
+* Select API 15: Android 4.0.3 or later.
 * After download, copy file cloudssp_x.jar into target project folder:[ModuleName]/libs/cloudssp_x.jar
 * Update the project's build.gradle with below code:
 
 ```
-    //buildscript::dependencies
     classpath 'com.google.gms:google-services:3.0.0'  
 ``` 
 
@@ -26,9 +26,9 @@
 	apply plugin: 'com.google.gms.google-services'
 
 	dependencies {
-    	compile 'com.google.firebase:firebase-ads:9.0.0'
-    	compile 'com.facebook.android:audience-network-sdk:4.13.0'
-    	compile files('libs/cloudssp_x.jar')
+    		compile 'com.google.firebase:firebase-ads:9.0.0'
+    		compile 'com.facebook.android:audience-network-sdk:4.13.0'
+    		compile files('libs/cloudssp_x.jar')
     		
     	//If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
     	//If you don't need the facebook or Admob ADs,the related dependence is not needed.
