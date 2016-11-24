@@ -151,6 +151,27 @@
                                                    Context context,
                                                    CTImageType imageType,
                                                    CTAdEventListener adListener) 
+						   
+						  
+    /**
+     * get advanceNative ads by keywords or category
+     * @param slotId  			the id for cloudssp-ads
+     * @param context  			context Activity or application context
+     * @param imageType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param adsCat     		the adsCategory you want(default,games,tools)
+     		(TYPE_DEFAULT  /  TYPE_GAME  /  TYPE_TOOL)
+     * @param keywords   		get ads by keywords，fill null if not need
+     * @param adListener   		callback for ads load process
+     * @return  			the object to get the elements
+     */
+    public static CTAdvanceNative getAdvanceNativeByKeyword(String slotId,
+                                                   Context context,
+                                                   CTImageType imageType,
+                                                   CTAdsCat adsCat,
+                                                   List<String> keywords,
+                                                   CTAdEventListener adListener)
+
 	
 	
     /**
