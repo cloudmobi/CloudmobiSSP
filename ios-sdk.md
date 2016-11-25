@@ -32,6 +32,8 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 ```
 	We recommend use Element Interface！！！
+	//You should pass the singleton method to create the object, then calls the requests of the different types of ads.
+	+(instancetype)shareManager;
 	
  	/**
      * Get Native Element Ad 
@@ -39,15 +41,13 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param slot_Id 		Cloud Tech Native AD ID
      * @param delegate		Set Delegate of Ad event(<CTElementAdDelegate>)
      * @param WHRate 		Set Image Rate
-     * @param keyWords		About Ad keywords
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Element Ad
      * @param failure		The request failed Block, retuen error
      */
-	+(void)getElementNativeADswithSlotId:(NSString*)slot_id
+	-(void)getElementNativeADswithSlotId:(NSString*)slot_id
                             delegate:(id)delegate
                  imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(CTNativeElementAdModel* elementModel))success
                              failure:(void (^)(NSError *error))failure;                                                                                       
@@ -62,16 +62,14 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param num			Request Ads number
      * @param delegate		Set Delegate of Ads event(<CTElementAdDelegate>)
      * @param WHRate		Set Image Rate
-     * @param keyWords		About Ad keywords
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Element Ad
      * @param failure		The request failed Block, retuen error
      */
-    +(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
+    -(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
                                     adNumbers:(NSInteger)num
                                      delegate:(id)delegate
                           imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                                     keyWords:(NSString *)keyWords
                                        isTest:(BOOL)isTest
                                       success:(void (^)(NSArray *elementArr))success
                                       failure:(void (^)(NSError *error))failure;
@@ -88,9 +86,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param failure		The request failed Block, retuen error
      */
      
-    +(UIViewController *)createAppWallViewController;
+    -(UIViewController *)createAppWallViewController;
     
-    +(void)getAppWallWithSlotID:(NSString *)slot_id
+    -(void)getAppWallWithSlotID:(NSString *)slot_id
                 customColor:(CTCustomColor *)customColor
                    delegate:(id)delegate
                      isTest:(BOOL)isTest
@@ -104,17 +102,15 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param delegate		Set Delegate of Ad event(<CTBannerDelegate>)
      * @param frame			Set Ad Frame
      * @param isNeedBtn		show close button at the top-right corner of the advertisement
-     * @param keyWords		About Ad keywords
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Banner Ad View
      * @param failure		The request failed Block, retuen error
      */
      
-    +(void)getBannerADswithSlotId:(NSString *)slot_id
+    -(void)getBannerADswithSlotId:(NSString *)slot_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
-                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView *bannerView))success
                       failure:(void (^)(NSError *error))failure;
@@ -126,16 +122,14 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param slot_Id		Cloud Tech Intersitital AD ID
      * @param delegate		Set Delegate of Ad event(<CTInterstitialDelegate>)
      * @param isFull		If is Screen，set Yes,else set No
-     * @param keyWords		About Ad keywords
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Interstitial Ad View
      * @param failure		The request failed Block, retuen error
      */
      
-    +(void)preloadInterstitialWithSlotId:(NSString*)slot_id
+    -(void)preloadInterstitialWithSlotId:(NSString*)slot_id
                             delegate:(id)delegate
                         isFullScreen:(BOOL)isFull
-                            keyWords:(NSString *)keyWords
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
@@ -145,14 +139,14 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      *
      * Request success, call this method show Ad View
      */
-    +(BOOL)interstitialShow;
+    -(BOOL)interstitialShow;
 
     /**
      * Close the interstitial advertisement
      *
      * call this method close Ad View
      */
-	+(BOOL)interstitialClose;   
+	-(BOOL)interstitialClose;   
 
 
     /**
@@ -162,16 +156,14 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param delegate		Set Delegate of Ad event(<CTNativeDelegate>)
      * @param frame			Set Ad Frame
      * @param isNeedBtn		show close button at the top-right corner of the advertisement
-     * @param keyWords		About Ad keywords
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Ad View
      * @param failure		The request failed Block, retuen error
      */
-    +(void)getNativeADswithSlotId:(NSString*)slot_id
+    -(void)getNativeADswithSlotId:(NSString*)slot_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
-                     keyWords:(NSString *)keyWords
                        isTest:(BOOL)isTest
                       success:(void (^)(UIView* NativeView))success
                       failure:(void (^)(NSError *error))failure;
@@ -421,7 +413,8 @@ Layout for example:
 Then call to The method to load ads:
 
 ```
-	[CTService getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(CTNativeElementAdModel *elementModel)
+	CTService *service = [CTService shareManager];
+	[service getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(CTNativeElementAdModel *elementModel)
 	{
 		CTView *cview = [[CTView alloc]init];
 		cview.adElementmodel = elementModel;
@@ -448,7 +441,8 @@ Then call to The method to load ads:
 First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
 
 ```
-	[CTService getMultitermElementNativeADswithSlotId:@"265" adNumbers:2 delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(NSArray *elementArr) {
+	CTService *service = [CTService shareManager];
+	[service getMultitermElementNativeADswithSlotId:@"265" adNumbers:2 delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(NSArray *elementArr) {
 	    CTView *cview = [[CTView alloc]initWithFrame:CGRectMake(30, 30, 	self.view.frame.size.width -60, 200)];
 	    cview.adElementmodel = [elementArr objectAtIndex:0];
 	    cview.backgroundColor = [UIColor grayColor];
@@ -490,7 +484,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
     customUI.marketColor = [UIColor blueColor];
     customUI.sliderViewColor = [UIColor grayColor];
     //First,you should call this method,and detrusion this viewController
-    UIViewController *vc = [CTService createAppWallViewController];
+    CTService *service = [CTService shareManager];
+    UIViewController *vc = [service createAppWallViewController];
     //If you use Navi push vc,you should call this Method in you Navi VC
     - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 	{
@@ -499,7 +494,7 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	//Else
     [self presentViewController:vc animated:YES completion:nil];
     //Then,call getAppWallWithSlotId method
-    [CTService getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^() {
+    [service getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^() {
         NSLog(@"Success");
     } failure:^(NSError *error) {
         NSLog(@"%@",error.description);
@@ -509,7 +504,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 #### Banner advertisement：
 ```
-	[CTService getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
+	CTService *service = [CTService shareManager];
+	[service getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
 		//Requset successful,Add NativeView to parentView
 	    [self.view addSubview:NativeView];
 	} failure:^(NSError *error) {
@@ -521,7 +517,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 #### Interstitial advertisement：
 ```
-	[CTService preloadInterstitialWithSlotId:@"9" delegate:self isFullScreen:NO keyWords:nil isTest:YES success:^(UIView *InterstitialView) {
+	CTService *service = [CTService shareManager];
+	[service preloadInterstitialWithSlotId:@"9" delegate:self isFullScreen:NO keyWords:nil isTest:YES success:^(UIView *InterstitialView) {
 	    dispatch_async(dispatch_get_main_queue(), ^{
 	    //Requset successful,Add InterstitialView to parentView
 	        [self.view addSubview:InterstitialView];
@@ -537,7 +534,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 #### Native advertisement：
 ```
-	[CTService getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
+	CTService *service = [CTService shareManager];
+	[service getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
 		//Requset successful,Add NativeView to parentView
 	    [cell addSubview:NativeView];
 	   } failure:^(NSError *error)
