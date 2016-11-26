@@ -1,5 +1,6 @@
 
 ###<a name="index">Index</a>
+* [Release Notes](#release_notes)
 * [SDK download and Setup AndroidStudio](#install)
 * [Setup Eclipse without Gradle](#eclipse)
 * [SDK API reference](#api)
@@ -7,6 +8,13 @@
 * [Sample code](#sample)
 * [Integrate AD appwall in Android Studio](#appwall)
 * [How to apply Facebook/Admob advertisement](#reference)
+
+###<a name="release_notes">Release Notes</a>
+Release version: 1.1.2
+Release date: Nov-26-2016
+Release notes：
+    1. Improve the Ad landing performance.
+    2. Fix a crash for Admob user.
 
 ###<a name="install">SDK download and Setup AndroidStudio</a>
 
