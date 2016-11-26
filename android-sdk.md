@@ -72,7 +72,9 @@
 ```
 	-keepclassmembers class * {
    		@android.webkit.JavascriptInterface <methods>;
-	}	
+	}
+	
+	-keep class **.AdvertisingIdClient$** { *; }
 
 ```
 
@@ -126,7 +128,9 @@
 ```
 	-keepclassmembers class * {
    		@android.webkit.JavascriptInterface <methods>;
-	}	
+	}
+	
+	-keep class **.AdvertisingIdClient$** { *; }
 
 ```
 
