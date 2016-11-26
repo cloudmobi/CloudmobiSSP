@@ -740,9 +740,15 @@ Show the ads
 ###<a name="appwall">Integrate AD appwall in Android Studio</a>：
 
 ##### Setup the build.gradle:
-Copy the cloudssp_appwall_x.aar and cloudssp_x.jar to foloder libs. and add below code to build.gradle.
+Copy the cloudssp_appwall_x.jar and cloudssp_x.jar to foloder libs. and add below code to build.gradle.
 
 ``` 
+
+repositories{
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 repositories {
     flatDir {
@@ -751,15 +757,25 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:cardview-v7:24.0.+'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile(name: 'appwall_x', ext: 'aar')
+    compile(name: 'cloudssp_appwall_x', ext: 'aar')
     compile files('libs/cloudssp_x.jar')
 
 }
 
 ```
+
+##### Update AndroidManifest.xml as below:
+
+```
+        <activity
+             android:name="com.cloudtech.appwall.AppwallActivity"
+             android:label="@string/app_name"
+             android:screenOrientation="portrait"
+             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+```
+
 
 #####API Reference:  AppwallHelper
 
