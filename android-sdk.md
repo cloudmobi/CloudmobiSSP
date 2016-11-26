@@ -14,7 +14,7 @@
 * Release date: Nov-26-2016
 * Release notes：
     1. Improve the Ad landing performance.
-    2. Fix a crash for Admob user.
+    2. Fix a crash bug for Admob user.
 
 ###<a name="install">SDK download and Setup AndroidStudio</a>
 
