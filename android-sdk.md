@@ -10,9 +10,9 @@
 * [How to apply Facebook/Admob advertisement](#reference)
 
 ###<a name="release_notes">Release Notes</a>
-Release version: 1.1.2
-Release date: Nov-26-2016
-Release notes：
+* Release version: 1.1.2
+* Release date: Nov-26-2016
+* Release notes：
     1. Improve the Ad landing performance.
     2. Fix a crash for Admob user.
 
