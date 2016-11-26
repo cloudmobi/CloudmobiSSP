@@ -750,12 +750,6 @@ repositories{
     }
 }
 
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
-
 dependencies {
     compile(name: 'cloudssp_appwall_x', ext: 'aar')
     compile files('libs/cloudssp_x.jar')
