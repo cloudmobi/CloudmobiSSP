@@ -283,10 +283,7 @@
     /**
      * Notify SDK that the AD has been showed to user.
      */
-    public void notifySdkAdShowed() {
-        holder.sendImpTrackLog();
-    }
-
+    public void notifySdkAdShowed()
     
 ```
 
