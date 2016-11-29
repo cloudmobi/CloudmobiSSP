@@ -1,7 +1,8 @@
 
 ###index
 * [SDK download and setup](#install)
-* [SDK API reference](#api)
+* [SDK Advanced API reference](#advancedApi)
+* [SDK Basic API reference](#basicApi)
 * [SDK error code table](#errorcode)
 * [Sample code](#sample)
 * [How to apply Facebook/Admob advertisement](#reference)
@@ -28,28 +29,28 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 *  Introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
 
 
-###<a name="api">SDK API reference</a>
+###<a name="advancedApi">SDK Advanced API reference</a>
 
 ```
-	We recommend use Element Interface！！！
+	We recommend use CTNative Interface！！！
 	//You should pass the singleton method to create the object, then calls the requests of the different types of ads.
 	+(instancetype)shareManager;
 	
  	/**
-     * Get Native Element Ad 
+     * Get CTNative Ad 
      *
      * @param slot_Id 		Cloud Tech Native AD ID
-     * @param delegate		Set Delegate of Ad event(<CTElementAdDelegate>)
+     * @param delegate		Set Delegate of Ad event(<CTNativeAdDelegate>)
      * @param WHRate 		Set Image Rate
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Element Ad
      * @param failure		The request failed Block, retuen error
      */
-	-(void)getElementNativeADswithSlotId:(NSString*)slot_id
+	-(void)getNativeADswithSlotId:(NSString *)slot_id
                             delegate:(id)delegate
                  imageWidthHightRate:(CTImageWidthHightRate)WHRate
                               isTest:(BOOL)isTest
-                             success:(void (^)(CTNativeElementAdModel* elementModel))success
+                             success:(void (^)(CTNativeAdModel *nativeModel))success
                              failure:(void (^)(NSError *error))failure;                                                                                       
 
 
@@ -60,40 +61,26 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      *
      * @param slot_Id		Cloud Tech Native AD ID
      * @param num			Request Ads number
-     * @param delegate		Set Delegate of Ads event(<CTElementAdDelegate>)
+     * @param delegate		Set Delegate of Ads event(<CTNativeAdDelegate>)
      * @param WHRate		Set Image Rate
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Element Ad
      * @param failure		The request failed Block, retuen error
      */
-    -(void)getMultitermElementNativeADswithSlotId:(NSString *)slot_id
+    -(void)getMultitermNativeADswithSlotId:(NSString *)slot_id
                                     adNumbers:(NSInteger)num
                                      delegate:(id)delegate
                           imageWidthHightRate:(CTImageWidthHightRate)WHRate
                                        isTest:(BOOL)isTest
-                                      success:(void (^)(NSArray *elementArr))success
+                                      success:(void (^)(NSArray *nativeArr))success
                                       failure:(void (^)(NSError *error))failure;
 
- 	
- 	/**
-     * Get AppWall ViewController
-     * First,you should Call createAppWallViewController method,Then detrusion this ViewController，in the end，call getAppWallWithSlotID method！
-     * @param slot_Id		Cloud Tech Native AD ID
-     * @param customColor	If you want set custom UI,you should create CTCustomColor object
-     * @param delegate		Set Delegate of Ads event (<CTAppWallDelegate>)
-     * @param isTest		Use test advertisement or not
-     * @param success		The request is successful Block
-     * @param failure		The request failed Block, retuen error
-     */
-     
-    -(UIViewController *)createAppWallViewController;
-    
-    -(void)getAppWallWithSlotID:(NSString *)slot_id
-                customColor:(CTCustomColor *)customColor
-                   delegate:(id)delegate
-                     isTest:(BOOL)isTest
-                    success:(void(^)())success
-                    failure:(void(^)(NSError *error))failure;                     
+```
+
+###<a name="basicApi">SDK Basic API reference</a> 
+ 
+
+```                      
                     
     /**
      * Get Banner Ad View
@@ -150,59 +137,101 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 
     /**
-     * Get Native Ad View
+     * Get NaTemplate Ad View
      *
      * @param slot_Id		Cloud Tech Native AD ID
-     * @param delegate		Set Delegate of Ad event(<CTNativeDelegate>)
+     * @param delegate		Set Delegate of Ad event(<CTNaTemplateDelegate>)
      * @param frame			Set Ad Frame
      * @param isNeedBtn		show close button at the top-right corner of the advertisement
      * @param isTest		Use test advertisement or not
      * @param success		The request is successful Block, return Native Ad View
      * @param failure		The request failed Block, retuen error
      */
-    -(void)getNativeADswithSlotId:(NSString*)slot_id
+     
+    -(void)getNaTemplateADswithSlotId:(NSString *)slot_id
                      delegate:(id)delegate
                         frame:(CGRect)frame
               needCloseButton:(BOOL)isNeedBtn
                        isTest:(BOOL)isTest
-                      success:(void (^)(UIView* NativeView))success
+                      success:(void (^)(UIView *NaTemplateView))success
                       failure:(void (^)(NSError *error))failure;
 
+
+	/**
+     * Get AppWall ViewController
+     * First,you should Call createAppWallViewController method,Then detrusion this ViewController，in the end，call getAppWallWithSlotID method！
+     * @param slot_Id		Cloud Tech Native AD ID
+     * @param customColor	If you want set custom UI,you should create CTCustomColor object
+     * @param delegate		Set Delegate of Ads event (<CTAppWallDelegate>)
+     * @param isTest		Use test advertisement or not
+     * @param success		The request is successful Block
+     * @param failure		The request failed Block, retuen error
+     */
+     
+    -(UIViewController *)createAppWallViewController;
+    
+    -(void)getAppWallWithSlotID:(NSString *)slot_id
+                customColor:(CTCustomColor *)customColor
+                   delegate:(id)delegate
+                     isTest:(BOOL)isTest
+                    success:(void(^)())success
+                    failure:(void(^)(NSError *error))failure;
 	
 ```
 
 
 
-###### CTElementAdDelegate Class Methods：Call back interface for the advertisement loading process.
+###### CTNativeAdDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
     /**
-     * User click the advertisement. 
-     */
-    -(void)CTElementAdDidClick:(CTElement *)ElementAd;
-
-    /**
-     * Advertisement landing page will show.
-     */
-    -(void)CTElementAdDidIntoLandingPage:(CTElement *)ElementAd;
-
-    /**
-     * User left the advertisement landing page. 
-     */
-    -(void)CTElementAdDidLeaveLandingPage:(CTElement *)ElementAd;
-
-    /**
-     * User close the advertisement.
-     */
-    -(void)CTElementAdClosed:(CTElement *)ElementAd;
-
-    /**
-     * Leave App
-     */
-    -(void)CTElementAdWillLeaveApplication:(CTElement *)ElementAd;
+	 * User click the advertisement.
+ 	 */
+	-(void)CTNativeAdDidClick:(UIView *)nativeAd;
+	/**
+	 * Advertisement landing page will show.
+	 */
+	-(void)CTNativeAdDidIntoLandingPage:(UIView *)nativeAd;
+	/**
+ 	 * User left the advertisement landing page.
+ 	 */
+	-(void)CTNativeAdDidLeaveLandingPage:(UIView *)nativeAd;
+	/**
+	 * Leave App
+	 */
+	-(void)CTNativeAdWillLeaveApplication:(UIView *)nativeAd;
 
  
 ```
+
+
+###### CTAppWallDelegate Class Methods：Call back interface for the advertisement loading process.
+
+```
+    /**
+	 * User click the advertisement.
+	 */
+	-(void)CTAppWallDidClick:(CTElementAd *)ElementAd;
+	/**
+	 * Advertisement landing page will show.
+	 */
+	-(void)CTAppWallDidIntoLandingPage:(CTElementAd *)ElementAd;
+	/**
+	 * User left the advertisement landing page.
+	 */
+	-(void)CTAppWallDidLeaveLandingPage:(CTElementAd *)ElementAd;
+	/**
+	 * Leave App
+	 */
+	-(void)CTAppWallWillLeaveApplication:(CTElementAd *)ElementAd;
+	/**
+	 * User close the advertisement.
+	 */
+	-(void)CTAppWallClosed;
+	
+ 
+```
+
 ###### CTBannerDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
@@ -266,65 +295,37 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
  
 ```
 
-###### CTNativeDelegate Class Methods：Call back interface for the advertisement loading process.
+###### CTNaTemplateDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
     /**
-     * User click the advertisement.
-     */
-    -(void)CTNativeDidClick:(CTNative*)native;
-
-    /**
-     * Advertisement landing page will show.
-     */
-    -(void)CTNativeDidIntoLandingPage:(CTNative*)native;
-
-    /**
-     * User left the advertisement landing page. 
-     */
-    -(void)CTNativeDidLeaveLandingPage:(CTNative*)native;
-
-    /**
-     * User close the advertisement.
-     */
-    -(void)CTNativeClosed:(CTNative*)native;
-
-    /**
-     * Leave App
-     */
-    -(void)CTNativeWillLeaveApplication:(CTNative*)native;
-
- 
-```
-
-
-###### CTAppWallDelegate Class Methods：Call back interface for the advertisement loading process.
-
-```
-    /**
-	 * User click the advertisement.
-	 */
-	-(void)CTAppWallDidClick:(CTElementAd *)ElementAd;
+ 	* User click the advertisement.
+	*/
+	-(void)CTNaTemplateDidClick:(CTNaTemplate*)naTemplate;
 	/**
 	 * Advertisement landing page will show.
 	 */
-	-(void)CTAppWallDidIntoLandingPage:(CTElementAd *)ElementAd;
+	-(void)CTNaTemplateDidIntoLandingPage:(CTNaTemplate*)naTemplate;
 	/**
 	 * User left the advertisement landing page.
 	 */
-	-(void)CTAppWallDidLeaveLandingPage:(CTElementAd *)ElementAd;
-	/**
-	 * Leave App
-	 */
-	-(void)CTAppWallWillLeaveApplication:(CTElementAd *)ElementAd;
+	-(void)CTNaTemplateDidLeaveLandingPage:(CTNaTemplate*)naTemplate;
 	/**
 	 * User close the advertisement.
 	 */
-	-(void)CTAppWallClosed;
-	
+	-(void)CTNaTemplateClosed:(CTNaTemplate*)naTemplate;
+	/**
+	 * Leave App
+	 */
+	-(void)CTNaTemplateWillLeaveApplication:(CTNaTemplate*)naTemplate;
+	/**
+	 * User close the Html5.
+	 */
+	-(void)CTNaTemplateHtml5Closed:(CTNaTemplate*)naTemplate;
+
+
  
 ```
-
 
 
 ###<a name="errorcode">Error Code From SDK</a>：
@@ -360,13 +361,13 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 #### Element Native advertisement：
 
 
-First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
+First, you should create an inheritance in CTNativeAd view, and carries on the controls within the view layout
 
 ```
 	
 	#import <CTSDK/CTSDK.h>
-	#import <CTSDK/CTElementAd.h>
-	@interface CTView : CTElementAd
+	#import <CTSDK/CTNativeAd.h>
+	@interface CTView : CTNativeAd
 	@property (nonatomic, strong)UIImageView *logoImage;
 	@property (nonatomic, strong)UILabel *titleLable;
 	@property (nonatomic, strong)UIImageView *iconImage;
@@ -414,20 +415,20 @@ Then call to The method to load ads:
 
 ```
 	CTService *service = [CTService shareManager];
-	[service getElementNativeADswithSlotId:@"8" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne keyWords:nil isTest:NO success:^(CTNativeElementAdModel *elementModel)
+	[service getNativeADswithSlotId:@"260" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne isTest:NO success:^(CTNativeAdModel *nativeModel)
 	{
 		CTView *cview = [[CTView alloc]init];
-		cview.adElementmodel = elementModel;
+		cview.adNativeModel = nativeModel;
 		cview.backgroundColor = [UIColor grayColor];
 		cview.frame = CGRectMake(30, 30, self.view.frame.size.width -60, 450);
 		[self.view addSubview:cview];
-		cview.titleLable.text = elementModel.title;
-		cview.iconImage.image = [self getImageFromURL:elementModel.icon];
-		cview.imageImage.image = [self getImageFromURL:elementModel.image];
-		cview.descLable.text = elementModel.desc;
-		[cview.button setTitle:elementModel.button forState:UIControlStateNormal];
-		cview.starLable.text = [NSString stringWithFormat:@"%f",elementModel.star];
-		cview.logoImage.image = elementModel.ADsignImage;
+		cview.titleLable.text = nativeModel.title;
+		cview.iconImage.image = [self getImageFromURL:nativeModel.icon];
+		cview.imageImage.image = [self getImageFromURL:nativeModel.image];
+		cview.descLable.text = nativeModel.desc;
+		[cview.button setTitle:nativeModel.button forState:UIControlStateNormal];
+		cview.starLable.text = [NSString stringWithFormat:@"%f",nativeModel.star];
+		cview.logoImage.image = nativeModel.ADsignImage;
 	} failure:^(NSError *error)
 	{
 	  	//Request failed
@@ -535,9 +536,9 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 #### Native advertisement：
 ```
 	CTService *service = [CTService shareManager];
-	[service getNativeADswithSlotId:@"8" delegate:self frame:CGRectMake(5, w, [UIScreen mainScreen].bounds.size.width-10, 100) needCloseButton:YES keyWords:nil isTest:YES success:^(UIView *NativeView) {
+	[service getNaTemplateADswithSlotId:@"8"  delegate:self frame:CGRectMake(60, 100, self.view.frame.size.width - 120, (self.view.frame.size.width - 120) / 1.9 + 40) needCloseButton:YES isTest:YES success:^(UIView *NaTemplateView)  {
 		//Requset successful,Add NativeView to parentView
-	    [cell addSubview:NativeView];
+	    [cell addSubview:NaTemplateView];
 	   } failure:^(NSError *error)
 	   {
 		//Request failed
