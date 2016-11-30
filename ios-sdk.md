@@ -51,9 +51,11 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                  imageWidthHightRate:(CTImageWidthHightRate)WHRate
                               isTest:(BOOL)isTest
                              success:(void (^)(CTNativeAdModel *nativeModel))success
-                             failure:(void (^)(NSError *error))failure;                                                                                       
-
-
+                             failure:(void (^)(NSError *error))failure;
+                                                                                                                    
+	PS:
+	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
+	
 
 	
     /**
@@ -74,6 +76,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                                        isTest:(BOOL)isTest
                                       success:(void (^)(NSArray *nativeArr))success
                                       failure:(void (^)(NSError *error))failure;
+    
+    PS:                                  
+	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
 
 ```
 
@@ -425,6 +430,7 @@ Then call to The method to load ads:
 		cview.titleLable.text = nativeModel.title;
 		cview.iconImage.image = [self getImageFromURL:nativeModel.icon];
 		cview.imageImage.image = [self getImageFromURL:nativeModel.image];
+		[cview adExposure];//call ad exposure
 		cview.descLable.text = nativeModel.desc;
 		[cview.button setTitle:nativeModel.button forState:UIControlStateNormal];
 		cview.starLable.text = [NSString stringWithFormat:@"%f",nativeModel.star];
@@ -447,13 +453,13 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	    CTView *cview = [[CTView alloc]initWithFrame:CGRectMake(30, 30, 	self.view.frame.size.width -60, 200)];
 	    cview.adElementmodel = [elementArr objectAtIndex:0];
 	    cview.backgroundColor = [UIColor grayColor];
-	    [self.view addSubview:cview];
+	    [self.view addSubview:cview];		        
 	    cview.titleLable.text = cview.adElementmodel.title;
 	    cview.descLable.text = cview.adElementmodel.desc;
 	    [cview.button setTitle:cview.adElementmodel.button forState:UIControlStateNormal];
 	    cview.starLable.text = [NSString stringWithFormat:@"%f",cview.adElementmodel.star];
 	    cview.logoImage.image = cview.adElementmodel.ADsignImage;
-	    
+	    [cview adExposure];//call ad exposure
 	    CTView *cview1 = [[CTView alloc]initWithFrame:CGRectMake(30, 250, self.view.frame.size.width -60, 200)];
 	    cview1.adElementmodel = [elementArr objectAtIndex:1];
 	    cview1.backgroundColor = [UIColor grayColor];
@@ -462,7 +468,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	    cview1.descLable.text = cview1.adElementmodel.desc;
 	    [cview1.button setTitle:cview1.adElementmodel.button forState:UIControlStateNormal];
 	    cview1.starLable.text = [NSString stringWithFormat:@"%f",cview1.adElementmodel.star];
-	    cview1.logoImage.image = cview1.adElementmodel.ADsignImage;                
+	    cview1.logoImage.image = cview1.adElementmodel.ADsignImage;
+	    [cview1 adExposure];//call ad exposure                
 	} failure:^(NSError *error) {
 	    //Request failed
 	    NSLog(@"No request to the advertising success：%@",error);
