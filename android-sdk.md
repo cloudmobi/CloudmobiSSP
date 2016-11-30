@@ -266,7 +266,7 @@
 ##### CTNative: A framelayout container view which hold the advertisement.
 
 ```
-   
+      
     /**
      * Get all error logs which return by the advertisement query process.
      * @return Error List
@@ -279,6 +279,12 @@
      * @return
      */
     public boolean isLoaded()
+    
+    /**
+     * Notify SDK that the AD has been showed to user.
+     */
+    public void notifySdkAdShowed()
+    
 ```
 
 
