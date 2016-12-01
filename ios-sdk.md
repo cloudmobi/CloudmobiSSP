@@ -363,7 +363,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ###<a name="sample">Sample code</a>
 
 
-#### Element Native advertisement：
+#### CTNative advertisement：
 
 
 First, you should create an inheritance in CTNativeAd view, and carries on the controls within the view layout
@@ -443,7 +443,7 @@ Then call to The method to load ads:
 
 ```
 
-#### Multiterm Element Native advertisement：
+#### Multiterm Element CTNative advertisement：
 
 First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
 
@@ -540,7 +540,7 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 ```
 
-#### Native advertisement：
+#### NaTemplateAD advertisement：
 ```
 	CTService *service = [CTService shareManager];
 	[service getNaTemplateADswithSlotId:@"8"  delegate:self frame:CGRectMake(60, 100, self.view.frame.size.width - 120, (self.view.frame.size.width - 120) / 1.9 + 40) needCloseButton:YES isTest:YES success:^(UIView *NaTemplateView)  {
