@@ -66,6 +66,7 @@
 
 	-keep class **.AdvertisingIdClient$** { *; }
 
+	#for not group facebook/admob ads
 	-dontwarn com.google.android.**
 	-dontwarn com.facebook.ads.**
 	
@@ -501,12 +502,10 @@
 * Add the below Activity in AndroidManifest.xml for Appwall
 
 ```
-     <activity
-        android:name="com.cloudtech.appwall.AppwallActivity"
-        android:label="@string/app_name"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-     </activity>       
+		<activity
+            android:name="com.cloudtech.appwall.AppwallActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
 ```
 
 * You should preloaded ads data for Appwall before show it.
