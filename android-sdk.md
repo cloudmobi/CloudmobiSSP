@@ -888,6 +888,7 @@
 ###<a name="release_notes">Release Notes</a>：
 ##### Version 1.1.3
 1. Add the feature for customize the app wall colors.
+2. Fix a crash bug when call system service too frequently.
 
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
