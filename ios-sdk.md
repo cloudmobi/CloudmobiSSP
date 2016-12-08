@@ -47,11 +47,11 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param failure		The request failed Block, retuen error
      */
 	-(void)getNativeADswithSlotId:(NSString *)slot_id
-                            delegate:(id)delegate
-                 imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                              isTest:(BOOL)isTest
-                             success:(void (^)(CTNativeAdModel *nativeModel))success
-                             failure:(void (^)(NSError *error))failure;
+                     delegate:(id)delegate
+          imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                       isTest:(BOOL)isTest
+                      success:(void (^)(CTNativeAdModel *nativeModel))success
+                      failure:(void (^)(NSError *error))failure;
                                                                                                                     
 	PS:
 	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
@@ -70,12 +70,38 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param failure		The request failed Block, retuen error
      */
     -(void)getMultitermNativeADswithSlotId:(NSString *)slot_id
-                                    adNumbers:(NSInteger)num
-                                     delegate:(id)delegate
-                          imageWidthHightRate:(CTImageWidthHightRate)WHRate
-                                       isTest:(BOOL)isTest
-                                      success:(void (^)(NSArray *nativeArr))success
-                                      failure:(void (^)(NSError *error))failure;
+                             adNumbers:(NSInteger)num
+                              delegate:(id)delegate
+                   imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                                isTest:(BOOL)isTest
+                               success:(void (^)(NSArray *nativeArr))success
+                               failure:(void (^)(NSError *error))failure;
+    
+    PS:                                  
+	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
+	
+	
+	/**
+     * Get Keywords Element Native ADs 
+     *
+     * @param slot_Id		Cloud Tech Native AD ID
+     * @param delegate		Set Delegate of Ads event(<CTNativeAdDelegate>)
+     * @param WHRate		Set Image Rate
+     * @param adcat			Set Ad Type
+     * @param keyWords		Set Ad Keywords
+     * @param isTest		Use test advertisement or not
+     * @param success		The request is successful Block, return Native Keywords Element Ad
+     * @param failure		The request failed Block, retuen error
+     */
+    -(void)getNativeADswithSlotId:(NSString *)slot_id
+              			  delegate:(id)delegate
+         	  imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                	        adcat:(NSInteger)cat
+               	     	 keyWords:(NSArray *)keyWords
+                 	       isTest:(BOOL)isTest
+                 	      success:(void (^)(CTNativeAdModel *nativeModel))success
+                   	      failure:(void (^)(NSError *error))failure;
+
     
     PS:                                  
 	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
@@ -476,6 +502,33 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	}];
 
 ```
+
+#### Keywords Element CTNative advertisement：
+
+First, you should create an inheritance in CTElementAd view, and carries on the controls within the view layout
+
+```
+	CTService *service = [CTService shareManager];
+	[self.ctService getNativeADswithSlotId:@"260" delegate:self imageWidthHightRate:CTImageWHRateOnePointNineToOne adcat:0 keyWords:@[@"one",@"two"] isTest:YES success:^(CTNativeAdModel *nativeModel) {
+        CTView *cview = [[CTView alloc]init];
+		cview.adNativeModel = nativeModel;
+		cview.backgroundColor = [UIColor grayColor];
+		cview.frame = CGRectMake(30, 30, self.view.frame.size.width -60, 450);
+		[self.view addSubview:cview];
+		cview.titleLable.text = nativeModel.title;
+		cview.iconImage.image = [self getImageFromURL:nativeModel.icon];
+		cview.imageImage.image = [self getImageFromURL:nativeModel.image];
+		[cview adExposure];//call ad exposure
+		cview.descLable.text = nativeModel.desc;
+		[cview.button setTitle:nativeModel.button forState:UIControlStateNormal];
+		cview.starLable.text = [NSString stringWithFormat:@"%f",nativeModel.star];
+		cview.logoImage.image = nativeModel.ADsignImage;
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error.description);
+    }];
+
+```
+
 
 #### AppWall advertisement View：
 ```
