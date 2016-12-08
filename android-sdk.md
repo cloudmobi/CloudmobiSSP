@@ -8,27 +8,28 @@
 * [Appwall Integration](#appwall)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
-* [About Facebook/Admob advertisement](#reference)
 * [Release notes](#release_notes)
+* [About Facebook/Admob advertisement](#reference)
 * [SDK Initialization with eclipse](#eclipse)
 
 
 ###<a name="initialization">SDK Initialization</a>
 
+* [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
-* Select API 14: Android 4.0 or later.
-* Add the Parbat SDK to your Project：
+* Select API 15: Android 4.0.3 or later.
+* Add the Cloudssp SDK to your Project：
 
 	| jar name           		  | jar function         | require(Y/N) |
 	| ------------------ 		  | -------------------- | --------     |
-	| parbat_xx.jar    		  | basic functions      |     Y        |
-	| parbat_appwall_xx.jar    | appwall functions    |     N        |
+	| cloudssp_xx.jar    		  | basic functions      |     Y        |
+	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 
 * Update the module's build.gradle：
 
 ```	
 	dependencies {	
-    	compile files('libs/parbat_xx.jar')
+    	compile files('libs/cloudssp_xx.jar')
 	}
 	
 ```
@@ -47,10 +48,10 @@
     
 		
         <!-- Necessary-->
-        <activity android:name="com.parbat.ads.view.InnerWebLandingActivity"
+        <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
             <intent-filter>
-                <action android:name="com.parbat.action.InnerWebLanding" />
+                <action android:name="com.cloudtech.action.InnerWebLanding" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -60,62 +61,15 @@
 * Add below rules for code obfuscation in proguard-rules.pro:
 
 ```
-	#for sdk
-	-keep public class com.parbat.ads.core.CTNative {
-	    public *;
-    }
-
-	-keep public class com.parbat.ads.core.CTService {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.core.CTAdvanceNative {
-		 public *;
-	}
-	
-	-keep public class com.parbat.ads.core.CTAdEventListener {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.core.MultiAdsEventListener {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.core.CTError {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.core.CTImageType {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.core.CTAdsCat {
-		public *;
-	}
-	
-	-keep public class com.parbat.ads.utils.PbLog{
-		public *;
-	}
-	
 	-keepclassmembers class * {
-   		@android.webkit.JavascriptInterface <methods>;
+		@android.webkit.JavascriptInterface <methods>;
 	}
 
 	-keep class **.AdvertisingIdClient$** { *; }
 
-
-	#for appwall
-	-keep class com.parbat.ads.utils.HttpRequester{
-    	public *;
-	}
-	
-	-keep class com.parbat.ads.utils.HttpRequester$Listener{
-    	public *;
-    }
-    
-    -keep class com.parbat.appwall.AppwallHelper{
-    	public *;
-    }
+	#for not group facebook/admob ads
+	-dontwarn com.google.android.**
+	-dontwarn com.facebook.ads.**
 	
 ```
 
@@ -330,7 +284,6 @@
 		ctAdvanceNative.addADLayoutToADContainer(adLayout);
 		//Optional. Set the ad click area,the default click area is the whole ad layout.
 		ctAdvanceNative.registeADClickArea(adLayout);
-		
 		//Necessary. send the impression log
 		ctAdvanceNative.notifySdkAdShowed();
 
@@ -497,7 +450,7 @@
 
  ```
         <activity 
-        	android:name="com.parbat.ads.view.InterstitialActivity"
+        	android:name="com.cloudtech.ads.view.InterstitialActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
         </activity>      
@@ -541,8 +494,8 @@
 
 ```	
 	dependencies {	
-    	compile files('libs/parbat_xx.jar')
-    	compile files('libs/parbat_appwall_xx.jar')   // for appwall
+    	compile files('libs/cloudssp_xx.jar')
+    	compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
 	}
 	
 ```
@@ -550,10 +503,10 @@
 * Add the below Activity in AndroidManifest.xml for Appwall
 
 ```
-        <activity
-            android:name="com.parbat.appwall.AppwallActivity"
+		<activity
+            android:name="com.cloudtech.appwall.AppwallActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait">      
+            android:screenOrientation="portrait"/>
 ```
 
 * You should preloaded ads data for Appwall before show it.
@@ -590,7 +543,7 @@
     /**
      * get elements ads
      *
-     * @param slotId  			the id for parbat ads
+     * @param slotId  			the id for cloudssp ads
      * @param context  			context
      * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
@@ -606,7 +559,7 @@
     /**
      * get elements ads by keywords or category
      *
-     * @param slotId  			the id for parbat ads
+     * @param slotId  			the id for cloudssp ads
      * @param context  			context
      * @param imageType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
@@ -627,7 +580,7 @@
     /**
      * Get multi elements Ads. The actual number will decied by server side, between [1,reqAdNumber]
      * @param reqAdNumber    the number of request Ads
-     * @param slotId         parbat Ads slot id
+     * @param slotId         cloudtech Ads slot id
      * @param context        Android context
      * @param imageType      Imagetype for the picture.(1.9:1 or 1:1)
      		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
@@ -842,7 +795,7 @@
 	/**
      * init the appwall
      * @param Context context
-     * @param slotId     parbat Ads slot id
+     * @param slotId     cloudtech Ads slot id
      *
      */
     public static void init(Context context, String slotId)
@@ -850,7 +803,7 @@
     /**
      * show the app wall UI.
      * @param Context context
-     * @param slotId     parbat Ads slot id
+     * @param slotId     cloudtech Ads slot id
      *
      */
     public static void showAppwall(Context context, String slotId) 
@@ -890,10 +843,11 @@
 1. Add the feature for customize the app wall colors.
 2. Fix a crash bug when call system service too frequently.
 
+
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
-* Notes: The parbat-sdk has group the facebook ads in native/banner /interstitial interface.
+* Notes: The cloudssp-sdk has group the facebook ads in native/banner /interstitial interface.
 	
 * Add the audience-network-sdk in the module's build.gradle for facebook ads
 
@@ -907,7 +861,7 @@
 
 #####[Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
 
-* Notes:The parbat-sdk has group the admob ads in banner/interstitial interface.
+* Notes:The cloudssp-sdk has group the admob ads in banner/interstitial interface.
 
 * Add the firebase-ads in the module's build.gradle for admob ads
 
@@ -931,3 +885,86 @@
 ```
 
 * Add the admob unitid in ssp.
+
+
+
+###<a name="eclipse">SDK Initialization with eclipse</a>
+
+* [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
+* Build tool：Ant
+* Add the Cloudssp SDK into target project folder /libs/ , and Add them to build path.
+* If you need group facebook/admob ads by Cloudssp SDK, you should add the related dependence in your project and add the corresponding id.
+ 
+ ```
+ 	//for facebook ads
+	AudienceNetwork.jar 
+	
+	//for admob ads 
+	google-play-services-ads-lite.jar
+	google-play-services-basement.jar
+	
+	//notes
+	If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  
+	If you don't need the facebook or Admob ADs,the related dependence is not needed
+	
+ ```
+
+
+*  Update AndroidManifest.xml as below:
+
+```
+	<!--Necessary Permissions-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    
+    	<!--Necessary-->
+        <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="com.cloudtech.action.InnerWebLanding" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+		<!--for cloudssp interstitial ads-->
+        <activity android:name="com.cloudtech.ads.view.InterstitialActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleInstance">
+        </activity>
+        
+        <!--for cloudssp appwall-->
+        <activity
+        	android:name="com.cloudtech.appwall.AppwallActivity"
+        	android:label="@string/app_name"
+        	android:screenOrientation="portrait"
+        	android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+     	</activity>  
+
+		<!--for admob interstitial ads-->
+        <meta-data android:name="com.google.android.gms.version"                 
+            android:value="@integer/google_play_services_version" />
+        <activity android:name="com.google.android.gms.ads.AdActivity"                    
+        	android:configChanges="keyboard|keyboardHidden|orientation|
+        			screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+       
+```
+
+* Add below rules for code obfuscation in proguard-project.txt:
+
+```
+	-keepclassmembers class * {
+		@android.webkit.JavascriptInterface <methods>;
+	}
+
+	-keep class **.AdvertisingIdClient$** { *; }
+
+	-dontwarn com.google.android.**
+	-dontwarn com.facebook.ads.**
+
+
+```
