@@ -494,8 +494,8 @@
 
 ```	
 	dependencies {	
-    	compile files('libs/cloudssp_xx.jar')
-    	compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
+    		compile files('libs/cloudssp_xx.jar')
+    		compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
 	}
 	
 ```
@@ -503,7 +503,7 @@
 * Add the below Activity in AndroidManifest.xml for Appwall
 
 ```
-		<activity
+	 <activity
             android:name="com.cloudtech.appwall.AppwallActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
@@ -520,8 +520,9 @@
 * Customize the appwall color theme(optional).
 
 ```
-    AppwallHelper.setThemeColor(CustomizeColor customizeColor_);
-
+    CustomizeColor custimozeColor = new CustomizeColor();
+    custimozeColor.setMainThemeColor(Color.parseColor("#ff0000ff"));
+    AppwallHelper.setThemeColor(custimozeColor);
 ```
 
 
@@ -789,16 +790,22 @@
     
 ```
 
-#####API AppwallHelper:get the appwall ads
+#####AppwallHelper: get the appwall ads
 
 ``` 
-	/**
+    /**
      * init the appwall
      * @param Context context
      * @param slotId     cloudtech Ads slot id
      *
      */
     public static void init(Context context, String slotId)
+    
+    /**
+     * set up the appwall color
+     * @param customizeColor
+     */
+    public static void setThemeColor(CustomizeColor customizeColor)
 
     /**
      * show the app wall UI.
