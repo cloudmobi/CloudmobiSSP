@@ -12,13 +12,6 @@
 * According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
 
 		FBAudienceNetwork.framework
-		FirebaseAnalytics.framework  
-		FirebaseInstanceID.framework
-		GoogleInterchangeUtilities.framework
-	    GoogleSymbolUtilities.framework
-		GoogleUtilities.framework
-		Firebase.h
-		GoogleService-Info.plist
 		GoogleMobileAds.framework
 		CTSDK.framework 
 
@@ -26,7 +19,7 @@
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
 * Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
-*  Introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
+* If you use Admob ADs,you should import Firebase SDK,then introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
 
 
 ###<a name="advancedApi">SDK Advanced API reference</a>
@@ -190,7 +183,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 	/**
      * Get AppWall ViewController
-     * First,you should Call createAppWallViewController method,Then detrusion this ViewController，in the end，call getAppWallWithSlotID method！
+     * First,you must should Call preloadAppWallWithSlotID method,Then get successs,call showAppWallViewController method show Appwall！
      * @param slot_Id		Cloud Tech Native AD ID
      * @param customColor	If you want set custom UI,you should create CTCustomColor object
      * @param delegate		Set Delegate of Ads event (<CTAppWallDelegate>)
@@ -198,15 +191,15 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
      * @param success		The request is successful Block
      * @param failure		The request failed Block, retuen error
      */
-     
-    -(UIViewController *)createAppWallViewController;
     
-    -(void)getAppWallWithSlotID:(NSString *)slot_id
+    -(void)preloadAppWallWithSlotID:(NSString *)slot_id
                 customColor:(CTCustomColor *)customColor
                    delegate:(id)delegate
                      isTest:(BOOL)isTest
                     success:(void(^)())success
                     failure:(void(^)(NSError *error))failure;
+                    
+    -(UIViewController *)showAppWallViewController;
 	
 ```
 
@@ -544,31 +537,24 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
     customUI.cellHeadTitleColor = [UIColor blueColor];
     customUI.marketColor = [UIColor blueColor];
     customUI.sliderViewColor = [UIColor grayColor];
-    //First,you should call this method,and detrusion this viewController
+    //First,you should call preloadAppWallWithSlotID method
     CTService *service = [CTService shareManager];
-    UIViewController *vc = [service createAppWallViewController];
-    //If you use Navi push vc,you should call this Method in you Navi VC
-    - (UIInterfaceOrientationMask)supportedInterfaceOrientations
-	{
-	   return [[self.viewControllers lastObject] supportedInterfaceOrientations];
-	}
-	//Else
-    [self presentViewController:vc animated:YES completion:nil];
-    //Then,call getAppWallWithSlotId method
-    [service getAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^() {
+	[service preloadAppWallWithSlotID:@"260" customColor:customUI delegate:self isTest:YES success:^() {
         NSLog(@"Success");
     } failure:^(NSError *error) {
         NSLog(@"%@",error.description);
-    }];    
+    }];
+    //Then,get appwall success ,show appwall and presentViewController
+    [self presentViewController:[service showAppWallViewController] animated:YES completion:nil];  
 
 ```
 
 #### Banner advertisement：
 ```
 	CTService *service = [CTService shareManager];
-	[service getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *NativeView) {
-		//Requset successful,Add NativeView to parentView
-	    [self.view addSubview:NativeView];
+	[service getBannerADswithSlotId:@"7" delegate:self frame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100) needCloseButton:YES keyWords:nil isTest:NO success:^(UIView *bannerView) {
+		//Requset successful,Add bannerView to parentView
+	    [self.view addSubview:bannerView];
 	} failure:^(NSError *error) {
 		//Request failed
 	    NSLog(@"No request to the advertising success：%@",error);
@@ -597,8 +583,8 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 ```
 	CTService *service = [CTService shareManager];
 	[service getNaTemplateADswithSlotId:@"8"  delegate:self frame:CGRectMake(60, 100, self.view.frame.size.width - 120, (self.view.frame.size.width - 120) / 1.9 + 40) needCloseButton:YES isTest:YES success:^(UIView *NaTemplateView)  {
-		//Requset successful,Add NativeView to parentView
-	    [cell addSubview:NaTemplateView];
+		//Requset successful,Add NaTemplateView to parentView
+	    [self.view addSubview:NaTemplateView];
 	   } failure:^(NSError *error)
 	   {
 		//Request failed
