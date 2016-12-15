@@ -27,11 +27,11 @@
 
 * Update the module's build.gradle：
 
-```	
-	dependencies {	
+```
+	dependencies {
     	compile files('libs/cloudssp_xx.jar')
 	}
-	
+
 ```
 
 * Update AndroidManifest.xml as below:
@@ -45,8 +45,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
-		
+
+
         <!-- Necessary-->
         <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
@@ -55,7 +55,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-       
+
 ```
 
 * Add below rules for code obfuscation in proguard-rules.pro:
@@ -70,7 +70,7 @@
 	#for not group facebook/admob ads
 	-dontwarn com.google.android.**
 	-dontwarn com.facebook.ads.**
-	
+
 ```
 
 
@@ -79,12 +79,12 @@
 
 * Yor mobile phone needs install GooglePlay Service and GooglePlay Store.
 * About the CTAdEventListerner
-   
+
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
-    
+
 ```
 	public class MyCTAdEventListener implements CTAdEventListener {
-   
+
     	@Override
     	public void onAdviewGotAdSucceed(CTNative result) {
         	showMsg("onAdviewGotAdSucceed");
@@ -137,7 +137,7 @@
     	}
 	}
 
-```         
+```
 
 
 ###<a name="native">Native Ads Integration</a>
@@ -147,17 +147,17 @@
 * The container and the layout for elements-Native ad:
 
 ```
-	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);                                                     	
+	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 	ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.advance_native_layout, null);
-	
+
 ```
 
 * The method to load elements-Native Ads:
 
 ```
- 	CTService.getAdvanceNative("your slotid", context,CTImageType.TYPE_19_TO_10, 
+ 	CTService.getAdvanceNative("your slotid", context,CTImageType.TYPE_19_TO_10,
  				new MyCTAdEventListener(){
- 			
+
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result == null){
@@ -180,14 +180,14 @@
                     }
 
                 });
-                                      
-                
+
+
 ```
 
 * The layout defined for the elements-Native ads UI：
 
-```   
- 
+```
+
 	<?xml version="1.0" encoding="utf-8"?>
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	xmlns:fresco="http://schemas.android.com/apk/res-auto"
@@ -253,14 +253,14 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         fresco:placeholderImage="@mipmap/ic_launcher" />
-	
+
 	</RelativeLayout>
 
-``` 
+```
 
 * Show the elements-Native ads
 
-``` 
+```
 
     private void showAd(CTAdvanceNative ctAdvanceNative) {
 
@@ -298,7 +298,7 @@
         container.removeAllViews();
         container.addView(ctAdvanceNative);
    }
-		
+
 
 ```
 
@@ -314,9 +314,9 @@
     keywords.add("vedios");
 
     CTService.getAdvanceNativeByKeywords("your slotid", context,
-    		 CTImageType.TYPE_19_TO_10, CTAdsCat.TYPE_TOOL, keywords, 
+    		 CTImageType.TYPE_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
     		 	new MyCTAdEventListener(){
-    		 	
+
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result == null){
@@ -342,7 +342,7 @@
                     }
 
                 });
-                
+
 ```
 
 #####The multi elements-Native ads interface
@@ -351,12 +351,12 @@
 
 ```
 
-	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageType.TYPE_1_TO_1, 
+	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageType.TYPE_1_TO_1,
 		new MultiAdsEventListener() {
-		
+
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
                 //use the List<CTAdvanceNative> in listview or recycleview
-                
+
             }
 
             @Override
@@ -373,10 +373,10 @@
 
 ```
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
-	
- 	CTService.getNative("your slotid", false, context, 
+
+ 	CTService.getNative("your slotid", false, context,
                 new MyCTAdEventListener(){
-                
+
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null) {
@@ -401,21 +401,21 @@
                         container.removeAllViews();
                         super.onAdviewClosed(result);
                     }
-                });	
+                });
 
-``` 
-	
+```
+
 
 ###<a name="banner">Banner Ads Integration</a>
 
-* The method to load Banner Ads: 
+* The method to load Banner Ads:
 
 ```
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
-	
-  	CTService.getBanner("your slotid", false, context,              
+
+  	CTService.getBanner("your slotid", false, context,
   	 		new MyCTAdEventListener(){
-  	 		
+
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null){
@@ -449,41 +449,41 @@
 * Add the below Activity in AndroidManifest.xml for Interstitial Ads
 
  ```
-        <activity 
+        <activity
         	android:name="com.cloudtech.ads.view.InterstitialActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
-        </activity>      
+        </activity>
  ```
 
-* The method to show Interstitial Ads        
+* The method to show Interstitial Ads
 
 ```
 
     CTService.preloadInterstitial("your slotid",true,context,
     		  new MyCTAdEventListener(){
-    		  
+
                     @Override
                     public void onInterstitialLoadSucceed(CTNative result) {
                         super.onInterstitialLoadSucceed(result);
                     }
 
                     @Override
-                    public void onAdviewGotAdSucceed(CTNative result){                          
+                    public void onAdviewGotAdSucceed(CTNative result){
                      	if (result != null && result.isLoaded()){
                             CTService.showInterstitial(result);
                         }
                         super.onAdviewGotAdSucceed(result);
                     }
-                    
+
                     @Override
                     public void onAdviewClosed(CTNative result) {
-         
+
                         super.onAdviewClosed(result);
                     }
-                    
-                }); 
-                   
+
+                });
+
 ```
 
 
@@ -492,12 +492,12 @@
 
 * Update the module's build.gradle for Appwall：
 
-```	
-	dependencies {	
+```
+	dependencies {
     		compile files('libs/cloudssp_xx.jar')
     		compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
 	}
-	
+
 ```
 
 * Add the below Activity in AndroidManifest.xml for Appwall
@@ -511,7 +511,7 @@
 
 * You should preloaded ads data for Appwall before show it.
 
-``` 
+```
     AppwallHelper.init(context, "your slotid");
 
 ```
@@ -528,7 +528,7 @@
 
 * Show the Appwall.
 
-``` 
+```
     AppwallHelper.showAppwall(context, "your slotid");
 
 ```
@@ -540,7 +540,7 @@
 ##### CTService: The calling interface for the SDK.
 
 ```
-	
+
     /**
      * get elements ads
      *
@@ -555,8 +555,8 @@
                                                    Context context,
                                                    CTImageType imageType,
                                                    CTAdEventListener adListener)
-    
-                                                          
+
+
     /**
      * get elements ads by keywords or category
      *
@@ -575,9 +575,9 @@
                                                    CTImageType imageType,
                                                    CTAdsCat adsCat,
                                                    List<String> keywords,
-                                                   CTAdEventListener adListener) 
-                                                 
-                                        
+                                                   CTAdEventListener adListener)
+
+
     /**
      * Get multi elements Ads. The actual number will decied by server side, between [1,reqAdNumber]
      * @param reqAdNumber    the number of request Ads
@@ -588,17 +588,17 @@
      * @param adListener     Callback for the advertisement load process.
      * @return
      */
-    public static void getMultiNativeAds(int reqAdNumber, 
-                                         String slotId, 
-                                         Context context, 
-                                         CTImageType imageType, 
+    public static void getMultiNativeAds(int reqAdNumber,
+                                         String slotId,
+                                         Context context,
+                                         CTImageType imageType,
                                          MultiAdsEventListener adListener)
-	
-	
+
+
     /**
      * Get banner style advertisement.
      * @param slotId 				banner advertisement space id
-     * @param isShowCloseButton 	the switch of close-button 
+     * @param isShowCloseButton 	the switch of close-button
      * @param context				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
@@ -607,12 +607,12 @@
                                       boolean isShowCloseButton,
                                       Context context,
                                       CTAdEventListener adListener)
-                                      
-                                      
+
+
     /**
      * Get template native advertisement
      * @param slotId 				natvie advertisement space id
-     * @param isShowCloseButton 	the switch of close-button      
+     * @param isShowCloseButton 	the switch of close-button
      * @param context 				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
@@ -620,13 +620,13 @@
     public static CTNative getNative(String slotId,
                                      boolean isShowCloseButton,
                                      Context context,
-                                     CTAdEventListener adListener) 
+                                     CTAdEventListener adListener)
 
 
     /**
      * Preload interstitial advertisement
      * @param slotId 				interstitial advertisement space id
-     * @param isShowCloseButton 	the switch of close-button 
+     * @param isShowCloseButton 	the switch of close-button
      * @param context 				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
@@ -646,15 +646,15 @@
      * Close the interstitial advertisement
      * @param adView The advertisement container which return by preload
      */
-    public static void closeInterstitial(CTNative adView) 
-   
+    public static void closeInterstitial(CTNative adView)
+
 ```
 
 
 ##### CTNative: A framelayout container view which hold the advertisement.
 
 ```
- 
+
     /**
      * Get all error logs which return by the advertisement query process.
      * @return Error List
@@ -667,13 +667,13 @@
      * @return
      */
     public boolean isLoaded()
-    
-    
+
+
     /**
      * Notify SDK that the AD has been showed to user.
      */
     public void notifySdkAdShowed()
-    
+
 ```
 
 
@@ -681,61 +681,61 @@
 ##### CTAdvanceNative: An object which hold the elements of advertisment.
 
 ```
-	
+
     /**
      * get the imageUrl of ads
      */
-    public String getImageUrl() 
+    public String getImageUrl()
 
     /**
      * get the iconUrl of ads.
      */
     public String getIconUrl()
-    
+
     /**
 	 * get the title of ads
 	 */
-    public String getTitle() 
-    
+    public String getTitle()
+
     /**
 	 * get the desc of ads
 	 */
-    public String getDesc() 
-    
+    public String getDesc()
+
     /**
 	 * get the callToAction of ads
 	 */
     public String getButtonStr()
-    
+
     /**
 	 * get the rates of ads
 	 */
-    public String getRate() 
-    
+    public String getRate()
+
     /**
 	 * get the adchoiceIconUrl of ads
 	 */
-    public String getAdChoiceIconUrl() 
-    
+    public String getAdChoiceIconUrl()
+
 	/**
 	 * get the adChoiceLinkUrl of ads
 	 */
-    public String getAdChoiceLinkUrl()  
-    
+    public String getAdChoiceLinkUrl()
+
     /**
      * Add AD layout to AD container
      * Mandatory. Add the customized ad layout  to ad container. the caller must call this method to defince click behavior.
      * @param adLayout
      */
-    public void addADLayoutToADContainer(View adLayout)  
-    
+    public void addADLayoutToADContainer(View adLayout)
+
     /*
      * Define the AD click/interaction area
      * Optional. Set the ad click area. the default click area is the whole ad layout.
      * @param adLayout
      */
-    public void registeADClickArea(View adLayout) 
-	
+    public void registeADClickArea(View adLayout)
+
 ```
 
 
@@ -769,7 +769,7 @@
     public void onStartLandingPageFail(CTNative result);
 
     /**
-     * User left the advertisement landing page. 
+     * User left the advertisement landing page.
      */
     public void onAdviewDismissedLandpage(CTNative result);
 
@@ -787,12 +787,12 @@
      * When the advertisement has been destroyed or garbage collected.
      */
     public void onAdviewDestroyed(CTNative result);
-    
+
 ```
 
 #####AppwallHelper: get the appwall ads
 
-``` 
+```
     /**
      * init the appwall
      * @param Context context
@@ -800,7 +800,7 @@
      *
      */
     public static void init(Context context, String slotId)
-    
+
     /**
      * set up the appwall color
      * @param customizeColor
@@ -813,7 +813,7 @@
      * @param slotId     cloudtech Ads slot id
      *
      */
-    public static void showAppwall(Context context, String slotId) 
+    public static void showAppwall(Context context, String slotId)
 
 
 ```
@@ -850,19 +850,29 @@
 1. Add the feature for customize the app wall colors.
 2. Fix a crash bug when call system service too frequently.
 
+##### Version 1.1.4  [release date: 2016-12-15]
+New feature:
+1. Improve the Ads promote logic.
+2. App wall support animation when show/hide
+3. App wall add new API about native fragment
+
+Bug fix:
+1. One method consume too much UI thread time(130ms).
+2. Some app wall ads ignore the user click event.
+
 
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
 * Notes: The cloudssp-sdk has group the facebook ads in native/banner /interstitial interface.
-	
+
 * Add the audience-network-sdk in the module's build.gradle for facebook ads
 
-```	
+```
 	dependencies {
     	compile 'com.facebook.android:audience-network-sdk:4.13.0'
 	}
-	
+
 ```
 * Add the facebook placementid in ssp.
 
@@ -872,23 +882,23 @@
 
 * Add the firebase-ads in the module's build.gradle for admob ads
 
-```	
+```
 	dependencies {
     	compile 'com.google.firebase:firebase-ads:9.0.2'
 	}
-	
+
 ```
 * Add the below content in AndroidManifest.xml for admob ads
 
 ```
-      <meta-data  
+      <meta-data
         android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />   
+        android:value="@integer/google_play_services_version" />
       <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|
             			screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-            
+
 ```
 
 * Add the admob unitid in ssp.
@@ -901,19 +911,19 @@
 * Build tool：Ant
 * Add the Cloudssp SDK into target project folder /libs/ , and Add them to build path.
 * If you need group facebook/admob ads by Cloudssp SDK, you should add the related dependence in your project and add the corresponding id.
- 
+
  ```
  	//for facebook ads
-	AudienceNetwork.jar 
-	
-	//for admob ads 
+	AudienceNetwork.jar
+
+	//for admob ads
 	google-play-services-ads-lite.jar
 	google-play-services-basement.jar
-	
+
 	//notes
-	If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.  
+	If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
 	If you don't need the facebook or Admob ADs,the related dependence is not needed
-	
+
  ```
 
 
@@ -927,7 +937,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
+
     	<!--Necessary-->
         <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
             android:launchMode="singleInstance">
@@ -942,23 +952,23 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
         </activity>
-        
+
         <!--for cloudssp appwall-->
         <activity
         	android:name="com.cloudtech.appwall.AppwallActivity"
         	android:label="@string/app_name"
         	android:screenOrientation="portrait"
         	android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-     	</activity>  
+     	</activity>
 
 		<!--for admob interstitial ads-->
-        <meta-data android:name="com.google.android.gms.version"                 
+        <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <activity android:name="com.google.android.gms.ads.AdActivity"                    
+        <activity android:name="com.google.android.gms.ads.AdActivity"
         	android:configChanges="keyboard|keyboardHidden|orientation|
         			screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-       
+
 ```
 
 * Add below rules for code obfuscation in proguard-project.txt:
