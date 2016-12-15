@@ -851,15 +851,11 @@
 2. Fix a crash bug when call system service too frequently.
 
 ##### Version 1.1.4  [release date: 2016-12-15]
-New feature:
-1. Improve the Ads promote logic.
-2. App wall support animation when show/hide
-3. App wall add new API about native fragment
-
-Bug fix:
-1. One method consume too much UI thread time(130ms).
-2. Some app wall ads ignore the user click event.
-
+1. (New feature)Improve the Ads promote logic.
+2. (New feature)App wall support animation when show/hide
+3. (New feature)App wall add new API about native fragment
+4. (Bug fix)One method consume too much UI thread time(130ms).
+5. (Bug fix)Some app wall ads ignore the user click event.
 
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
