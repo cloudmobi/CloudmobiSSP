@@ -44,11 +44,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
           imageWidthHightRate:(CTImageWidthHightRate)WHRate
                        isTest:(BOOL)isTest
                       success:(void (^)(CTNativeAdModel *nativeModel))success
-                      failure:(void (^)(NSError *error))failure;
-                                                                                                                    
-	PS:
-	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
-	
+                      failure:(void (^)(NSError *error))failure;                                                                                                             
 
 	
     /**
@@ -69,9 +65,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                                 isTest:(BOOL)isTest
                                success:(void (^)(NSArray *nativeArr))success
                                failure:(void (^)(NSError *error))failure;
-    
-    PS:                                  
-	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
 	
 	
 	/**
@@ -94,10 +87,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                  	       isTest:(BOOL)isTest
                  	      success:(void (^)(CTNativeAdModel *nativeModel))success
                    	      failure:(void (^)(NSError *error))failure;
-
-    
-    PS:                                  
-	//Finally after the request to the pictures,you should call adExposure interface with an inheritance in CTNativeAd view.
 
 ```
 
@@ -144,13 +133,23 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                               isTest:(BOOL)isTest
                              success:(void (^)(UIView* InterstitialView))success
                              failure:(void (^)(NSError *error))failure;
-
+                             
+    /**
+     * Show interstitial advertisement by present VC stryle
+     */
+    -(BOOL)interstitialShowWithControllerStyle;
+    
     /**
      * Show interstitial advertisement
      *
      * Request success, call this method show Ad View
      */
     -(BOOL)interstitialShow;
+    
+    /**
+     * If you use interstitialShow,you can use this method Support the relation screen
+     */
+    -(void)ScreenIsVerticalScreen:(BOOL)isVerticalScreen;
 
     /**
      * Close the interstitial advertisement
@@ -449,7 +448,6 @@ Then call to The method to load ads:
 		cview.titleLable.text = nativeModel.title;
 		cview.iconImage.image = [self getImageFromURL:nativeModel.icon];
 		cview.imageImage.image = [self getImageFromURL:nativeModel.image];
-		[cview adExposure];//call ad exposure
 		cview.descLable.text = nativeModel.desc;
 		[cview.button setTitle:nativeModel.button forState:UIControlStateNormal];
 		cview.starLable.text = [NSString stringWithFormat:@"%f",nativeModel.star];
@@ -478,7 +476,6 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	    [cview.button setTitle:cview.adElementmodel.button forState:UIControlStateNormal];
 	    cview.starLable.text = [NSString stringWithFormat:@"%f",cview.adElementmodel.star];
 	    cview.logoImage.image = cview.adElementmodel.ADsignImage;
-	    [cview adExposure];//call ad exposure
 	    CTView *cview1 = [[CTView alloc]initWithFrame:CGRectMake(30, 250, self.view.frame.size.width -60, 200)];
 	    cview1.adElementmodel = [elementArr objectAtIndex:1];
 	    cview1.backgroundColor = [UIColor grayColor];
@@ -488,7 +485,6 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	    [cview1.button setTitle:cview1.adElementmodel.button forState:UIControlStateNormal];
 	    cview1.starLable.text = [NSString stringWithFormat:@"%f",cview1.adElementmodel.star];
 	    cview1.logoImage.image = cview1.adElementmodel.ADsignImage;
-	    [cview1 adExposure];//call ad exposure                
 	} failure:^(NSError *error) {
 	    //Request failed
 	    NSLog(@"No request to the advertising success：%@",error);
@@ -511,7 +507,6 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 		cview.titleLable.text = nativeModel.title;
 		cview.iconImage.image = [self getImageFromURL:nativeModel.icon];
 		cview.imageImage.image = [self getImageFromURL:nativeModel.image];
-		[cview adExposure];//call ad exposure
 		cview.descLable.text = nativeModel.desc;
 		[cview.button setTitle:nativeModel.button forState:UIControlStateNormal];
 		cview.starLable.text = [NSString stringWithFormat:@"%f",nativeModel.star];
@@ -572,6 +567,10 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 	    //call the interstitialShow show ad view
 	        [CTService interstitialShow];
 	    });
+	    /*
+	     *if you use PresentVC style，you should use this method，but don't use [self.view addSubview:InterstitialView];
+	    [service interstitialShowWithControllerStyle];
+	     */
 	} failure:^(NSError *error) {
 		//Request failed
 	    NSLog(@"No request to the advertising success：%@",error);
@@ -598,3 +597,5 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 ###<a name="reference">How to apply Facebook/Admob advertisement：</a>：
 * [Facebook Ad SDK Insert Description](https://developers.facebook.com/docs/audience-network)
 * [Google Admob Ad SDK Insert Description](https://firebase.google.com/docs/ios/setup)
+
+
