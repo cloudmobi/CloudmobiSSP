@@ -6,6 +6,7 @@
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
+* [NewsFeed Integration](#newsfeed)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
@@ -533,6 +534,57 @@
 
 ```
 
+### <a name="newsfeed">NewsFeed integration</a>
+
+* Update the module's build.gradle for NewsFeed：
+
+```
+	dependencies {
+        compile files('libs/cloudssp_xx.jar')
+        compile files('libs/cloudssp_newsfeed_xx.jar')     // for newsfeed
+        compile 'com.inveno:datasdk:latest.integration@aar'
+        compile 'com.squareup.okhttp3:okhttp:3.4.2'
+	}
+
+```
+
+* Add the below Activity in AndroidManifest.xml for NewsDetail
+
+```
+	 <activity
+        android:name="com.cloudtech.newsfeed.ui.NewsDetailActivity"
+        android:screenOrientation="portrait" />
+```
+
+* You should initialize the newsfeed in application.
+
+```
+    NewsFeedHelper.initialize(context);
+```
+
+
+* Customize the newsfeed color theme(optional).
+
+```
+    // set the theme color
+    NewsFeedHelper.setCustomThemeColor(Color.parse("#FF0000"));
+
+    // detail title color
+    NewsFeedHelper.setCustomTitleTextColor(Color.WHITE);
+
+    // detail title height(DIP)
+    NewsFeedHelper.setCustomTitleHeightDip(55);
+```
+
+
+* get the newsfeed fragment.
+
+```
+    // must import support:v4 -> Fragment
+    // import android.support.v4.app.Fragment;
+    Fragment newsFeedFragment = NewsFeedHelper.createFragment("your slotid");
+```
+
 
 ###<a name="api">SDK API Reference</a>
 
@@ -857,6 +909,12 @@
 4. (Bug fix)One method consume too much UI thread time(130ms).
 5. (Bug fix)Some app wall ads ignore the user click event.
 
+##### Version 1.2.0  [release date: 2016-12-23]
+1. [New feature]Add news feed
+2. [New feature]Continue improve the promote performance.
+3. [Bug]Update third party ads impression log logic.
+4. [Bug]Fix a crash issue when call system service getInstalledApplication.
+
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
@@ -981,3 +1039,5 @@
 
 
 ```
+
+
