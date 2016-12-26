@@ -6,6 +6,7 @@
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
+* [NewsFeed Integration](#newsfeed)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
@@ -24,6 +25,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
+	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N	   |
 
 * Update the module's build.gradle：
 
@@ -38,7 +40,7 @@
 
 
 ```
-	<!--Necessary Permissions-->
+    <!--Necessary Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -155,7 +157,7 @@
 * The method to load elements-Native Ads:
 
 ```
- 	CTService.getAdvanceNative("your slotid", context,CTImageType.TYPE_19_TO_10,
+ 	CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,
  				new MyCTAdEventListener(){
 
                     @Override
@@ -264,7 +266,7 @@
 
     private void showAd(CTAdvanceNative ctAdvanceNative) {
 
-		SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
+	SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
         SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
@@ -314,7 +316,7 @@
     keywords.add("vedios");
 
     CTService.getAdvanceNativeByKeywords("your slotid", context,
-    		 CTImageType.TYPE_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
+    		 CTImageRatioType.RATIO_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
     		 	new MyCTAdEventListener(){
 
                     @Override
@@ -351,7 +353,7 @@
 
 ```
 
-	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageType.TYPE_1_TO_1,
+	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageRatioType.RATIO_19_TO_10,
 		new MultiAdsEventListener() {
 
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
@@ -533,6 +535,57 @@
 
 ```
 
+### <a name="newsfeed">NewsFeed integration</a>
+
+* Update the module's build.gradle for NewsFeed：
+
+```
+	dependencies {
+        compile files('libs/cloudssp_xx.jar')
+        compile files('libs/cloudssp_newsfeed_xx.jar')     // for newsfeed
+        compile 'com.inveno:datasdk:latest.integration@aar'
+        compile 'com.squareup.okhttp3:okhttp:3.4.2'
+	}
+
+```
+
+* Add the below Activity in AndroidManifest.xml for NewsDetail
+
+```
+	 <activity
+        android:name="com.cloudtech.newsfeed.ui.NewsDetailActivity"
+        android:screenOrientation="portrait" />
+```
+
+* You should initialize the newsfeed in application.
+
+```
+    NewsFeedHelper.initialize(context);
+```
+
+
+* Customize the newsfeed color theme(optional).
+
+```
+    // set the theme color
+    NewsFeedHelper.setCustomThemeColor(Color.parse("#FF0000"));
+
+    // detail title color
+    NewsFeedHelper.setCustomTitleTextColor(Color.WHITE);
+
+    // detail title height(DIP)
+    NewsFeedHelper.setCustomTitleHeightDip(55);
+```
+
+
+* get the newsfeed fragment.
+
+```
+    // must import support:v4 -> Fragment
+    // import android.support.v4.app.Fragment;
+    Fragment newsFeedFragment = NewsFeedHelper.createFragment("your slotid");
+```
+
 
 ###<a name="api">SDK API Reference</a>
 
@@ -546,14 +599,14 @@
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adListener  		callback for the advertisement load process
      * @return				    the object to get the elements
      */
     public static CTAdvanceNative getAdvanceNative(String slotId,
                                                    Context context,
-                                                   CTImageType imageType,
+                                                   CTImageRatioType imageRatioType,
                                                    CTAdEventListener adListener)
 
 
@@ -562,8 +615,8 @@
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param imageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adsCat     		the adsCategory you want(default,games,tools)
      		(TYPE_DEFAULT / TYPE_GAME / TYPE_TOOL)
      * @param keywords   		get ads by keywords，fill null if not need
@@ -572,7 +625,7 @@
      */
     public static CTAdvanceNative getAdvanceNativeByKeyword(String slotId,
                                                    Context context,
-                                                   CTImageType imageType,
+                                                   CTImageRatioType imageRatioType,
                                                    CTAdsCat adsCat,
                                                    List<String> keywords,
                                                    CTAdEventListener adListener)
@@ -583,22 +636,22 @@
      * @param reqAdNumber    the number of request Ads
      * @param slotId         cloudtech Ads slot id
      * @param context        Android context
-     * @param imageType      Imagetype for the picture.(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType      Imagetype for the picture.(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adListener     Callback for the advertisement load process.
      * @return
      */
     public static void getMultiNativeAds(int reqAdNumber,
                                          String slotId,
                                          Context context,
-                                         CTImageType imageType,
+                                         CTImageRatioType imageRatioType,
                                          MultiAdsEventListener adListener)
 
 
     /**
      * Get banner style advertisement.
      * @param slotId 				banner advertisement space id
-     * @param isShowCloseButton 	the switch of close-button
+     * @param isShowCloseButton 		the switch of close-button
      * @param context				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
@@ -857,6 +910,12 @@
 4. (Bug fix)One method consume too much UI thread time(130ms).
 5. (Bug fix)Some app wall ads ignore the user click event.
 
+##### Version 1.2.0  [release date: 2016-12-23]
+1. [New feature]Add news feed
+2. [New feature]Continue improve the promote performance.
+3. [Bug]Update third party ads impression log logic.
+4. [Bug]Fix a crash issue when call system service getInstalledApplication.
+
 ###<a name="reference">About Facebook/Admob advertisement</a>：
 #####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
@@ -981,3 +1040,5 @@
 
 
 ```
+
+
