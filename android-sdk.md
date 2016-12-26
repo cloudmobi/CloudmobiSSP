@@ -25,6 +25,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
+	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N	   |
 
 * Update the module's build.gradle：
 
