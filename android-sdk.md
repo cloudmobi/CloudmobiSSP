@@ -40,7 +40,7 @@
 
 
 ```
-	<!--Necessary Permissions-->
+    <!--Necessary Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -157,7 +157,7 @@
 * The method to load elements-Native Ads:
 
 ```
- 	CTService.getAdvanceNative("your slotid", context,CTImageType.TYPE_19_TO_10,
+ 	CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,
  				new MyCTAdEventListener(){
 
                     @Override
@@ -266,7 +266,7 @@
 
     private void showAd(CTAdvanceNative ctAdvanceNative) {
 
-		SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
+	SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
         SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
@@ -316,7 +316,7 @@
     keywords.add("vedios");
 
     CTService.getAdvanceNativeByKeywords("your slotid", context,
-    		 CTImageType.TYPE_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
+    		 CTImageRatioType.RATIO_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
     		 	new MyCTAdEventListener(){
 
                     @Override
@@ -353,7 +353,7 @@
 
 ```
 
-	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageType.TYPE_1_TO_1,
+	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageRatioType.RATIO_19_TO_10,
 		new MultiAdsEventListener() {
 
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
@@ -599,14 +599,14 @@
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param CTImageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adListener  		callback for the advertisement load process
      * @return				    the object to get the elements
      */
     public static CTAdvanceNative getAdvanceNative(String slotId,
                                                    Context context,
-                                                   CTImageType imageType,
+                                                   CTImageRatioType imageRatioType,
                                                    CTAdEventListener adListener)
 
 
@@ -615,8 +615,8 @@
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param imageType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adsCat     		the adsCategory you want(default,games,tools)
      		(TYPE_DEFAULT / TYPE_GAME / TYPE_TOOL)
      * @param keywords   		get ads by keywords，fill null if not need
@@ -625,7 +625,7 @@
      */
     public static CTAdvanceNative getAdvanceNativeByKeyword(String slotId,
                                                    Context context,
-                                                   CTImageType imageType,
+                                                   CTImageRatioType imageRatioType,
                                                    CTAdsCat adsCat,
                                                    List<String> keywords,
                                                    CTAdEventListener adListener)
@@ -636,22 +636,22 @@
      * @param reqAdNumber    the number of request Ads
      * @param slotId         cloudtech Ads slot id
      * @param context        Android context
-     * @param imageType      Imagetype for the picture.(1.9:1 or 1:1)
-     		(CTImageType.TYPE_19_TO_10 / CTImageType.TYPE_1_TO_1)
+     * @param imageRatioType      Imagetype for the picture.(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adListener     Callback for the advertisement load process.
      * @return
      */
     public static void getMultiNativeAds(int reqAdNumber,
                                          String slotId,
                                          Context context,
-                                         CTImageType imageType,
+                                         CTImageRatioType imageRatioType,
                                          MultiAdsEventListener adListener)
 
 
     /**
      * Get banner style advertisement.
      * @param slotId 				banner advertisement space id
-     * @param isShowCloseButton 	the switch of close-button
+     * @param isShowCloseButton 		the switch of close-button
      * @param context				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
