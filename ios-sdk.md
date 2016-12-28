@@ -31,7 +31,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	
  	/**
      * Get CTNative Ad 
-     *
+     * Using inheritance CTNativeAd advertising View customize layout,
+       in prior to add to the parent View will return to the frame
+       and successful nativeModel assigned to a custom View.
      * @param slot_Id 		Cloud Tech Native AD ID
      * @param delegate		Set Delegate of Ad event(<CTNativeAdDelegate>)
      * @param WHRate 		Set Image Rate
@@ -49,7 +51,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	
     /**
      * Get Multiterm Element Native ADs 
-     *
+     * Using inheritance CTNativeAd advertising View customize layout,
+       in prior to add to the parent View will return to the frame
+       and successful nativeModel assigned to a custom View.
      * @param slot_Id		Cloud Tech Native AD ID
      * @param num			Request Ads number
      * @param delegate		Set Delegate of Ads event(<CTNativeAdDelegate>)
@@ -69,7 +73,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	
 	/**
      * Get Keywords Element Native ADs 
-     *
+     * Using inheritance CTNativeAd advertising View customize layout,
+       in prior to add to the parent View will return to the frame
+       and successful nativeModel assigned to a custom View.
      * @param slot_Id		Cloud Tech Native AD ID
      * @param delegate		Set Delegate of Ads event(<CTNativeAdDelegate>)
      * @param WHRate		Set Image Rate
