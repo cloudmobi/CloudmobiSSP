@@ -29,7 +29,7 @@
 
 * Update the module's build.gradle：
 
-```
+``` groovy
 	dependencies {
     	compile files('libs/cloudssp_xx.jar')
 	}
@@ -38,8 +38,7 @@
 
 * Update AndroidManifest.xml as below:
 
-
-```
+``` xml
     <!--Necessary Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -62,7 +61,7 @@
 
 * Add below rules for code obfuscation in proguard-rules.pro:
 
-```
+``` java
 	-keepclassmembers class * {
 		@android.webkit.JavascriptInterface <methods>;
 	}
@@ -84,7 +83,7 @@
 
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
-```
+``` java
 	public class MyCTAdEventListener implements CTAdEventListener {
 
     	@Override
@@ -148,15 +147,14 @@
 
 * The container and the layout for elements-Native ad:
 
-```
-	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
-	ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.advance_native_layout, null);
-
+``` java
+    ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
+    ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.advance_native_layout, null);
 ```
 
 * The method to load elements-Native Ads:
 
-```
+``` java
  	CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,
  				new MyCTAdEventListener(){
 
@@ -188,8 +186,7 @@
 
 * The layout defined for the elements-Native ads UI：
 
-```
-
+``` xml
 	<?xml version="1.0" encoding="utf-8"?>
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	xmlns:fresco="http://schemas.android.com/apk/res-auto"
@@ -262,11 +259,10 @@
 
 * Show the elements-Native ads
 
-```
-
+``` java
     private void showAd(CTAdvanceNative ctAdvanceNative) {
 
-	SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
+        SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
         SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
@@ -284,10 +280,8 @@
 
         // Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
 		ctAdvanceNative.addADLayoutToADContainer(adLayout);
-		//Optional. Set the ad click area,the default click area is the whole ad layout.
+		// Optional. Set the ad click area,the default click area is the whole ad layout.
 		ctAdvanceNative.registeADClickArea(adLayout);
-		//Necessary. send the impression log
-		ctAdvanceNative.notifySdkAdShowed();
 
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
@@ -308,7 +302,7 @@
 
 * Just the methods to load elements-Native ads is different from above.
 
-```
+``` java
 	List<String> keywords = new ArrayList<>();
     keywords.add("tools");
     keywords.add("games");
@@ -344,15 +338,13 @@
                     }
 
                 });
-
 ```
 
 #####The multi elements-Native ads interface
 
 * The method to load multi Native ads
 
-```
-
+``` java
 	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageRatioType.RATIO_19_TO_10,
 		new MultiAdsEventListener() {
 
@@ -366,14 +358,13 @@
                 Toast.makeText(context, result.getErrorsMsg(),Toast.LENGTH_SHORT).show();
             }
         });
-
 ```
 
 #####The template-Native ads interface
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
-```
+``` java
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 
  	CTService.getNative("your slotid", false, context,
@@ -404,15 +395,13 @@
                         super.onAdviewClosed(result);
                     }
                 });
-
 ```
-
 
 ###<a name="banner">Banner Ads Integration</a>
 
 * The method to load Banner Ads:
 
-```
+``` java
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 
   	CTService.getBanner("your slotid", false, context,
@@ -445,14 +434,13 @@
                 });
 ```
 
-
 ###<a name="interstitial">Interstitial Ads Integration</a>
 
 * Add the below Activity in AndroidManifest.xml for Interstitial Ads
 
- ```
+ ``` xml
         <activity
-        	android:name="com.cloudtech.ads.view.InterstitialActivity"
+            android:name="com.cloudtech.ads.view.InterstitialActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance">
         </activity>
@@ -460,8 +448,7 @@
 
 * The method to show Interstitial Ads
 
-```
-
+``` java
     CTService.preloadInterstitial("your slotid",true,context,
     		  new MyCTAdEventListener(){
 
@@ -485,73 +472,66 @@
                     }
 
                 });
-
 ```
-
-
 
 ###<a name="appwall">Appwall integration</a>
 
 * Update the module's build.gradle for Appwall：
 
-```
+``` groovy
 	dependencies {
-    		compile files('libs/cloudssp_xx.jar')
-    		compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
+        compile files('libs/cloudssp_xx.jar')
+        compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
 	}
 
 ```
 
 * Add the below Activity in AndroidManifest.xml for Appwall
 
-```
+``` xml
 	 <activity
-            android:name="com.cloudtech.appwall.AppwallActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"/>
+        android:name="com.cloudtech.appwall.AppwallActivity"
+        android:launchMode="singleInstance"
+        android:screenOrientation="portrait"/>
 ```
 
 * You should preloaded ads data for Appwall before show it.
 
-```
+``` java
     AppwallHelper.init(context, "your slotid");
-
 ```
-
 
 * Customize the appwall color theme(optional).
 
-```
+``` java
     CustomizeColor custimozeColor = new CustomizeColor();
     custimozeColor.setMainThemeColor(Color.parseColor("#ff0000ff"));
     AppwallHelper.setThemeColor(custimozeColor);
 ```
 
-
 * Show the Appwall.
 
-```
+``` java
     AppwallHelper.showAppwall(context, "your slotid");
-
 ```
 
 ### <a name="newsfeed">NewsFeed integration</a>
 
 * Update the module's build.gradle for NewsFeed：
 
-```
+``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_newsfeed_xx.jar')     // for newsfeed
+        // for newsfeed
+        compile files('libs/cloudssp_newsfeed_xx.jar')
         compile 'com.inveno:datasdk:latest.integration@aar'
         compile 'com.squareup.okhttp3:okhttp:3.4.2'
 	}
-
 ```
 
 * Add the below Activity in AndroidManifest.xml for NewsDetail
 
-```
+``` xml
 	 <activity
         android:name="com.cloudtech.newsfeed.ui.NewsDetailActivity"
         android:screenOrientation="portrait" />
@@ -559,14 +539,13 @@
 
 * You should initialize the newsfeed in application.
 
-```
+``` java
     NewsFeedHelper.initialize(context);
 ```
 
-
 * Customize the newsfeed color theme(optional).
 
-```
+``` java
     // set the theme color
     NewsFeedHelper.setCustomThemeColor(Color.parse("#FF0000"));
 
@@ -580,19 +559,33 @@
 
 * get the newsfeed fragment.
 
-```
+``` java
     // must import support:v4 -> Fragment
     // import android.support.v4.app.Fragment;
-    Fragment newsFeedFragment = NewsFeedHelper.createFragment("your slotid");
+    NewsFragment fragment = NewsFeedHelper.createFragment("your slotid");
 ```
 
+* Customize news item click listener
+
+``` java
+    // set on news item click callback
+    fragment.setOnNewsClickListener(new OnNewsClickListener() {
+       @Override
+       public void onNewItemClick(String detailUrl) {
+            // customize your action with detailUrl
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(detailUrl));
+            getContext().startActivity(intent);
+        }
+    });
+```
 
 ###<a name="api">SDK API Reference</a>
 
 
 ##### CTService: The calling interface for the SDK.
 
-```
+``` java
 
     /**
      * get elements ads
@@ -706,7 +699,7 @@
 
 ##### CTNative: A framelayout container view which hold the advertisement.
 
-```
+``` java
 
     /**
      * Get all error logs which return by the advertisement query process.
@@ -721,19 +714,13 @@
      */
     public boolean isLoaded()
 
-
-    /**
-     * Notify SDK that the AD has been showed to user.
-     */
-    public void notifySdkAdShowed()
-
 ```
 
 
 
 ##### CTAdvanceNative: An object which hold the elements of advertisment.
 
-```
+``` java
 
     /**
      * get the imageUrl of ads
@@ -794,8 +781,7 @@
 
 ##### CTAdEventListener: Call back interface for the advertisement loading process.
 
-```
-
+``` java
     /**
      * Load and render advertisement successful.
      */
@@ -845,7 +831,7 @@
 
 #####AppwallHelper: get the appwall ads
 
-```
+``` java
     /**
      * init the appwall
      * @param Context context
@@ -898,7 +884,7 @@
 |                    |                      |
 
 
-###<a name="release_notes">Release Notes</a>：
+### <a name="release_notes">Release Notes</a>：
 ##### Version 1.1.3
 1. Add the feature for customize the app wall colors.
 2. Fix a crash bug when call system service too frequently.
@@ -911,54 +897,56 @@
 5. (Bug fix)Some app wall ads ignore the user click event.
 
 ##### Version 1.2.0  [release date: 2016-12-23]
-1. [New feature]Add news feed
-2. [New feature]Continue improve the promote performance.
-3. [Bug]Update third party ads impression log logic.
-4. [Bug]Fix a crash issue when call system service getInstalledApplication.
+1. [New feature] Add news feed
+2. [New feature] Continue improve the promote performance.
+3. [Bug] Update third party ads impression log logic.
+4. [Bug] Fix a crash issue when call system service getInstalledApplication.
 
-###<a name="reference">About Facebook/Admob advertisement</a>：
-#####[Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
+##### Version 1.2.1  [release date: 2016-12-29]
+1. [New feature] Use more server side parameter for the promote logic.
+2. [New feature] In app wall, get title ad from integration api, so that it can show fb ads.
+3. [New feature] Auto ad impression for native ads.
+4. [New feature] Update newsfeed sdk; add the call back interface when user click the news.
+5. [New feature] Add the app’s version code when request ad from server.
+
+### <a name="reference">About Facebook/Admob advertisement</a>：
+##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
 * Notes: The cloudssp-sdk has group the facebook ads in native/banner /interstitial interface.
 
 * Add the audience-network-sdk in the module's build.gradle for facebook ads
 
-```
+``` groovy
 	dependencies {
     	compile 'com.facebook.android:audience-network-sdk:4.13.0'
 	}
-
 ```
 * Add the facebook placementid in ssp.
 
-#####[Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
+##### [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
 
 * Notes:The cloudssp-sdk has group the admob ads in banner/interstitial interface.
 
 * Add the firebase-ads in the module's build.gradle for admob ads
 
-```
+``` groovy
 	dependencies {
     	compile 'com.google.firebase:firebase-ads:9.0.2'
 	}
-
 ```
 * Add the below content in AndroidManifest.xml for admob ads
 
 ```
-      <meta-data
+    <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
-      <activity android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|
-            			screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
-
+    <activity android:name="com.google.android.gms.ads.AdActivity"
+        android:configChanges="keyboard|keyboardHidden|orientation|
+            screenLayout|uiMode|screenSize|smallestScreenSize"
+        android:theme="@android:style/Theme.Translucent" />
 ```
 
 * Add the admob unitid in ssp.
-
-
 
 ###<a name="eclipse">SDK Initialization with eclipse</a>
 
@@ -967,7 +955,7 @@
 * Add the Cloudssp SDK into target project folder /libs/ , and Add them to build path.
 * If you need group facebook/admob ads by Cloudssp SDK, you should add the related dependence in your project and add the corresponding id.
 
- ```
+ ``` 
  	//for facebook ads
 	AudienceNetwork.jar
 
@@ -984,7 +972,7 @@
 
 *  Update AndroidManifest.xml as below:
 
-```
+``` xml
 	<!--Necessary Permissions-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -1023,7 +1011,6 @@
         	android:configChanges="keyboard|keyboardHidden|orientation|
         			screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-
 ```
 
 * Add below rules for code obfuscation in proguard-project.txt:
@@ -1037,8 +1024,6 @@
 
 	-dontwarn com.google.android.**
 	-dontwarn com.facebook.ads.**
-
-
 ```
 
 
