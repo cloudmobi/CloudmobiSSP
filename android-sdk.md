@@ -909,6 +909,12 @@
 4. [New feature] Update newsfeed sdk; add the call back interface when user click the news.
 5. [New feature] Add the app’s version code when request ad from server.
 
+##### Version 1.2.2  [release date: 2017-01-059]
+1. [Feature] Integrate admob advance native ads.
+2. [Bug] Update the cache logic for ads in app wall.
+3. [Bug] Memory leaks issue when exit the app wall.
+4. [Feature] Now, news feed support early version of v4 library.
+
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
