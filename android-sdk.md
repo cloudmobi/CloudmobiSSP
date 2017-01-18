@@ -25,7 +25,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
-	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N	   |
+	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N        |
 
 * Update the module's build.gradle：
 
@@ -33,7 +33,6 @@
 	dependencies {
     	compile files('libs/cloudssp_xx.jar')
 	}
-
 ```
 
 * Update AndroidManifest.xml as below:
@@ -56,29 +55,49 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <service
+            android:name="com.cloudtech.ads.core.AdGuardService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
 ```
 
 * Add below rules for code obfuscation in proguard-rules.pro:
 
 ``` java
-	-keepclassmembers class * {
-		@android.webkit.JavascriptInterface <methods>;
-	}
+    #for sdk
+    -keep public class com.cloudtech.**{*;}
 
-	-keep class **.AdvertisingIdClient$** { *; }
+    #for gaid
+    -keep class **.AdvertisingIdClient$** { *; }
 
-	#for not group facebook/admob ads
-	-dontwarn com.google.android.**
-	-dontwarn com.facebook.ads.**
+    #for js and wwebview interface
+    -keepclassmembers class * {
+        @android.webkit.JavascriptInterface <methods>;
+    }
 
+    #for newsfeed
+    -dontwarn com.inveno.datasdk.**
+    -keep class com.inveno.datasdk.** {*;}
+    -dontwarn okio.**
+    -dontwarn com.squareup.okhttp.**
+
+    #for not group facebook/admob ads
+    -dontwarn com.google.android.**
+    -dontwarn com.facebook.ads.**
 ```
 
 
 
 ###<a name="note">Integration Notes</a>
 
-* Yor mobile phone needs install GooglePlay Service and GooglePlay Store.
+* Please make sure GooglePlay Service and Store are installed in your mobile.
+* The VPN is also needed for Ads request.
+* Init the SDK in your application.
+
+```
+    CTService.init(context, "one of your slotid");
+```
 * About the CTAdEventListerner
 
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
@@ -143,7 +162,7 @@
 
 ###<a name="native">Native Ads Integration</a>
 
-#####The single elements-Native ads interface
+##### The single elements-Native ads interface
 
 * The container and the layout for elements-Native ad:
 
@@ -269,7 +288,6 @@
         Button click = (Button)adLayout.findViewById(R.id.bt_click);
         SimpleDraweeView ad_choice_icon = (SimpleDraweeView)adLayout.findViewById(R.id.ad_choice_icon);
 
-
         img.setImageURI(Uri.parse(ctAdvanceNative.getImageUrl()));
         icon.setImageURI(Uri.parse(ctAdvanceNative.getIconUrl()));
         title.setText(ctAdvanceNative.getTitle());
@@ -277,12 +295,10 @@
         click.setText(ctAdvanceNative.getButtonStr());
         ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
-
-        // Mandatory. Add the customized ad layout to ad container,the caller must call this method to defince click behavior.
-		ctAdvanceNative.addADLayoutToADContainer(adLayout);
-		// Optional. Set the ad click area,the default click area is the whole ad layout.
-		ctAdvanceNative.registeADClickArea(adLayout);
-
+        // Mandatory. Add the customized ad layout to ad container.
+        ctAdvanceNative.addADLayoutToADContainer(adLayout);
+        // Optional. Set the ad click area,the default is the whole ad layout.
+	     ctAdvanceNative.registeADClickArea(adLayout);
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -306,8 +322,6 @@
 	List<String> keywords = new ArrayList<>();
     keywords.add("tools");
     keywords.add("games");
-    keywords.add("news");
-    keywords.add("vedios");
 
     CTService.getAdvanceNativeByKeywords("your slotid", context,
     		 CTImageRatioType.RATIO_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
@@ -588,6 +602,13 @@
 ``` java
 
     /**
+     * init the sdk
+     * @param context context
+     * @param slotId  one of your slotid
+     */
+    public static void init(Context context, String slotId)
+
+    /**
      * get elements ads
      *
      * @param slotId  			the id for cloudssp ads
@@ -856,6 +877,41 @@
 
 
 ```
+#####NewsFeedHelper: get the newsfeed fragment
+
+```
+    /**
+     * initialize the newsfeed function
+     * @param context  context
+     */
+    public static void initialize(Context context) 
+    
+    /**
+     * set up the title dip
+     * @param heightDip
+     */
+    public static void setCustomTitleHeightDip(int heightDip) 
+    
+    /**
+     * set up the title text color
+     * @param textColor
+     */
+    public static void setCustomTitleTextColor(int textColor) 
+
+    /**
+     * set up the theme color
+     * @param themeColor
+     */
+    public static void setCustomThemeColor(int themeColor)
+    
+    /**
+     * get the newsfeed fragment
+     * @param slotId  your slotid
+     * @return
+     */
+    public static NewsFragment createFragment(String slotId)
+    
+```
 
 ###<a name="errorcode">Error Code From SDK</a>：
 
@@ -915,6 +971,9 @@
 3. [Bug] Memory leaks issue when exit the app wall.
 4. [Feature] Now, news feed support early version of v4 library.
 
+##### Version 1.3.0  [release date: 2017-01-18]
+1. [Feature] Add CTService::init() API.
+
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
@@ -931,7 +990,7 @@
 
 ##### [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
 
-* Notes:The cloudssp-sdk has group the admob ads in banner/interstitial interface.
+* Notes:The cloudssp-sdk has group the admob ads in native/banner/interstitial interface.
 
 * Add the firebase-ads in the module's build.gradle for admob ads
 
@@ -962,19 +1021,30 @@
 * If you need group facebook/admob ads by Cloudssp SDK, you should add the related dependence in your project and add the corresponding id.
 
  ``` 
+    //for basic sdk
+    cloudssp_xx.jar
+    
+    //for appwall
+    cloudssp_appwall_xx.jar
+    
+    //for newsfeed
+    cloudssp_newsfeed_xx.jar
+    inveno-datasdk.jar
+    okhttp-3.4.2.jar
+    okio-1.9.0.jar
+ 
  	//for facebook ads
 	AudienceNetwork.jar
 
 	//for admob ads
 	google-play-services-ads-lite.jar
 	google-play-services-basement.jar
-
+	
 	//notes
 	If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
 	If you don't need the facebook or Admob ADs,the related dependence is not needed
 
  ```
-
 
 *  Update AndroidManifest.xml as below:
 
@@ -995,6 +1065,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <service
+            android:name="com.cloudtech.ads.core.AdGuardService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
 		<!--for cloudssp interstitial ads-->
         <activity android:name="com.cloudtech.ads.view.InterstitialActivity"
@@ -1022,14 +1096,27 @@
 * Add below rules for code obfuscation in proguard-project.txt:
 
 ```
-	-keepclassmembers class * {
-		@android.webkit.JavascriptInterface <methods>;
-	}
+	#for sdk
+    -keep public class com.cloudtech.**{*;}
 
-	-keep class **.AdvertisingIdClient$** { *; }
+    #for gaid
+    -keep class **.AdvertisingIdClient$** { *; }
 
-	-dontwarn com.google.android.**
-	-dontwarn com.facebook.ads.**
+    #for js and wwebview interface
+    -keepclassmembers class * {
+        @android.webkit.JavascriptInterface <methods>;
+    }
+
+    #for newsfeed
+    -dontwarn com.inveno.datasdk.**
+    -keep class com.inveno.datasdk.** {*;}
+    -dontwarn okio.**
+    -dontwarn com.squareup.okhttp.**
+
+    #for not group facebook/admob ads
+    -dontwarn com.google.android.**
+    -dontwarn com.facebook.ads.**
+
 ```
 
 
