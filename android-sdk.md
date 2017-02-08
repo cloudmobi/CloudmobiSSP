@@ -26,6 +26,7 @@
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N        |
+	| cloudssp_imageloader.jar   | imageloader for appwall/newsfeed   |     N        |
 
 * Update the module's build.gradle：
 
@@ -495,7 +496,8 @@
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_appwall_xx.jar')   // for appwall
+        compile files('libs/cloudssp_appwall_xx.jar')   // for appwall        
+        compile files('libs/cloudssp_imageloader.jar')   // imageloader for appwall
 	}
 
 ```
@@ -536,8 +538,8 @@
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        // for newsfeed
-        compile files('libs/cloudssp_newsfeed_xx.jar')
+        compile files('libs/cloudssp_newsfeed_xx.jar')   // for newsfeed
+        compile files('libs/cloudssp_imageloader.jar')   // imageloader for newsfeed
         compile 'com.inveno:datasdk:latest.integration@aar'
         compile 'com.squareup.okhttp3:okhttp:3.4.2'
 	}
@@ -973,6 +975,12 @@
 
 ##### Version 1.3.0  [release date: 2017-01-18]
 1. [Feature] Add CTService::init() API.
+
+##### Version 1.3.1  [release date: 2017-02-08]
+1. Remove some ambiguous log.
+2. Improve the network request.
+3. Fix a crash bug when SD card fails in some devices.
+4. Update impression logic according AD server log update.
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
