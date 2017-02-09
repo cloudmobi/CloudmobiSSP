@@ -6,7 +6,6 @@
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
-* [NewsFeed Integration](#newsfeed)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
@@ -25,8 +24,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
-	| cloudssp_newsfeed_xx.jar   | newsfeed functions   |     N        |
-	| cloudssp_imageloader.jar   | imageloader for appwall/newsfeed   |     N        |
+	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
 
 * Update the module's build.gradle：
 
@@ -76,12 +74,6 @@
     -keepclassmembers class * {
         @android.webkit.JavascriptInterface <methods>;
     }
-
-    #for newsfeed
-    -dontwarn com.inveno.datasdk.**
-    -keep class com.inveno.datasdk.** {*;}
-    -dontwarn okio.**
-    -dontwarn com.squareup.okhttp.**
 
     #for not group facebook/admob ads
     -dontwarn com.google.android.**
@@ -531,71 +523,6 @@
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-### <a name="newsfeed">NewsFeed integration</a>
-
-* Update the module's build.gradle for NewsFeed：
-
-``` groovy
-	dependencies {
-        compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_newsfeed_xx.jar')   // for newsfeed
-        compile files('libs/cloudssp_imageloader.jar')   // imageloader for newsfeed
-        compile 'com.inveno:datasdk:latest.integration@aar'
-        compile 'com.squareup.okhttp3:okhttp:3.4.2'
-	}
-```
-
-* Add the below Activity in AndroidManifest.xml for NewsDetail
-
-``` xml
-	 <activity
-        android:name="com.cloudtech.newsfeed.ui.NewsDetailActivity"
-        android:screenOrientation="portrait" />
-```
-
-* You should initialize the newsfeed in application.
-
-``` java
-    NewsFeedHelper.initialize(context);
-```
-
-* Customize the newsfeed color theme(optional).
-
-``` java
-    // set the theme color
-    NewsFeedHelper.setCustomThemeColor(Color.parse("#FF0000"));
-
-    // detail title color
-    NewsFeedHelper.setCustomTitleTextColor(Color.WHITE);
-
-    // detail title height(DIP)
-    NewsFeedHelper.setCustomTitleHeightDip(55);
-```
-
-
-* get the newsfeed fragment.
-
-``` java
-    // must import support:v4 -> Fragment
-    // import android.support.v4.app.Fragment;
-    NewsFragment fragment = NewsFeedHelper.createFragment("your slotid");
-```
-
-* Customize news item click listener
-
-``` java
-    // set on news item click callback
-    fragment.setOnNewsClickListener(new OnNewsClickListener() {
-       @Override
-       public void onNewItemClick(String detailUrl) {
-            // customize your action with detailUrl
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(detailUrl));
-            getContext().startActivity(intent);
-        }
-    });
-```
-
 ###<a name="api">SDK API Reference</a>
 
 
@@ -879,42 +806,6 @@
 
 
 ```
-#####NewsFeedHelper: get the newsfeed fragment
-
-```
-    /**
-     * initialize the newsfeed function
-     * @param context  context
-     */
-    public static void initialize(Context context) 
-    
-    /**
-     * set up the title dip
-     * @param heightDip
-     */
-    public static void setCustomTitleHeightDip(int heightDip) 
-    
-    /**
-     * set up the title text color
-     * @param textColor
-     */
-    public static void setCustomTitleTextColor(int textColor) 
-
-    /**
-     * set up the theme color
-     * @param themeColor
-     */
-    public static void setCustomThemeColor(int themeColor)
-    
-    /**
-     * get the newsfeed fragment
-     * @param slotId  your slotid
-     * @return
-     */
-    public static NewsFragment createFragment(String slotId)
-    
-```
-
 ###<a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
@@ -939,7 +830,6 @@
 | ERR\_017\_INTERSTITIAL_SHOW_NO_AD     | Try to load the interstitial advertisement, but the advertisement is not ready  |
 | ERR\_018\_AD_CLOSED  |Ad slotId has been closed|
 | ERR\_999\_OTHERS     | All other errors  |
-|                    |                      |
 
 
 ### <a name="release_notes">Release Notes</a>：
@@ -1034,12 +924,6 @@
     
     //for appwall
     cloudssp_appwall_xx.jar
-    
-    //for newsfeed
-    cloudssp_newsfeed_xx.jar
-    inveno-datasdk.jar
-    okhttp-3.4.2.jar
-    okio-1.9.0.jar
  
  	//for facebook ads
 	AudienceNetwork.jar
@@ -1114,12 +998,6 @@
     -keepclassmembers class * {
         @android.webkit.JavascriptInterface <methods>;
     }
-
-    #for newsfeed
-    -dontwarn com.inveno.datasdk.**
-    -keep class com.inveno.datasdk.** {*;}
-    -dontwarn okio.**
-    -dontwarn com.squareup.okhttp.**
 
     #for not group facebook/admob ads
     -dontwarn com.google.android.**
