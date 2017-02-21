@@ -872,6 +872,10 @@
 3. Fix a crash bug when SD card fails in some devices.
 4. Update impression logic according AD server log update.
 
+##### Version 1.4.0  [release date: 2017-02-21]
+1. Use the new Ad server address.
+2. Add a new api in CTAdvanceNative for unregister click area.
+
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
