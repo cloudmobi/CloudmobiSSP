@@ -1,4 +1,3 @@
-
 ###<a name="index">Index</a>
 * [SDK Initialization](#initialization)
 * [Integration Notes](#note)
@@ -11,7 +10,6 @@
 * [Release notes](#release_notes)
 * [About Facebook/Admob advertisement](#reference)
 * [SDK Initialization with eclipse](#eclipse)
-
 
 ###<a name="initialization">SDK Initialization</a>
 
@@ -29,39 +27,46 @@
 * Update the module's build.gradle：
 
 ``` groovy
-	dependencies {
-    	compile files('libs/cloudssp_xx.jar')
-	}
+dependencies {
+    compile files('libs/cloudssp_xx.jar')
+}
 ```
 
 * Update AndroidManifest.xml as below:
 
 ``` xml
-    <!--Necessary Permissions-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<!--Necessary Permissions-->
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 
-        <!-- Necessary-->
-        <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="com.cloudtech.action.InnerWebLanding" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
-        <service
-            android:name="com.cloudtech.ads.core.AdGuardService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+   <!-- Necessary-->
+   <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
+       android:launchMode="singleInstance">
+       <intent-filter>
+           <action android:name="com.cloudtech.action.InnerWebLanding" />
+           <category android:name="android.intent.category.DEFAULT" />
+       </intent-filter>
+   </activity>
+   
+   <service
+       android:name="com.cloudtech.ads.core.AdGuardService"
+       android:permission="android.permission.BIND_JOB_SERVICE"/>
 
 ```
 
-* Add below rules for code obfuscation in proguard-rules.pro:
+* Init the SDK in your application.
+
+```
+   CTService.init(getApplicationContext, "one of your slotid");
+```
+
+
+* Add below rules for code obfuscation in proguard-rules.pro.
 
 ``` java
     #for sdk
@@ -70,7 +75,7 @@
     #for gaid
     -keep class **.AdvertisingIdClient$** { *; }
 
-    #for js and wwebview interface
+    #for js and webview interface
     -keepclassmembers class * {
         @android.webkit.JavascriptInterface <methods>;
     }
@@ -80,19 +85,11 @@
     -dontwarn com.facebook.ads.**
 ```
 
-
-
 ###<a name="note">Integration Notes</a>
 
-* Please make sure GooglePlay Service and Store are installed in your mobile.
+* Make sure GooglePlay Store is installed in your mobile.
 * The VPN is also needed for Ads request.
-* Init the SDK in your application.
-
-```
-    CTService.init(context, "one of your slotid");
-```
-* About the CTAdEventListerner
-
+* About the CTAdEventListerner.
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
 ``` java
@@ -875,6 +872,12 @@
 ##### Version 1.4.0  [release date: 2017-02-21]
 1. Use the new Ad server address.
 2. Add a new api in CTAdvanceNative for unregister click area.
+
+##### Version 1.4.6 [release data: 2017-03-03]
+1. Admob advance native ads don't send impressions.
+2. Fix a accidental crash bug when android api version is 4.0.4.
+3. Appwall don't load ads, when use the appwall function only.
+
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
