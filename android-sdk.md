@@ -873,7 +873,7 @@ dependencies {
 1. Use the new Ad server address.
 2. Add a new api in CTAdvanceNative for unregister click area.
 
-##### Version 1.4.6 [release data: 2017-03-03]
+##### Version 1.4.6 [release data: 2017-03-08]
 1. Admob advance native ads don't send impressions.
 2. Fix a accidental crash bug when android api version is 4.0.4.
 3. Appwall don't load ads, when use the appwall function only.
