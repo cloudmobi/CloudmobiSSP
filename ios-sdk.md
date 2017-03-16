@@ -19,6 +19,7 @@
 * In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
 In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
 * Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
+* You should call _[[CTService shareManager] loadRequestGetCTSDKConfigBySlot\_id:@"slotID"]_ in didFinishLaunchingWithOptions Method
 * If you use Admob ADs,you should import Firebase SDK,then introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
 
 
@@ -208,6 +209,41 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	
 ```
 
+```
+/**
+     * Get Video Ad
+     * First,you must should Call (getVideoADswithSlotId:delegate:frame:isTest:success:failure:) method,Then get successs,call videoViewPlay:isMute: method show Video Ad！
+     * @param slot_Id		Cloud Tech AD ID
+     * @param delegate		Set Delegate of Ads event (<CTVideoDelegate>)
+     * @param frame 		Set frame for video Ad
+     * @param isTest		Use test advertisement or not
+     * @param success		The request is successful Block
+     * @param failure		The request failed Block, retuen error
+     */
+
+    -(void)getVideoADswithSlotId:(NSString *)slot_id
+                        delegate:(id)delegate
+                           frame:(CGRect)frame
+                          isTest:(BOOL)isTest
+                         success:(void (^)(UIView *videoView))success
+                         failure:(void (^)(NSError *error))failure;
+    
+    -(void)videoViewPlay:(UIView *)videoView  isMute:(BOOL)mute;
+
+
+/**
+     * Get RewardVideo Ad
+     * First,you must should Call (loadRewardVideoWithSlotId:delegate:) method get RewardVideo Ad！Then On his return to the success of the proxy method invokes the （showRewardVideo） method 
+     * @param slot_Id		Cloud Tech AD ID
+     * @param delegate		Set Delegate of Ads event (<CTRewardVideoDelegate>)
+     */
+
+    //Get Reward Video Ads
+    -(void)loadRewardVideoWithSlotId:(NSString *)slot_id delegate:(id)delegate;
+    //show Reward Video
+    -(void)showRewardVideo;
+
+```
 
 
 ###### CTNativeAdDelegate Class Methods：Call back interface for the advertisement loading process.
@@ -355,6 +391,79 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
  
 ```
+
+###### CTVideoDelegate Class Methods：Call back interface for the advertisement loading process.
+
+```
+/**
+ *  CTVideo bigin playing Ad
+ **/
+- (void)CTVideoStartPlay:(UIView *)videoView;
+/**
+ *  CTVideo playing Ad end
+ **/
+- (void)CTVideoPlayEnd:(UIView *)videoView;
+/**
+ *  CTVideo click Ad
+ **/
+- (void)CTVideoClicked:(UIView *)videoView;
+/**
+ *  CTVideo Ad DidLeaveApplication
+ **/
+- (void)CTVideoDidLeaveApplication:(UIView *)videoView;
+/**
+ *  CTVideo Ad Jumpfailed
+ **/
+- (void)CTVideoJumpfailed:(UIView *)videoView;
+
+```
+
+
+###### CTRewardVideoDelegate Class Methods：Call back interface for the advertisement loading process.
+
+```
+/**
+ *  CTRewardVideo load success
+ **/
+- (void)CTRewardVideoLoadSuccess;
+
+/**
+ *  CTRewardVideo bigin playing Ad
+ **/
+- (void)CTRewardVideoDidStartPlaying;
+
+/**
+ *  CTRewardVideo playing Ad finish
+ **/
+- (void)CTRewardVideoDidFinishPlaying;
+
+/**
+ *  CTRewardVideo Click Ads
+ **/
+- (void)CTRewardVideoDidClickRewardAd;
+
+/**
+ * CTRewardVideo will leave Application
+ **/
+- (void)CTRewardVideoWillLeaveApplication;
+
+/**
+ *  CTRewardVideo jump AppStroe failed
+ **/
+- (void)CTRewardVideoJumpfailed;
+
+/**
+ *  CTRewardVideo loading failed
+ **/
+- (void)CTRewardVideoLoadingFailed:(NSError *)error;
+
+/**
+ *  CTRewardVideo closed
+ **/
+- (void)CTRewardVideoClosed;
+
+```
+
 
 
 ###<a name="errorcode">Error Code From SDK</a>：
@@ -598,6 +707,44 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 ```
 
+#### CTVideoAd advertisement：
+```
+    [[CTService shareManager] getVideoADswithSlotId:@"260" delegate:self frame:CGRectMake(20, 100, self.view.frame.size.width - 40, (self.view.frame.size.width - 40)/1.8) isTest:YES success:^(UIView *videoView) {
+       NSLog(@"%@",NSStringFromCGRect(videoView.frame));
+       self.videoV = videoView;
+       [self.view addSubview:videoView];
+   } failure:^(NSError *error) {
+       
+   }];
+
+    - (void)CTVideoStartPlay:(UIView *)videoView
+    {
+        [[CTService shareManager] videoViewPlay:self.videoV isMute:NO];
+    }
+    - (void)closeAdView
+    {
+        [self.videoV removeFromSuperview];
+        self.videoV = nil;
+    }
+
+```
+
+#### CTRewardVideo advertisement：
+```
+    [[CTService shareManager] loadRewardVideoWithSlotId:@"260" delegate:self];
+
+    - (void)CTRewardVideoLoadSuccess
+    {
+        XPLog(@"CTRewardVideoLoadSuccess");
+        [[CTService shareManager] showRewardVideo];
+    }
+
+    - (void)CTRewardVideoLoadingFailed:(NSError *)error
+    {
+        XPLog(@"出错了%@",error.description);
+    }
+
+```
 
 
 ###<a name="reference">How to apply Facebook/Admob advertisement：</a>：
