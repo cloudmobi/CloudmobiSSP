@@ -5,6 +5,7 @@
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
+* [Reward Video Ad Integration](#rewardad)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
@@ -22,6 +23,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
+	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
 	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
 
 * Update the module's build.gradle：
@@ -520,6 +522,40 @@ dependencies {
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
+###<a name="rewardad">Reward Video Ad Integration</a>
+
+* Update the module's build.gradle for Video Ad：
+
+``` groovy
+	dependencies {
+        compile files('libs/cloudssp_xx.jar')
+        compile files('libs/cloudssp_videoads_xx.jar')   // for appwall
+        compile files('libs/cloudssp_imageloader.jar')   // imageloader for appwall
+	}
+
+```
+
+* Add the below Activity in AndroidManifest.xml for reward video AD
+
+``` xml
+        <activity android:name="com.cloudtech.videoads.api.CTInterstitialActivity"/>
+
+```
+
+* You should preload reward vidoe ad before show it.
+
+``` java
+    CTRewardInterstitialAd ctRewardInterstitialAd = CTRewardInterstitialAd.preload("your slotid", context, new CTAdEventListener);
+```
+
+* Show the reward video AD.
+
+``` java
+    if (ctRewardInterstitialAd.isReadyToDisplay()) {
+        ctRewardInterstitialAd.show(context, new VideoAdListener() {...}
+    }
+```
+
 ###<a name="api">SDK API Reference</a>
 
 
@@ -803,6 +839,59 @@ dependencies {
 
 
 ```
+
+#####CTRewardInterstitialAd: Reward video ad api
+
+``` java
+    /**
+     * preload one reward video ad
+     * @param Context context
+     * @param slotId     cloudtech Ads slot id
+     * @return a new instance of CTRewardInterstitialAdcloudtech
+     *
+     */
+    public static CTRewardInterstitialAd preload(String slotId, Context context, CTAdEventListener listener) {
+        return VideoAds.getRewardInterstitialAd(slotId, context, listener);
+    }
+
+    /**
+     * Show/Play the reward video
+     *
+     */
+    public void show(Context context) {
+        show(context, null);
+    }
+
+    /**
+     * Show/Play the reward video
+     * @param videoAdListener  callback of video play.
+     */
+    public void show(Context context, VideoAdListener videoAdListener)
+
+    /**
+     * get the reward video's lenght as second time unit.
+     * @return -1 -- length is not avaiable.
+     *
+     */
+    public int getVideoLengthAsSecond()
+
+    /**
+     * get the reward video's current play postion as second time unit.
+     * @return -1 -- current postion is not avaiable.
+     *
+     */
+    public int getCurrentVideoPositionAsSecond()
+
+    /**
+     * Wether the video is ready to play
+     * @return boolean   video ready or not.
+     *
+     */
+    public boolean isReadyToDisplay()
+
+
+```
+
 ###<a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
