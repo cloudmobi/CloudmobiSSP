@@ -967,6 +967,9 @@ dependencies {
 2. Fix a accidental crash bug when android api version is 4.0.4.
 3. Appwall don't load ads, when use the appwall function only.
 
+##### Version 1.4.8 [release data: 2017-03-17]
+1. Feature: add the vidoe ads module
+2. Feature: video ads support reward video ad
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
