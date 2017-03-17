@@ -529,8 +529,8 @@ dependencies {
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_videoads_xx.jar')   // for appwall
-        compile files('libs/cloudssp_imageloader.jar')   // imageloader for appwall
+        compile files('libs/cloudssp_videoads_xx.jar')
+        compile files('libs/cloudssp_imageloader.jar')
 	}
 
 ```
