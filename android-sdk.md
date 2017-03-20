@@ -1,4 +1,4 @@
-###<a name="index">Index</a>
+### <a name="index">Index</a>
 * [SDK Initialization](#initialization)
 * [Integration Notes](#note)
 * [Native Ads Integration](#native)
@@ -12,7 +12,9 @@
 * [About Facebook/Admob advertisement](#reference)
 * [SDK Initialization with eclipse](#eclipse)
 
-###<a name="initialization">SDK Initialization</a>
+
+
+### <a name="initialization">SDK Initialization</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
@@ -87,7 +89,7 @@ dependencies {
     -dontwarn com.facebook.ads.**
 ```
 
-###<a name="note">Integration Notes</a>
+### <a name="note">Integration Notes</a>
 
 * Make sure GooglePlay Store is installed in your mobile.
 * The VPN is also needed for Ads request.
@@ -152,7 +154,7 @@ dependencies {
 ```
 
 
-###<a name="native">Native Ads Integration</a>
+### <a name="native">Native Ads Integration</a>
 
 ##### The single elements-Native ads interface
 
@@ -306,7 +308,7 @@ dependencies {
 
 ```
 
-#####The single elements-Native ads interface with keywords
+##### The single elements-Native ads interface with keywords
 
 * Just the methods to load elements-Native ads is different from above.
 
@@ -346,7 +348,7 @@ dependencies {
                 });
 ```
 
-#####The multi elements-Native ads interface
+##### The multi elements-Native ads interface
 
 * The method to load multi Native ads
 
@@ -366,7 +368,7 @@ dependencies {
         });
 ```
 
-#####The template-Native ads interface
+##### The template-Native ads interface
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
@@ -403,7 +405,7 @@ dependencies {
                 });
 ```
 
-###<a name="banner">Banner Ads Integration</a>
+### <a name="banner">Banner Ads Integration</a>
 
 * The method to load Banner Ads:
 
@@ -440,7 +442,7 @@ dependencies {
                 });
 ```
 
-###<a name="interstitial">Interstitial Ads Integration</a>
+### <a name="interstitial">Interstitial Ads Integration</a>
 
 * Add the below Activity in AndroidManifest.xml for Interstitial Ads
 
@@ -480,7 +482,7 @@ dependencies {
                 });
 ```
 
-###<a name="appwall">Appwall integration</a>
+### <a name="appwall">Appwall integration</a>
 
 * Update the module's build.gradle for Appwall：
 
@@ -522,7 +524,7 @@ dependencies {
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-###<a name="rewardad">Reward Video Ad Integration</a>
+### <a name="rewardad">Reward Video Ad Integration</a>
 
 * Update the module's build.gradle for Video Ad：
 
@@ -556,7 +558,7 @@ dependencies {
     }
 ```
 
-###<a name="api">SDK API Reference</a>
+### <a name="api">SDK API Reference</a>
 
 
 ##### CTService: The calling interface for the SDK.
@@ -812,7 +814,7 @@ dependencies {
 
 ```
 
-#####AppwallHelper: get the appwall ads
+##### AppwallHelper: get the appwall ads
 
 ``` java
     /**
@@ -840,7 +842,7 @@ dependencies {
 
 ```
 
-#####CTRewardInterstitialAd: Reward video ad api
+##### CTRewardInterstitialAd: Reward video ad api
 
 ``` java
     /**
@@ -892,7 +894,7 @@ dependencies {
 
 ```
 
-###<a name="errorcode">Error Code From SDK</a>：
+### <a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -1010,7 +1012,7 @@ dependencies {
 
 * Add the admob unitid in ssp.
 
-###<a name="eclipse">SDK Initialization with eclipse</a>
+### <a name="eclipse">SDK Initialization with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
