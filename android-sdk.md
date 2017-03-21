@@ -1,17 +1,20 @@
-###<a name="index">Index</a>
+### <a name="index">Index</a>
 * [SDK Initialization](#initialization)
 * [Integration Notes](#note)
 * [Native Ads Integration](#native)
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
+* [Reward Video Ad Integration](#rewardad)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
 * [About Facebook/Admob advertisement](#reference)
 * [SDK Initialization with eclipse](#eclipse)
 
-###<a name="initialization">SDK Initialization</a>
+
+
+### <a name="initialization">SDK Initialization</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
@@ -22,6 +25,7 @@
 	| ------------------ 		  | -------------------- | --------     |
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
+	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
 	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
 
 * Update the module's build.gradle：
@@ -85,7 +89,7 @@ dependencies {
     -dontwarn com.facebook.ads.**
 ```
 
-###<a name="note">Integration Notes</a>
+### <a name="note">Integration Notes</a>
 
 * Make sure GooglePlay Store is installed in your mobile.
 * The VPN is also needed for Ads request.
@@ -150,7 +154,7 @@ dependencies {
 ```
 
 
-###<a name="native">Native Ads Integration</a>
+### <a name="native">Native Ads Integration</a>
 
 ##### The single elements-Native ads interface
 
@@ -304,7 +308,7 @@ dependencies {
 
 ```
 
-#####The single elements-Native ads interface with keywords
+##### The single elements-Native ads interface with keywords
 
 * Just the methods to load elements-Native ads is different from above.
 
@@ -344,7 +348,7 @@ dependencies {
                 });
 ```
 
-#####The multi elements-Native ads interface
+##### The multi elements-Native ads interface
 
 * The method to load multi Native ads
 
@@ -364,7 +368,7 @@ dependencies {
         });
 ```
 
-#####The template-Native ads interface
+##### The template-Native ads interface
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
@@ -401,7 +405,7 @@ dependencies {
                 });
 ```
 
-###<a name="banner">Banner Ads Integration</a>
+### <a name="banner">Banner Ads Integration</a>
 
 * The method to load Banner Ads:
 
@@ -438,7 +442,7 @@ dependencies {
                 });
 ```
 
-###<a name="interstitial">Interstitial Ads Integration</a>
+### <a name="interstitial">Interstitial Ads Integration</a>
 
 * Add the below Activity in AndroidManifest.xml for Interstitial Ads
 
@@ -478,7 +482,7 @@ dependencies {
                 });
 ```
 
-###<a name="appwall">Appwall integration</a>
+### <a name="appwall">Appwall integration</a>
 
 * Update the module's build.gradle for Appwall：
 
@@ -520,7 +524,41 @@ dependencies {
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-###<a name="api">SDK API Reference</a>
+### <a name="rewardad">Reward Video Ad Integration</a>
+
+* Update the module's build.gradle for Video Ad：
+
+``` groovy
+	dependencies {
+        compile files('libs/cloudssp_xx.jar')
+        compile files('libs/cloudssp_videoads_xx.jar')
+        compile files('libs/cloudssp_imageloader.jar')
+	}
+
+```
+
+* Add the below Activity in AndroidManifest.xml for reward video AD
+
+``` xml
+        <activity android:name="com.cloudtech.videoads.api.CTInterstitialActivity"/>
+
+```
+
+* You should preload reward vidoe ad before show it.
+
+``` java
+    CTRewardInterstitialAd ctRewardInterstitialAd = CTRewardInterstitialAd.preload("your slotid", context, new CTAdEventListener);
+```
+
+* Show the reward video AD.
+
+``` java
+    if (ctRewardInterstitialAd.isReadyToDisplay()) {
+        ctRewardInterstitialAd.show(context, new VideoAdListener() {...}
+    }
+```
+
+### <a name="api">SDK API Reference</a>
 
 
 ##### CTService: The calling interface for the SDK.
@@ -776,7 +814,7 @@ dependencies {
 
 ```
 
-#####AppwallHelper: get the appwall ads
+##### AppwallHelper: get the appwall ads
 
 ``` java
     /**
@@ -803,7 +841,60 @@ dependencies {
 
 
 ```
-###<a name="errorcode">Error Code From SDK</a>：
+
+##### CTRewardInterstitialAd: Reward video ad api
+
+``` java
+    /**
+     * preload one reward video ad
+     * @param Context context
+     * @param slotId     cloudtech Ads slot id
+     * @return a new instance of CTRewardInterstitialAdcloudtech
+     *
+     */
+    public static CTRewardInterstitialAd preload(String slotId, Context context, CTAdEventListener listener) {
+        return VideoAds.getRewardInterstitialAd(slotId, context, listener);
+    }
+
+    /**
+     * Show/Play the reward video
+     *
+     */
+    public void show(Context context) {
+        show(context, null);
+    }
+
+    /**
+     * Show/Play the reward video
+     * @param videoAdListener  callback of video play.
+     */
+    public void show(Context context, VideoAdListener videoAdListener)
+
+    /**
+     * get the reward video's lenght as second time unit.
+     * @return -1 -- length is not avaiable.
+     *
+     */
+    public int getVideoLengthAsSecond()
+
+    /**
+     * get the reward video's current play postion as second time unit.
+     * @return -1 -- current postion is not avaiable.
+     *
+     */
+    public int getCurrentVideoPositionAsSecond()
+
+    /**
+     * Wether the video is ready to play
+     * @return boolean   video ready or not.
+     *
+     */
+    public boolean isReadyToDisplay()
+
+
+```
+
+### <a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -878,6 +969,9 @@ dependencies {
 2. Fix a accidental crash bug when android api version is 4.0.4.
 3. Appwall don't load ads, when use the appwall function only.
 
+##### Version 1.4.8 [release data: 2017-03-17]
+1. Feature: add the vidoe ads module
+2. Feature: video ads support reward video ad
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
@@ -918,7 +1012,7 @@ dependencies {
 
 * Add the admob unitid in ssp.
 
-###<a name="eclipse">SDK Initialization with eclipse</a>
+### <a name="eclipse">SDK Initialization with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
