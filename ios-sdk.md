@@ -1,5 +1,5 @@
 
-###index
+### index
 * [SDK download and setup](#install)
 * [SDK Advanced API reference](#advancedApi)
 * [SDK Basic API reference](#basicApi)
@@ -8,7 +8,7 @@
 * [How to apply Facebook/Admob advertisement](#reference)
 
 
-###<a name="install">SDK download and setup</a>
+### <a name="install">SDK download and setup</a>
 * According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
 
 		FBAudienceNetwork.framework
@@ -23,7 +23,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 * If you use Admob ADs,you should import Firebase SDK,then introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
 
 
-###<a name="advancedApi">SDK Advanced API reference</a>
+### <a name="advancedApi">SDK Advanced API reference</a>
 
 ```
 	We recommend use CTNative Interface！！！
@@ -97,7 +97,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 ```
 
-###<a name="basicApi">SDK Basic API reference</a> 
+### <a name="basicApi">SDK Basic API reference</a> 
  
 
 ```                      
@@ -466,7 +466,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 
 
-###<a name="errorcode">Error Code From SDK</a>：
+### <a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -493,7 +493,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 |                    |                      |
 
 
-###<a name="sample">Sample code</a>
+### <a name="sample">Sample code</a>
 
 
 #### CTNative advertisement：
@@ -747,7 +747,7 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 ```
 
 
-###<a name="reference">How to apply Facebook/Admob advertisement：</a>：
+### <a name="reference">How to apply Facebook/Admob advertisement：</a>：
 * [Facebook Ad SDK Insert Description](https://developers.facebook.com/docs/audience-network)
 * [Google Admob Ad SDK Insert Description](https://firebase.google.com/docs/ios/setup)
 
