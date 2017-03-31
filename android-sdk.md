@@ -970,8 +970,15 @@ dependencies {
 3. Appwall don't load ads, when use the appwall function only.
 
 ##### Version 1.4.8 [release data: 2017-03-17]
-1. Feature: add the vidoe ads module
+1. Feature: add the video ads module
 2. Feature: video ads support reward video ad
+
+##### Version 1.5.0 [release data: 2017-03-30]
+
+0. Fix bug: do a workaround for Oppo phone's crash.
+1. Fix bug: resolve the bug about ConcurrentModification.
+2. Feature: Update impression logic.
+3. Feature: Add animation support when show app wall. 
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
