@@ -18,7 +18,7 @@
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
-* Select API 15: Android 4.0.3 or later.
+* Select API 14: Android 4.0 or later.
 * Add the Cloudssp SDK to your Project：
 
 	| jar name           		  | jar function         | require(Y/N) |
