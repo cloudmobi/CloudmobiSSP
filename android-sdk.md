@@ -980,6 +980,11 @@ dependencies {
 2. Feature: Update impression logic.
 3. Feature: Add animation support when show app wall. 
 
+##### Version 1.6.0 [release data: 2017-05-05]
+
+1. Upgrade video ad with cache feature.
+2. Support more vast track events.
+
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
