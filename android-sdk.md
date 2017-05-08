@@ -457,7 +457,7 @@ dependencies {
 * The method to show Interstitial Ads
 
 ``` java
-    CTService.preloadInterstitial("your slotid",true,context,
+    CTService.preloadInterstitial("your slotid",true,false,context,
     		  new MyCTAdEventListener(){
 
                     @Override
@@ -658,12 +658,14 @@ dependencies {
      * Preload interstitial advertisement
      * @param slotId 				interstitial advertisement space id
      * @param isShowCloseButton 	the switch of close-button
+     * @param isFullScreen          the switch of ad size
      * @param context 				Activity or application context.
      * @param adListener 			Callback for the advertisement load process.
      * @return 					An container view which include advertisement.
      */
     public static CTNative preloadInterstitial(String slotId,
                                                boolean isShowCloseButton,
+                                               boolean isFullScreen,
                                                Context context,
                                                CTAdEventListener adListener)
 
@@ -984,6 +986,8 @@ dependencies {
 
 1. Upgrade video ad with cache feature.
 2. Support more vast track events.
+3. Interstitisl-ads support two sizes: fullscreen\notfullscreen
+4. Fix bug: the template can be null for advanceNative slotid.
 
 ### <a name="reference">About Facebook/Admob advertisement</a>：
 ##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
