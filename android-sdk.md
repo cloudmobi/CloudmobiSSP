@@ -1,4 +1,4 @@
-### <a name="index">Index</a>
+## <a name="index">Index</a>
 * [SDK Initialization](#initialization)
 * [Integration Notes](#note)
 * [Native Ads Integration](#native)
@@ -14,7 +14,7 @@
 
 
 
-### <a name="initialization">SDK Initialization</a>
+## <a name="initialization">SDK Initialization</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
@@ -89,7 +89,7 @@ dependencies {
     -dontwarn com.facebook.ads.**
 ```
 
-### <a name="note">Integration Notes</a>
+## <a name="note">Integration Notes</a>
 
 * Make sure GooglePlay Store is installed in your mobile.
 * The VPN is also needed for Ads request.
@@ -97,7 +97,7 @@ dependencies {
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
 ``` java
-	public class MyCTAdEventListener implements CTAdEventListener {
+public class MyCTAdEventListener implements CTAdEventListener {
 
     	@Override
     	public void onAdviewGotAdSucceed(CTNative result) {
@@ -154,9 +154,9 @@ dependencies {
 ```
 
 
-### <a name="native">Native Ads Integration</a>
+## <a name="native">Native Ads Integration</a>
 
-##### The single elements-Native ads interface
+### The single elements-Native ads interface
 
 * The container and the layout for elements-Native ad:
 
@@ -308,7 +308,7 @@ dependencies {
 
 ```
 
-##### The single elements-Native ads interface with keywords
+### The single elements-Native ads interface with keywords
 
 * Just the methods to load elements-Native ads is different from above.
 
@@ -348,7 +348,7 @@ dependencies {
                 });
 ```
 
-##### The multi elements-Native ads interface
+### The multi elements-Native ads interface
 
 * The method to load multi Native ads
 
@@ -368,7 +368,7 @@ dependencies {
         });
 ```
 
-##### The template-Native ads interface
+### The template-Native ads interface
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
@@ -405,7 +405,7 @@ dependencies {
                 });
 ```
 
-### <a name="banner">Banner Ads Integration</a>
+## <a name="banner">Banner Ads Integration</a>
 
 * The method to load Banner Ads:
 
@@ -442,7 +442,7 @@ dependencies {
                 });
 ```
 
-### <a name="interstitial">Interstitial Ads Integration</a>
+## <a name="interstitial">Interstitial Ads Integration</a>
 
 * Add the below Activity in AndroidManifest.xml for Interstitial Ads
 
@@ -482,7 +482,7 @@ dependencies {
                 });
 ```
 
-### <a name="appwall">Appwall integration</a>
+## <a name="appwall">Appwall integration</a>
 
 * Update the module's build.gradle for Appwall：
 
@@ -524,7 +524,7 @@ dependencies {
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-### <a name="rewardad">Reward Video Ad Integration</a>
+## <a name="rewardad">Reward Video Ad Integration</a>
 
 * Update the module's build.gradle for Video Ad：
 
@@ -558,10 +558,10 @@ dependencies {
     }
 ```
 
-### <a name="api">SDK API Reference</a>
+## <a name="api">SDK API Reference</a>
 
 
-##### CTService: The calling interface for the SDK.
+#### CTService: The calling interface for the SDK.
 
 ``` java
 
@@ -684,7 +684,7 @@ dependencies {
 ```
 
 
-##### CTNative: A framelayout container view which hold the advertisement.
+#### CTNative: A framelayout container view which hold the advertisement.
 
 ``` java
 
@@ -705,7 +705,7 @@ dependencies {
 
 
 
-##### CTAdvanceNative: An object which hold the elements of advertisment.
+#### CTAdvanceNative: An object which hold the elements of advertisment.
 
 ``` java
 
@@ -766,7 +766,7 @@ dependencies {
 ```
 
 
-##### CTAdEventListener: Call back interface for the advertisement loading process.
+#### CTAdEventListener: Call back interface for the advertisement loading process.
 
 ``` java
     /**
@@ -816,7 +816,7 @@ dependencies {
 
 ```
 
-##### AppwallHelper: get the appwall ads
+#### AppwallHelper: get the appwall ads
 
 ``` java
     /**
@@ -844,7 +844,7 @@ dependencies {
 
 ```
 
-##### CTRewardInterstitialAd: Reward video ad api
+#### CTRewardInterstitialAd: Reward video ad api
 
 ``` java
     /**
@@ -896,7 +896,7 @@ dependencies {
 
 ```
 
-### <a name="errorcode">Error Code From SDK</a>：
+## <a name="errorcode">Error Code From SDK</a>：
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -922,7 +922,8 @@ dependencies {
 | ERR\_999\_OTHERS     | All other errors  |
 
 
-### <a name="release_notes">Release Notes</a>：
+## <a name="release_notes">Release Notes</a>
+
 ##### Version 1.1.3
 1. Add the feature for customize the app wall colors.
 2. Fix a crash bug when call system service too frequently.
@@ -989,8 +990,8 @@ dependencies {
 3. Interstitisl-ads support two sizes: fullscreen\notfullscreen
 4. Fix bug: the template can be null for advanceNative slotid.
 
-### <a name="reference">About Facebook/Admob advertisement</a>：
-##### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
+## <a name="reference">About Facebook/Admob advertisement</a>：
+#### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 
 * Notes: The cloudssp-sdk has group the facebook ads in native/banner /interstitial interface.
 
@@ -1003,7 +1004,7 @@ dependencies {
 ```
 * Add the facebook placementid in ssp.
 
-##### [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
+#### [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
 
 * Notes:The cloudssp-sdk has group the admob ads in native/banner/interstitial interface.
 
@@ -1028,7 +1029,7 @@ dependencies {
 
 * Add the admob unitid in ssp.
 
-### <a name="eclipse">SDK Initialization with eclipse</a>
+## <a name="eclipse">SDK Initialization with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
