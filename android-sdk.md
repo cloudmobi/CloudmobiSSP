@@ -995,6 +995,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
 1. support facebook-audience-network 4.22.0
 2. Fix bug: Reward Video continue play when back from background.
 
+##### Version 1.6.6 [release data: 2017-05-17]
+
+1. Fix two bugs for reward video
+2. update the eclpise sample
+
 
 ## <a name="reference">About Facebook/Admob advertisement</a>：
 #### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
