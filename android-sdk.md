@@ -13,7 +13,6 @@
 * [SDK Initialization with eclipse](#eclipse)
 
 
-
 ## <a name="initialization">SDK Initialization</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
@@ -26,13 +25,15 @@
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
+	| cloudssp_imageloader_xx.jar   | imageloader functions  |     N        |
 
 * Update the module's build.gradle：
 
 ``` groovy
 dependencies {
     compile files('libs/cloudssp_xx.jar')
+    compile files('libs/cloudssp_imageloader_xx.jar')
+    //Optional, for pre-ImageLoad of elements-Native ads interface.
 }
 ```
 
@@ -196,78 +197,40 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 
 ```
+* The method to load elements-Native Ads with pre-ImageLoad
 
-* The layout defined for the elements-Native ads UI：
+``` java 
 
-``` xml
-	<?xml version="1.0" encoding="utf-8"?>
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    	android:layout_width="match_parent"
-    	android:layout_height="match_parent">
+        CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
+            CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
+                @Override
+                public void onAdviewGotAdSucceed(CTNative result) {
+                    if (result == null) {
+                        return;
+                    }
+                    YeLog.e("onAdviewGotAdSucceed");
+                    CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
+                    showAd(ctAdvanceNative);
+                    super.onAdviewGotAdSucceed(result);
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/iv_img"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@mipmap/ic_launcher"
-        fresco:placeholderImage="@mipmap/ic_launcher" />
+                }
 
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_img"
-        android:layout_margin="5dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/iv_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@mipmap/ic_launcher"
-            fresco:placeholderImage="@mipmap/ic_launcher" />
+                @Override
+                public void onAdviewGotAdFail(CTNative result) {
+                    YeLog.e("onAdviewGotAdFail");
+                    super.onAdviewGotAdFail(result);
+                }
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/iv_icon"
-            android:singleLine="true"
-            android:text="title"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18dp" />
 
-    </RelativeLayout>
+                @Override
+                public void onAdviewClicked(CTNative result) {
+                    YeLog.e("onAdviewClicked");
+                    super.onAdviewClicked(result);
+                }
 
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_title"
-        android:layout_margin="5dp"
-        android:lines="5"
-        android:text="desc"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15dp" />
-
-    <Button
-        android:id="@+id/bt_click"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp" />
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/ad_choice_icon"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        fresco:placeholderImage="@mipmap/ic_launcher" />
-
-	</RelativeLayout>
-
+            });
+    
 ```
 
 * Show the elements-Native ads
@@ -275,24 +238,29 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` java
     private void showAd(CTAdvanceNative ctAdvanceNative) {
 
-        SimpleDraweeView img = (SimpleDraweeView)adLayout.findViewById(R.id.iv_img);
-        SimpleDraweeView icon = (SimpleDraweeView)adLayout.findViewById(R.id.iv_icon);
+        ImageView img = (ImageView) adLayout.findViewById(R.id.iv_img);
+        ImageView icon = (ImageView) adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
         Button click = (Button)adLayout.findViewById(R.id.bt_click);
-        SimpleDraweeView ad_choice_icon = (SimpleDraweeView)adLayout.findViewById(R.id.ad_choice_icon);
-
-        img.setImageURI(Uri.parse(ctAdvanceNative.getImageUrl()));
-        icon.setImageURI(Uri.parse(ctAdvanceNative.getIconUrl()));
+        ImageView ad_choice_icon = (ImageView)adLayout.findViewById(R.id.ad_choice_icon);
+        
+        //if you use the common api for ads, you can get the url and load image yourself.
+        String imageUrl = ctAdvanceNative.getImageUrl();
+        String iconUrl = ctAdvanceNative.getIconUrl();        
+        
+        //If your use the pre-ImageLoad api for ads, you can show the iamge as this：
+        ctAdvanceNative.setIconImage(icon);
+        ctAdvanceNative.setLargeImage(img);
+         
         title.setText(ctAdvanceNative.getTitle());
         desc.setText(ctAdvanceNative.getDesc());
         click.setText(ctAdvanceNative.getButtonStr());
-        ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
         // Mandatory. Add the customized ad layout to ad container.
         ctAdvanceNative.addADLayoutToADContainer(adLayout);
         // Optional. Set the ad click area,the default is the whole ad layout.
-	     ctAdvanceNative.registeADClickArea(adLayout);
+        ctAdvanceNative.registeADClickArea(adLayout);
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
             @Override
