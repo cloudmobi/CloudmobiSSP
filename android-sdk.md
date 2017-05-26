@@ -509,7 +509,9 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 * Add the below Activity in AndroidManifest.xml for reward video AD
 
 ``` xml
-        <activity android:name="com.cloudtech.videoads.api.CTInterstitialActivity"/>
+    <activity 
+        android:name="com.cloudtech.videoads.api.CTInterstitialActivity"
+        android:screenOrientation="landscape"/>
 
 ```
 
