@@ -5,12 +5,13 @@
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall Integration](#appwall)
-* [Reward Video Integration](#rewardad)
+* [Reward Video Ad Integration](#rewardad)
 * [SDK API reference](#api)
 * [SDK error code table](#errorcode)
 * [Release notes](#release_notes)
 * [About Facebook/Admob advertisement](#reference)
 * [SDK Initialization with eclipse](#eclipse)
+
 
 
 ## <a name="initialization">SDK Initialization</a>
@@ -25,14 +26,13 @@
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_imageloader_xx.jar   | imageloader functions  |     N        |
+	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
 
 * Update the module's build.gradle：
 
 ``` groovy
 dependencies {
     compile files('libs/cloudssp_xx.jar')
-    compile files('libs/cloudssp_imageloader_xx.jar') //Optional, for pre-ImageLoad of elements-Native ads interface.
 }
 ```
 
@@ -91,13 +91,10 @@ dependencies {
 
 ## <a name="note">Integration Notes</a>
 
-* Make sure _**GooglePlay**_ is installed in your mobile.
-
-* The _**VPN**_ is also needed for Ads request.
-
-* About the CTAdEventListerner.  
-
- We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
+* Make sure GooglePlay Store is installed in your mobile.
+* The VPN is also needed for Ads request.
+* About the CTAdEventListerner.
+   We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
 ``` java
 public class MyCTAdEventListener implements CTAdEventListener {
@@ -199,12 +196,12 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 
 ```
-* The method to load elements-Native Ads with pre-ImageLoad
+* The method to load elements-Native Ads with Auto Load Image Cache
 
 ``` java 
 
-CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,      
-        true, new MyCTAdEventListener() {
+        CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
+            CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
                 @Override
                 public void onAdviewGotAdSucceed(CTNative result) {
                     if (result == null) {
@@ -212,7 +209,7 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
                     }
                     YeLog.e("onAdviewGotAdSucceed");
                     CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
-                    showAd(ctAdvanceNative);
+                    showAdWithImageload(ctAdvanceNative);
                     super.onAdviewGotAdSucceed(result);
 
                 }
@@ -247,22 +244,20 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
         Button click = (Button)adLayout.findViewById(R.id.bt_click);
         ImageView ad_choice_icon = (ImageView)adLayout.findViewById(R.id.ad_choice_icon);
         
-        //if you use the common api for ads, you can get the url and load image yourself.
+        // use your ImageLoader to show the image 
         String imageUrl = ctAdvanceNative.getImageUrl();
         String iconUrl = ctAdvanceNative.getIconUrl();        
         
-        //If your use the pre-ImageLoad api for ads, you can show the iamge as this：
-        ctAdvanceNative.setIconImage(icon);
-        ctAdvanceNative.setLargeImage(img);
-         
+        // use sdk internal api to show the image 
         title.setText(ctAdvanceNative.getTitle());
         desc.setText(ctAdvanceNative.getDesc());
         click.setText(ctAdvanceNative.getButtonStr());
+        ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
         // Mandatory. Add the customized ad layout to ad container.
         ctAdvanceNative.addADLayoutToADContainer(adLayout);
         // Optional. Set the ad click area,the default is the whole ad layout.
-        ctAdvanceNative.registeADClickArea(adLayout);
+	     ctAdvanceNative.registeADClickArea(adLayout);
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -459,8 +454,8 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_appwall_xx.jar')     // for appwall        
-        compile files('libs/cloudssp_imageloader_xx.jar') // imageloader for appwall
+        compile files('libs/cloudssp_appwall_xx.jar')   // for appwall        
+        compile files('libs/cloudssp_imageloader.jar')   // imageloader for appwall
 	}
 
 ```
@@ -470,6 +465,7 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 ``` xml
 	 <activity
         android:name="com.cloudtech.appwall.AppwallActivity"
+        android:launchMode="singleInstance"
         android:screenOrientation="portrait"/>
 ```
 
@@ -501,7 +497,7 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_videoads_xx.jar')
-        compile files('libs/cloudssp_imageloader_xx.jar')
+        compile files('libs/cloudssp_imageloader.jar')
 	}
 
 ```
@@ -509,16 +505,14 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 * Add the below Activity in AndroidManifest.xml for reward video AD
 
 ``` xml
-    <activity 
-        android:name="com.cloudtech.videoads.api.CTInterstitialActivity"
-        android:screenOrientation="landscape"/>
+        <activity android:name="com.cloudtech.videoads.api.CTInterstitialActivity"/>
 
 ```
 
 * You should preload reward vidoe ad before show it.
 
 ``` java
-    CTRewardInterstitialAd ctRewardInterstitialAd = CTRewardInterstitialAd.preload("your slotid", context, new CTAdEventListener);
+    CTRewardInterstitialAd ctRewardInterstitialAd = CTRewardInterstitialAd.preload("your slotid", context, false, new CTAdEventListener() {...});
 ```
 
 * Show the reward video AD.
@@ -548,7 +542,7 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param imageRatioType  	the imageType you want(1.9:1 or 1:1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adListener  		callback for the advertisement load process
      * @return				    the object to get the elements
@@ -560,29 +554,11 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 
 
     /**
-     * get elements ads with pre-ImageLoad
-     *
-     * @param slotId  			the id for cloudssp ads
-     * @param context  			context
-     * @param imageRatioType  	the imageType you want(1.9:1 or 1:1)
-     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param autoLoadImage     pre-ImageLoad or not	
-     * @param adListener  		callback for the advertisement load process
-     * @return				    the object to get the elements
-     */
-    public static CTAdvanceNative getAdvanceNative(String slotId,
-                                                   Context context,
-                                                   CTImageRatioType imageRatioType,
-                                                   boolean autoLoadImage,
-                                                   CTAdEventListener adListener) 
-
-
-    /**
      * get elements ads by keywords or category
      *
      * @param slotId  			the id for cloudssp ads
      * @param context  			context
-     * @param imageRatioType  	the imageType you want(1.9:1 or 1:1)
+     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
      * @param adsCat     		the adsCategory you want(default,games,tools)
      		(TYPE_DEFAULT / TYPE_GAME / TYPE_TOOL)
@@ -737,16 +713,6 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 	 * get the adChoiceLinkUrl of ads
 	 */
     public String getAdChoiceLinkUrl()
-    
-    /**
-     * show the icon if use the pre-ImageLoad api.
-     */
-    public void setIconImage(ImageView icon)
-
-    /**
-     * show the image if use the pre-ImageLoad api.
-     */
-    public void setLargeImage(ImageView largeImage)
 
     /**
      * Add AD layout to AD container
@@ -999,10 +965,13 @@ CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_1
 1. Fix two bugs for reward video
 2. update the eclpise sample
 
-##### Version 1.6.7 [release data:2017-05-24]
+##### Version 1.6.7 [release data: 2017-05-24]
 
-1. Fix bug：RewardVideo send mutil log for impression and click.
-2. add the pre-ImageLoad function for getAdvanceNative().
+1. add preload image cache for Advance Native Ad
+
+##### Version 1.7.0 [release data: 2017-06-02]
+
+1. update layout for reward video finish
 
 ## <a name="reference">About Facebook/Admob advertisement</a>：
 #### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
