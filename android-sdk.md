@@ -26,7 +26,7 @@
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_imageloader.jar   | imageloader for appwall  |     N        |
+	| cloudssp_imageloader.jar   | imageloader functions  |     N        |
 
 * Update the module's build.gradle：
 
@@ -41,14 +41,15 @@ dependencies {
 ``` xml
 <!--Necessary Permissions-->
 <uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!--Optional Permissions-->
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 
-   <!-- Necessary-->
+   <!--Necessary-->
    <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
        android:launchMode="singleInstance">
        <intent-filter>
@@ -91,8 +92,12 @@ dependencies {
 
 ## <a name="note">Integration Notes</a>
 
-* Make sure GooglePlay Store is installed in your mobile.
-* The VPN is also needed for Ads request.
+
+* Two permises are need for Cloudmobi ads.
+    
+    1. **GooglePlay** is installed on your mobile.
+    2. **VPN** is needed for ads.
+    
 * About the CTAdEventListerner.
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
@@ -196,11 +201,17 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 
 ```
-* The method to load elements-Native Ads with Auto Load Image Cache
+* The method to load elements-Native Ads with preload image and icon.
 
 ``` java 
+        
+    dependencies {
+        compile files('libs/cloudssp_xx.jar')       
+        compile files('libs/cloudssp_imageloader_xx.jar')   // for preload
+    }   
 
-        CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
+
+    CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
             CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
                 @Override
                 public void onAdviewGotAdSucceed(CTNative result) {
@@ -211,9 +222,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
                     CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
                     showAdWithImageload(ctAdvanceNative);
                     super.onAdviewGotAdSucceed(result);
-
                 }
-
 
                 @Override
                 public void onAdviewGotAdFail(CTNative result) {
@@ -248,16 +257,19 @@ public class MyCTAdEventListener implements CTAdEventListener {
         String imageUrl = ctAdvanceNative.getImageUrl();
         String iconUrl = ctAdvanceNative.getIconUrl();        
         
-        // use sdk internal api to show the image 
+        // use sdk api to show the preloaded image 
+        ctAdvanceNative.setIconImage(icon);
+        ctAdvanceNative.setLargeImage(img);
+        
         title.setText(ctAdvanceNative.getTitle());
         desc.setText(ctAdvanceNative.getDesc());
         click.setText(ctAdvanceNative.getButtonStr());
         ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
         // Mandatory. Add the customized ad layout to ad container.
-        ctAdvanceNative.addADLayoutToADContainer(adLayout);
+ctAdvanceNative.addADLayoutToADContainer(adLayout);
         // Optional. Set the ad click area,the default is the whole ad layout.
-	     ctAdvanceNative.registeADClickArea(adLayout);
+	    ctAdvanceNative.registeADClickArea(adLayout);
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -455,7 +467,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_appwall_xx.jar')   // for appwall        
-        compile files('libs/cloudssp_imageloader.jar')   // imageloader for appwall
+        compile files('libs/cloudssp_imageloader_xx.jar')   // imageloader for appwall
 	}
 
 ```
@@ -497,15 +509,17 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_videoads_xx.jar')
-        compile files('libs/cloudssp_imageloader.jar')
+        compile files('libs/cloudssp_imageloader_xx.jar')
 	}
 
 ```
 
 * Add the below Activity in AndroidManifest.xml for reward video AD
 
-``` xml
-        <activity android:name="com.cloudtech.videoads.api.CTInterstitialActivity"/>
+``` xml    
+    <activity 
+        android:name="com.cloudtech.videoads.api.CTInterstitialActivity"
+        android:screenOrientation="landscape"/>
 
 ```
 
@@ -540,19 +554,36 @@ public class MyCTAdEventListener implements CTAdEventListener {
     /**
      * get elements ads
      *
-     * @param slotId  			the id for cloudssp ads
-     * @param context  			context
-     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
+     * @param slotId  			 the id for cloudssp ads
+     * @param context  		 context
+     * @param imageRatioType  the imageType you want(1.9:1 or 1:1)
      		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param adListener  		callback for the advertisement load process
-     * @return				    the object to get the elements
+     * @param adListener  	callback for the advertisement load process
+     * @return				      the object to get the elements
      */
     public static CTAdvanceNative getAdvanceNative(String slotId,
                                                    Context context,
-                                                   CTImageRatioType imageRatioType,
+                                                   CTImageRatioType imageType,
                                                    CTAdEventListener adListener)
 
 
+     /**
+     * get elements ads with preload image and icon
+     *
+     * @param slotId  			 the id for cloudssp ads
+     * @param context  		 context
+     * @param imageRatioType  the imageType you want(1.9:1 or 1:1)
+     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
+     * @param autoLoadImage   switch for preload image
+     * @param adListener  	 callback for the advertisement load process
+     * @return				       the object to get the elements
+     */
+    public static CTAdvanceNative getAdvanceNative(String slotId,
+                                                   Context context,
+                                                   CTImageRatioType imageType,
+                                                   boolean autoLoadImage,
+                                                   CTAdEventListener adListener)
+                                                   
     /**
      * get elements ads by keywords or category
      *
@@ -568,7 +599,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
      */
     public static CTAdvanceNative getAdvanceNativeByKeyword(String slotId,
                                                    Context context,
-                                                   CTImageRatioType imageRatioType,
+                                                   CTImageRatioType imageType,
                                                    CTAdsCat adsCat,
                                                    List<String> keywords,
                                                    CTAdEventListener adListener)
@@ -728,6 +759,17 @@ public class MyCTAdEventListener implements CTAdEventListener {
      */
     public void registeADClickArea(View adLayout)
 
+    /**
+     * set the preload Icon
+     */
+    public void setIconImage(ImageView icon)
+
+    /**
+     * set the preload Image
+     */
+    public void setLargeImage(ImageView largeImage)
+
+
 ```
 
 
@@ -816,10 +858,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
      * preload one reward video ad
      * @param Context context
      * @param slotId     cloudtech Ads slot id
+     * @param isVertical  the orientation of dialog after video 
      * @return a new instance of CTRewardInterstitialAdcloudtech
      *
      */
-    public static CTRewardInterstitialAd preload(String slotId, Context context, CTAdEventListener listener) {
+    public static CTRewardInterstitialAd preload(String slotId, Context context, boolean isVertical, CTAdEventListener listener) {
         return VideoAds.getRewardInterstitialAd(slotId, context, listener);
     }
 
