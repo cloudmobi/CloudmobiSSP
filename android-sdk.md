@@ -267,7 +267,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
         ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
         // Mandatory. Add the customized ad layout to ad container.
-ctAdvanceNative.addADLayoutToADContainer(adLayout);
+        ctAdvanceNative.addADLayoutToADContainer(adLayout);
         // Optional. Set the ad click area,the default is the whole ad layout.
 	    ctAdvanceNative.registeADClickArea(adLayout);
 
@@ -1015,6 +1015,11 @@ ctAdvanceNative.addADLayoutToADContainer(adLayout);
 ##### Version 1.7.0 [release data: 2017-06-02]
 
 1. update layout for reward video finish
+
+##### Version 1.7.2 [release data: 2017-06-20]
+
+1. Fix bugs: Reward video progress bar.
+2. Fix bugs: not show dialog after Reward video finished.
 
 ## <a name="reference">About Facebook/Admob advertisement</a>：
 #### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
