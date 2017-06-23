@@ -76,6 +76,7 @@ dependencies {
 ``` java
     #for sdk
     -keep public class com.cloudtech.**{*;}
+    -dontwarn com.cloudtech.**
 
     #for gaid
     -keep class **.AdvertisingIdClient$** { *; }
