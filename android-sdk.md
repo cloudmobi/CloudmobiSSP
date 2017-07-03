@@ -26,7 +26,7 @@
 	| cloudssp_xx.jar    		  | basic functions      |     Y        |
 	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
 	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_imageloader.jar   | imageloader functions  |     N        |
+	| cloudssp_imageloader_xx.jar   | imageloader functions  |     N        |
 
 * Update the module's build.gradle：
 
@@ -109,6 +109,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
     	public void onAdviewGotAdSucceed(CTNative result) {
         	showMsg("onAdviewGotAdSucceed");
     	}
+    	
+    	@Override
+        public void onAdsVoGotAdSucceed(AdsNativeVO result) {
+            showMsg("onAdsVoGotAdSucceed");
+        }
 
     	@Override
     	public void onInterstitialLoadSucceed(CTNative result) {
@@ -166,7 +171,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * The container and the layout for elements-Native ad:
 
-``` java
+```
     ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
     ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.advance_native_layout, null);
 ```
@@ -176,7 +181,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` java
  	CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,
  				new MyCTAdEventListener(){
-
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result == null){
@@ -184,7 +188,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
                         }
                         CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
                         showAd(ctAdvanceNative);
-
                         super.onAdviewGotAdSucceed(result);
                     }
 
@@ -199,54 +202,12 @@ public class MyCTAdEventListener implements CTAdEventListener {
                     }
 
                 });
-
-
-```
-* The method to load elements-Native Ads with preload image and icon.
-
-``` java 
-        
-    dependencies {
-        compile files('libs/cloudssp_xx.jar')       
-        compile files('libs/cloudssp_imageloader_xx.jar')   // for preload
-    }   
-
-
-    CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
-            CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
-                @Override
-                public void onAdviewGotAdSucceed(CTNative result) {
-                    if (result == null) {
-                        return;
-                    }
-                    YeLog.e("onAdviewGotAdSucceed");
-                    CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
-                    showAdWithImageload(ctAdvanceNative);
-                    super.onAdviewGotAdSucceed(result);
-                }
-
-                @Override
-                public void onAdviewGotAdFail(CTNative result) {
-                    YeLog.e("onAdviewGotAdFail");
-                    super.onAdviewGotAdFail(result);
-                }
-
-
-                @Override
-                public void onAdviewClicked(CTNative result) {
-                    YeLog.e("onAdviewClicked");
-                    super.onAdviewClicked(result);
-                }
-
-            });
-    
 ```
 
 * Show the elements-Native ads
 
 ``` java
     private void showAd(CTAdvanceNative ctAdvanceNative) {
-
         ImageView img = (ImageView) adLayout.findViewById(R.id.iv_img);
         ImageView icon = (ImageView) adLayout.findViewById(R.id.iv_icon);
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
@@ -270,7 +231,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
         // Mandatory. Add the customized ad layout to ad container.
         ctAdvanceNative.addADLayoutToADContainer(adLayout);
         // Optional. Set the ad click area,the default is the whole ad layout.
-	    ctAdvanceNative.registeADClickArea(adLayout);
+	     ctAdvanceNative.registeADClickArea(adLayout);
 
         ad_choice_icon.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -286,12 +247,110 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ```
 
+### The single elements-Native ads interface with preload image and icon
+
+``` java 
+        
+    dependencies {
+        compile files('libs/cloudssp_xx.jar')       
+        compile files('libs/cloudssp_imageloader_xx.jar')   // for preload image
+    }   
+
+
+    CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
+            CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
+                @Override
+                public void onAdviewGotAdSucceed(CTNative result) {
+                    if (result == null) {
+                        return;
+                    }
+                    YeLog.e("onAdviewGotAdSucceed");
+                    CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
+                    showAd(ctAdvanceNative);
+                    super.onAdviewGotAdSucceed(result);
+                }
+
+                @Override
+                public void onAdviewGotAdFail(CTNative result) {
+                    YeLog.e("onAdviewGotAdFail");
+                    super.onAdviewGotAdFail(result);
+                }
+
+
+                @Override
+                public void onAdviewClicked(CTNative result) {
+                    YeLog.e("onAdviewClicked");
+                    super.onAdviewClicked(result);
+                }
+
+            });
+    
+```
+
+### The single elements-Native ads interface for AdCache
+
+* get Ads for cache
+
+```java
+ CTService.getAdvanceNativeForCache(Config.slotIdNative,SampleApplication.context,
+            CTImageRatioType.RATIO_19_TO_10, new MyCTAdEventListener() {
+                @Override
+                public void onAdsVoGotAdSucceed(AdsNativeVO result) {
+                    if (result == null) {
+                        return;
+                    }
+                    YeLog.e("onAdsVoGotAdSucceed");
+                    AdHolder.adNativeVO = result;
+                    super.onAdsVoGotAdSucceed(result);
+                }
+
+                @Override
+                public void onAdviewGotAdFail(CTNative result) {
+                    YeLog.e("onAdviewGotAdFail");
+                    super.onAdviewGotAdFail(result);
+                }
+
+                @Override
+                public void onAdviewClicked(CTNative result) {
+                    YeLog.e("onAdviewClicked");
+                    super.onAdviewClicked(result);
+                }
+            });
+
+```
+
+* show ads from cache
+
+```java
+      
+      CTAdvanceNative ctAdvanceNative = new CTAdvanceNative(getContext());
+
+      AdsNativeVO nativeVO = AdHolder.adNativeVO;
+
+        if (nativeVO != null) {
+            ctAdvanceNative.setNativeVO(nativeVO);
+
+            ctAdvanceNative.setSecondAdEventListener(new MyCTAdEventListener(){
+                @Override
+                public void onAdviewClicked(CTNative result) {
+                    YeLog.e("onAdviewClicked");
+                    super.onAdviewClicked(result);
+                }
+            });
+            
+            showAd(ctAdvanceNative);
+        }
+
+```
+ 
+
+
 ### The single elements-Native ads interface with keywords
 
 * Just the methods to load elements-Native ads is different from above.
 
 ``` java
-	List<String> keywords = new ArrayList<>();
+	 List<String> keywords = new ArrayList<>();
     keywords.add("tools");
     keywords.add("games");
 
@@ -331,17 +390,16 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * The method to load multi Native ads
 
 ``` java
-	CTService.getMultiNativeAds(required_num, "your slotid",context,CTImageRatioType.RATIO_19_TO_10,
-		new MultiAdsEventListener() {
-
+	CTService.getMultiNativeAds(required_num, "your slotid",context,
+	   CTImageRatioType.RATIO_19_TO_10,new MultiAdsEventListener() {
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
                 //use the List<CTAdvanceNative> in listview or recycleview
-
+                
             }
 
             @Override
             public void onAdviewGotAdFail(CTNative result) {
-                Toast.makeText(context, result.getErrorsMsg(),Toast.LENGTH_SHORT).show();
+
             }
         });
 ```
@@ -1021,6 +1079,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 1. Fix bugs: Reward video progress bar.
 2. Fix bugs: not show dialog after Reward video finished.
+
+##### Version 1.7.3 [release data:2017-07-03]
+
+1. Support cache the ads by getAdvanceNativeFroCache()
+2. Provide adapter for Mopub with Cloudmobi sdk.
 
 ## <a name="reference">About Facebook/Admob advertisement</a>：
 #### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
