@@ -67,7 +67,7 @@ dependencies {
 * Init the SDK in your application.
 
 ```
-   CTService.init(getApplicationContext, "one of your slotid");
+   CTService.init(context, "one of your slotid");
 ```
 
 
@@ -350,7 +350,8 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * Just the methods to load elements-Native ads is different from above.
 
 ``` java
-	 List<String> keywords = new ArrayList<>();
+
+    List<String> keywords = new ArrayList<>();
     keywords.add("tools");
     keywords.add("games");
 
@@ -485,9 +486,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
  ``` xml
         <activity
             android:name="com.cloudtech.ads.view.InterstitialActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
         </activity>
+        
+        For load ads in mutliProcess, add the following attributes.
+        (The same as Appwall/RewardVideo ads.)
+        
+        android:multiprocess="true"   
  ```
 
 * The method to show Interstitial Ads
@@ -578,7 +584,8 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` xml    
     <activity 
         android:name="com.cloudtech.videoads.api.CTInterstitialActivity"
-        android:screenOrientation="landscape"/>
+        android:screenOrientation="landscape"
+        android:launchMode="singleInstance"/>
 
 ```
 
@@ -643,10 +650,26 @@ public class MyCTAdEventListener implements CTAdEventListener {
                                                    boolean autoLoadImage,
                                                    CTAdEventListener adListener)
                                                    
+                                                   
+    /** 
+     * get elements ads for cache
+     *
+     * @param slotId     the id for cloudssp ads
+     * @param context    context
+     * @param imageType  the imageType you want 
+     * @param adListener callback for ads  load process
+     * @return           the object for ads
+     */
+    public static CTAdvanceNative getAdvanceNativeForCache(String slotId,
+                                                   Context context,
+                                                   CTImageRatioType imageType,
+                                                   CTAdEventListener adListener)   
+                                                                                             
+                                                   
     /**
      * get elements ads by keywords or category
      *
-     * @param slotId  			the id for cloudssp ads
+     * @param slotId  		the id for cloudssp ads
      * @param context  			context
      * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
      		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
@@ -827,6 +850,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
      * set the preload Image
      */
     public void setLargeImage(ImageView largeImage)
+    
+    /**
+     * set the nativeVO from cache
+     */
+    public void setNativeVO(AdsNativeVO nativeVO)
 
 
 ```
@@ -1084,6 +1112,18 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 1. Support cache the ads by getAdvanceNativeFroCache()
 2. Provide adapter for Mopub with Cloudmobi sdk.
+
+##### Version 1.7.6 [relase data:2017-07-25]
+
+1. Optimize multithreading issues;
+2. Support multiple processes;
+3. Optimize templates and configuration request;
+4. Optimize ContextHolder,TrackUtil,Utils and so on
+5. Fix the occasional crash when request on android 4;
+6. Fix the problem when video restore from minimization;
+7. Fix bug: Gridview first Item not work in appwall;
+8. Fix bug: the interface for proladImage stop when load facebook ads.
+
 
 ## <a name="reference">About Facebook/Admob advertisement</a>：
 #### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
