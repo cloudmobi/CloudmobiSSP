@@ -1,30 +1,30 @@
-* [Getting Started with Cloudmobi SDK](#start)
+* [Getting Started with AS](#start)
 * [Integration Notes](#integration)
-* [Native Ads Integration](#native)
+* [Native](#native)
     * [Element-Native](#common)
     * [Element-Native with imagePreload](#preload)
     * [Element-Native with adCache](#cache)
     * [Element-Native with keywords](#keywords)
     * [Element-Native for Multiple](#multi)
     * [Template-Native](#template)
-* [Banner Ads Integration](#banner)
-* [Interstitial Ads Integration](#interstitial)
-* [Appwall integration](#appwall)
+* [Banner](#banner)
+* [Interstitial](#interstitial)
+* [Appwall](#appwall)
 * [Basic Ad Mediation (Banner-Interstitial-Native)](#basic)
     * [facebook](#facebook)
     * [admob](#admob)
-* [Reward Video Ad Integration](#reward)
-* [Reward Video Ad Mediation](#mediation)   
+* [Reward Video](#reward)
+* [Reward Video Mediation](#mediation)   
     * [applovin](#applovin)
     * [vungle](#vungle)
     * [unityads](#unityads)
     * [tapjoy](#tapjoy)
     * [adcolony](#adcolony)
-* [Error Code From SDK](#error)
+* [Error Code For SDK](#error)
 * [Release Notes](#release)
-* [SDK Initialization with eclipse](#eclipse)
+* [Getting Started with eclipse](#eclipse)
 
-## <a name="start">Getting Started with Cloudmobi SDK</a>
+## <a name="start">Getting Started with AS</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
@@ -1087,7 +1087,7 @@ project's "libs" folder as necessary.
     ```
 
 
-## <a name="error">Error Code From SDK</a>
+## <a name="error">Error Code For SDK</a>
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -1185,7 +1185,7 @@ project's "libs" folder as necessary.
     8. Fix bug: the interface for proladImage stop when load facebook ads.
 
 
-## <a name="eclipse">SDK Initialization with eclipse</a>
+## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
