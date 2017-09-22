@@ -1,6 +1,12 @@
 * [Getting Started with Cloudmobi SDK](#start)
 * [Integration Notes](#integration)
 * [Native Ads Integration](#native)
+    * [Element-Native](#common)
+    * [Element-Native with imagePreload](#preload)
+    * [Element-Native with adCache](#cache)
+    * [Element-Native with keywords](#keywords)
+    * [Element-Native for Multiple](#multi)
+    * [Template-Native](#template)
 * [Banner Ads Integration](#banner)
 * [Interstitial Ads Integration](#interstitial)
 * [Appwall integration](#appwall)
@@ -195,7 +201,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ## <a name="native">Native Ads Integration</a>
 
-### Single elements-Native ads interface
+### <a name="common">Single elements-Native ads interface</a>
 
 * The container and the layout for elements-Native ad:
 
@@ -251,7 +257,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
    
 ```
 
-### Single elements-Native ads interface for imageProload
+### <a name="preload">Single elements-Native ads interface for imageProload</a>
 
 ``` java 
         
@@ -303,7 +309,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
    
 ```
 
-### Single elements-Native ads interface for AdCache
+### <a name="cache">Single elements-Native ads interface for AdCache</a>
 
 * get Ads for cache
 
@@ -348,7 +354,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
  
 
 
-### Single elements-Native ads interface for keywords
+### <a name="keywords">Single elements-Native ads interface for keywords</a>
 
 ``` java
 
@@ -373,7 +379,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
             });
 ```
 
-### Multi elements-Native ads interface
+### <a name="multi">Multi elements-Native ads interface</a>
 
 * The method to load multi Native ads
 
@@ -391,7 +397,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
         });
 ```
 
-### Template-Native ads interface
+### <a name="template">Template-Native ads interface</a>
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
