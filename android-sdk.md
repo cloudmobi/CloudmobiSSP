@@ -1,34 +1,21 @@
-## <a name="index">Index</a>
-* [SDK Initialization](#initialization)
-* [Integration Notes](#note)
-* [Native Ads Integration](#native)
-* [Banner Ads Integration](#banner)
-* [Interstitial Ads Integration](#interstitial)
-* [Appwall Integration](#appwall)
-* [Reward Video Ad Integration](#rewardad)
-* [SDK API reference](#api)
-* [SDK error code table](#errorcode)
-* [Release notes](#release_notes)
-* [About Facebook/Admob advertisement](#reference)
-* [SDK Initialization with eclipse](#eclipse)
+[TOC]
 
-
-
-## <a name="initialization">SDK Initialization</a>
+## Getting Started with Cloudmobi SDK
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
 * Select API 14: Android 4.0 or later.
 * Add the Cloudssp SDK to your Project：
 
-	| jar name           		  | jar function         | require(Y/N) |
-	| ------------------ 		  | -------------------- | --------     |
-	| cloudssp_xx.jar    		  | basic functions      |     Y        |
-	| cloudssp_appwall_xx.jar    | appwall functions    |     N        |
+	| jar name           		    | jar function           | require(Y/N) |
+	| ------------------ 		    | --------------------   | --------     |
+	| cloudssp_xx.jar    		| basic functions(banner\interstitial\native ads)| Y|
+	| cloudssp_imageloader_xx.jar | imageloader functions  |     N        |
+	| cloudssp_appwall_xx.jar     | appwall ads functions      |     N        |
 	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_imageloader_xx.jar   | imageloader functions  |     N        |
+	| cloudssp_mediation_xx.jar   | Rewarded Video Mediation |     N       | 
 
-* Update the module's build.gradle：
+* Update the module's build.gradle for basic functions：
 
 ``` groovy
 dependencies {
@@ -64,15 +51,38 @@ dependencies {
 
 ```
 
-* Init the SDK in your application.
 
+* **Init the SDK**
+
+    You can init the SDK in your application as detailed below:
+
+```java
+   CTService.init(context, "one of your slotId");
 ```
-   CTService.init(context, "one of your slotid");
-```
 
 
-* Add below rules for code obfuscation in proguard-rules.pro.
+* **Google Play Services**
 
+    1、Google Play Services in Your Android Manifest
+
+    Add the following  inside the <application> tag in your AndroidManifest:
+    
+    ```
+    <meta-data android:name="com.google.android.gms.version"
+              android:value="@integer/google_play_services_version" />
+    ```
+    
+    2、Google Advertising ID
+    
+    The Cloudmobi SDK requires access to the Google Advertising ID in order to operate properly. See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
+    
+    3、If you need integrate the admob-sdk for basic ads, it's not necessary to do this.
+    
+
+*  **For ProGuard Users**
+
+    If you are using ProGuard with the Cloudmobi SDK, you must add the following code to your ProGuard file:
+    
 ``` java
     #for sdk
     -keep public class com.cloudtech.**{*;}
@@ -91,8 +101,8 @@ dependencies {
     -dontwarn com.facebook.ads.**
 ```
 
-## <a name="note">Integration Notes</a>
 
+## Integration Notes
 
 * Two permises are need for Cloudmobi ads.
     
@@ -165,43 +175,32 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ```
 
 
-## <a name="native">Native Ads Integration</a>
+## Native Ads Integration
 
-### The single elements-Native ads interface
+### Single elements-Native ads interface
 
 * The container and the layout for elements-Native ad:
 
-```
+```java
     ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
-    ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.advance_native_layout, null);
+    ViewGroup adLayout = (ViewGroup)View.inflate(context,R.layout.native_layout, null);
 ```
 
 * The method to load elements-Native Ads:
 
 ``` java
- 	CTService.getAdvanceNative("your slotid", context,CTImageRatioType.RATIO_19_TO_10,
- 				new MyCTAdEventListener(){
-                    @Override
-                    public void onAdviewGotAdSucceed(CTNative result) {
-                        if (result == null){
-                            return;
-                        }
-                        CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
-                        showAd(ctAdvanceNative);
-                        super.onAdviewGotAdSucceed(result);
-                    }
-
-                    @Override
-                    public void onAdviewGotAdFail(CTNative result) {
-                        super.onAdviewGotAdFail(result);
-                    }
-
-                    @Override
-                    public void onAdviewClicked(CTNative result) {
-                        super.onAdviewClicked(result);
-                    }
-
-                });
+ 	CTService.getAdvanceNative("your slotid",context,
+ 	          CTImageRatioType.RATIO_19_TO_10,new MyCTAdEventListener(){
+                  @Override
+                  public void onAdviewGotAdSucceed(CTNative result) {
+                      if (result == null){
+                          return;
+                      }
+                      CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
+                      showAd(ctAdvanceNative);
+                      super.onAdviewGotAdSucceed(result);
+                  }
+        });
 ```
 
 * Show the elements-Native ads
@@ -213,107 +212,94 @@ public class MyCTAdEventListener implements CTAdEventListener {
         TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
         TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
         Button click = (Button)adLayout.findViewById(R.id.bt_click);
-        ImageView ad_choice_icon = (ImageView)adLayout.findViewById(R.id.ad_choice_icon);
+        ImageView adChoice = (ImageView)adLayout.findViewById(R.id.choice_icon);
         
-        // use your ImageLoader to show the image 
+        //show the image and icon yourself 
         String imageUrl = ctAdvanceNative.getImageUrl();
-        String iconUrl = ctAdvanceNative.getIconUrl();        
-        
-        // use sdk api to show the preloaded image 
-        ctAdvanceNative.setIconImage(icon);
-        ctAdvanceNative.setLargeImage(img);
-        
+        String iconUrl = ctAdvanceNative.getIconUrl();          
         title.setText(ctAdvanceNative.getTitle());
         desc.setText(ctAdvanceNative.getDesc());
         click.setText(ctAdvanceNative.getButtonStr());
-        ad_choice_icon.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
+        adChoice.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
 
-        // Mandatory. Add the customized ad layout to ad container.
+        //Optional 1: add your view into ctAdvanceNative，and add the ctAdvanceNative into your container.
         ctAdvanceNative.addADLayoutToADContainer(adLayout);
-        // Optional. Set the ad click area,the default is the whole ad layout.
-	     ctAdvanceNative.registeADClickArea(adLayout);
-
-        ad_choice_icon.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //
-            }
-        });
-
-        container.removeAllViews();
         container.addView(ctAdvanceNative);
+        
+        //Optional 2：just register the click for your view, add your view into your container.
+        ctAdvanceNative.registeADClickArea(adLayout);
+        container.addView(adLayout); 
    }
-
-
+   
 ```
 
-### The single elements-Native ads interface with preload image and icon
+### Single elements-Native ads interface for imageProload
 
 ``` java 
         
+    // Update the module's build.gradle
     dependencies {
         compile files('libs/cloudssp_xx.jar')       
         compile files('libs/cloudssp_imageloader_xx.jar')   // for preload image
     }   
 
-
-    CTService.getAdvanceNative(Config.slotIdNative, SampleApplication.context,
+    //load ads
+    CTService.getAdvanceNative("your slotid", context,
             CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
                 @Override
                 public void onAdviewGotAdSucceed(CTNative result) {
                     if (result == null) {
                         return;
                     }
-                    YeLog.e("onAdviewGotAdSucceed");
                     CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
                     showAd(ctAdvanceNative);
                     super.onAdviewGotAdSucceed(result);
                 }
-
-                @Override
-                public void onAdviewGotAdFail(CTNative result) {
-                    YeLog.e("onAdviewGotAdFail");
-                    super.onAdviewGotAdFail(result);
-                }
-
-
-                @Override
-                public void onAdviewClicked(CTNative result) {
-                    YeLog.e("onAdviewClicked");
-                    super.onAdviewClicked(result);
-                }
-
             });
-    
+            
+    //show ads
+    private void showAd(CTAdvanceNative ctAdvanceNative) {
+        ImageView img = (ImageView) adLayout.findViewById(R.id.iv_img);
+        ImageView icon = (ImageView) adLayout.findViewById(R.id.iv_icon);
+        TextView title = (TextView)adLayout.findViewById(R.id.tv_title);
+        TextView desc = (TextView)adLayout.findViewById(R.id.tv_desc);
+        Button click = (Button)adLayout.findViewById(R.id.bt_click);
+        ImageView adChoice = (ImageView)adLayout.findViewById(R.id.choice_icon);
+        
+        //show the preload image and icon through sdk api 
+        ctAdvanceNative.setIconImage(icon);
+        ctAdvanceNative.setLargeImage(img);
+        title.setText(ctAdvanceNative.getTitle());
+        desc.setText(ctAdvanceNative.getDesc());
+        click.setText(ctAdvanceNative.getButtonStr());
+        adChoice.setImageURI(ctAdvanceNative.getAdChoiceIconUrl());
+
+        //Optional 1: 
+        ctAdvanceNative.addADLayoutToADContainer(adLayout);
+        container.addView(ctAdvanceNative);
+        
+        //Optional 2：
+        ctAdvanceNative.registeADClickArea(adLayout);
+        container.addView(adLayout); 
+   }
+   
 ```
 
-### The single elements-Native ads interface for AdCache
+### Single elements-Native ads interface for AdCache
 
 * get Ads for cache
 
 ```java
- CTService.getAdvanceNativeForCache(Config.slotIdNative,SampleApplication.context,
+        
+    CTService.getAdvanceNativeForCache("your slotid",context,
             CTImageRatioType.RATIO_19_TO_10, new MyCTAdEventListener() {
                 @Override
                 public void onAdsVoGotAdSucceed(AdsNativeVO result) {
                     if (result == null) {
                         return;
                     }
-                    YeLog.e("onAdsVoGotAdSucceed");
-                    AdHolder.adNativeVO = result;
+                    AdsNativeVO adNativeVO = result;
                     super.onAdsVoGotAdSucceed(result);
-                }
-
-                @Override
-                public void onAdviewGotAdFail(CTNative result) {
-                    YeLog.e("onAdviewGotAdFail");
-                    super.onAdviewGotAdFail(result);
-                }
-
-                @Override
-                public void onAdviewClicked(CTNative result) {
-                    YeLog.e("onAdviewClicked");
-                    super.onAdviewClicked(result);
                 }
             });
 
@@ -325,29 +311,26 @@ public class MyCTAdEventListener implements CTAdEventListener {
       
       CTAdvanceNative ctAdvanceNative = new CTAdvanceNative(getContext());
 
-      AdsNativeVO nativeVO = AdHolder.adNativeVO;
+      AdsNativeVO nativeVO = adNativeVO;
 
-        if (nativeVO != null) {
-            ctAdvanceNative.setNativeVO(nativeVO);
-
-            ctAdvanceNative.setSecondAdEventListener(new MyCTAdEventListener(){
-                @Override
-                public void onAdviewClicked(CTNative result) {
-                    YeLog.e("onAdviewClicked");
-                    super.onAdviewClicked(result);
-                }
-            });
-            
-            showAd(ctAdvanceNative);
-        }
+       if (nativeVO != null) {
+           ctAdvanceNative.setNativeVO(nativeVO);
+    
+           ctAdvanceNative.setSecondAdEventListener(new MyCTAdEventListener(){
+               @Override
+               public void onAdviewClicked(CTNative result) {
+                   super.onAdviewClicked(result);
+               }
+           });
+           
+           showAd(ctAdvanceNative);
+       }
 
 ```
  
 
 
-### The single elements-Native ads interface with keywords
-
-* Just the methods to load elements-Native ads is different from above.
+### Single elements-Native ads interface for keywords
 
 ``` java
 
@@ -358,35 +341,21 @@ public class MyCTAdEventListener implements CTAdEventListener {
     CTService.getAdvanceNativeByKeywords("your slotid", context,
     		 CTImageRatioType.RATIO_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
     		 	new MyCTAdEventListener(){
+               @Override
+               public void onAdviewGotAdSucceed(CTNative result) {
+                   if (result == null){
+                       return;
+                   }
 
-                    @Override
-                    public void onAdviewGotAdSucceed(CTNative result) {
-                        if (result == null){
-                            return;
-                        }
+                   CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
+                   showAd(ctAdvanceNative);
+                   super.onAdviewGotAdSucceed(result);
 
-                        CTAdvanceNative ctAdvanceNative = (CTAdvanceNative) result;
-                        showAd(ctAdvanceNative);
-                        super.onAdviewGotAdSucceed(result);
-
-                    }
-
-                    @Override
-                    public void onAdviewGotAdFail(CTNative result) {
-
-                        super.onAdviewGotAdFail(result);
-                    }
-
-                    @Override
-                    public void onAdviewClicked(CTNative result) {
-
-                        super.onAdviewClicked(result);
-                    }
-
-                });
+               }
+            });
 ```
 
-### The multi elements-Native ads interface
+### Multi elements-Native ads interface
 
 * The method to load multi Native ads
 
@@ -395,7 +364,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	   CTImageRatioType.RATIO_19_TO_10,new MultiAdsEventListener() {
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
                 //use the List<CTAdvanceNative> in listview or recycleview
-                
             }
 
             @Override
@@ -405,7 +373,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
         });
 ```
 
-### The template-Native ads interface
+### Template-Native ads interface
 
 * The method to load templat-Native Ads:(the template is set up in ssp.)
 
@@ -414,7 +382,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
  	CTService.getNative("your slotid", false, context,
                 new MyCTAdEventListener(){
-
                     @Override
                     public void onAdviewGotAdSucceed(CTNative result) {
                         if (result != null) {
@@ -423,26 +390,11 @@ public class MyCTAdEventListener implements CTAdEventListener {
                         }
                         super.onAdviewGotAdSucceed(result);
                     }
-
-                    @Override
-                    public void onAdviewGotAdFail(CTNative result) {
-                        super.onAdviewGotAdFail(result);
-                    }
-
-                    @Override
-                    public void onAdviewClicked(CTNative result) {
-                        super.onAdviewClicked(result);
-                    }
-
-                    @Override
-                    public void onAdviewClosed(CTNative result) {
-                        container.removeAllViews();
-                        super.onAdviewClosed(result);
-                    }
                 });
+                
 ```
 
-## <a name="banner">Banner Ads Integration</a>
+## Banner Ads Integration
 
 * The method to load Banner Ads:
 
@@ -479,21 +431,19 @@ public class MyCTAdEventListener implements CTAdEventListener {
                 });
 ```
 
-## <a name="interstitial">Interstitial Ads Integration</a>
+## Interstitial Ads Integration
 
-* Add the below Activity in AndroidManifest.xml for Interstitial Ads
+* update AndroidManifest.xml for Interstitial Ads
 
  ``` xml
         <activity
             android:name="com.cloudtech.ads.view.InterstitialActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:multiprocess="true">
         </activity>
         
-        For load ads in mutliProcess, add the following attributes.
-        (The same as Appwall/RewardVideo ads.)
-        
-        android:multiprocess="true"   
+        the multiprocess attribute is optional.
  ```
 
 * The method to show Interstitial Ads
@@ -501,54 +451,59 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` java
     CTService.preloadInterstitial("your slotid",true,false,context,
     		  new MyCTAdEventListener(){
+                   @Override
+                   public void onInterstitialLoadSucceed(CTNative result) {
+                       super.onInterstitialLoadSucceed(result);
+                   }
+    
+                   @Override
+                   public void onAdviewGotAdSucceed(CTNative result){
+                    	if (result != null && result.isLoaded()){
+                           CTService.showInterstitial(result);
+                       }
+                       super.onAdviewGotAdSucceed(result);
+                   }
+    
+                   @Override
+                   public void onAdviewClosed(CTNative result) {
+                       super.onAdviewClosed(result);
+                   }
 
-                    @Override
-                    public void onInterstitialLoadSucceed(CTNative result) {
-                        super.onInterstitialLoadSucceed(result);
-                    }
-
-                    @Override
-                    public void onAdviewGotAdSucceed(CTNative result){
-                     	if (result != null && result.isLoaded()){
-                            CTService.showInterstitial(result);
-                        }
-                        super.onAdviewGotAdSucceed(result);
-                    }
-
-                    @Override
-                    public void onAdviewClosed(CTNative result) {
-
-                        super.onAdviewClosed(result);
-                    }
-
-                });
+            });
+                
 ```
 
-## <a name="appwall">Appwall integration</a>
+## Appwall integration
 
 * Update the module's build.gradle for Appwall：
 
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
-        compile files('libs/cloudssp_appwall_xx.jar')   // for appwall        
+        compile files('libs/cloudssp_appwall_xx.jar')       // for appwall        
         compile files('libs/cloudssp_imageloader_xx.jar')   // imageloader for appwall
 	}
 
 ```
 
-* Add the below Activity in AndroidManifest.xml for Appwall
+* Update the AndroidManifest.xml for Appwall
 
 ``` xml
 	 <activity
         android:name="com.cloudtech.appwall.AppwallActivity"
         android:launchMode="singleInstance"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:multiprocess="true"/>
+        
+        the multiprocess attribute is optional.
 ```
 
-* You should preloaded ads data for Appwall before show it.
+* Preload appwall
 
+    It‘s better to preload ads for Appwall before show it. 
+    
 ``` java
+
     AppwallHelper.init(context, "your slotid");
 ```
 
@@ -560,26 +515,67 @@ public class MyCTAdEventListener implements CTAdEventListener {
     AppwallHelper.setThemeColor(custimozeColor);
 ```
 
-* Show the Appwall.
+* Show Appwall.
 
 ``` java
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-## <a name="rewardad">Reward Video Ad Integration</a>
+## Basic Ad Mediation [Banner-Interstitial-Native]
 
-* Update the module's build.gradle for Video Ad：
+### [Facebook advertisement](https://developers.facebook.com/docs/audience-network)
+
+* Set up the facebook placementId in Cloudmobi platform.
+
+* Update the module's build.gradle as below:
+
+``` groovy
+	dependencies {
+    	compile 'com.facebook.android:audience-network-sdk:4.23.0'
+	}
+```
+
+### [Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
+
+* Set up the admob unitId in Cloudmobi platform.
+
+* Update the module's build.gradle ad bolow:
+
+``` groovy
+	dependencies {
+    	compile 'com.google.firebase:firebase-ads:9.0.2'
+	}
+```
+
+* Update AndroidManifest.xml for admob ads:
+
+```xml
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    
+    <activity 
+        android:name="com.google.android.gms.ads.AdActivity"
+        android:configChanges="keyboard|keyboardHidden|orientation|
+            screenLayout|uiMode|screenSize|smallestScreenSize"
+        android:theme="@android:style/Theme.Translucent" />
+```
+
+## Reward Video Ad Integration
+
+* Update the module's build.gradle for Reward Video：
 
 ``` groovy
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_videoads_xx.jar')
         compile files('libs/cloudssp_imageloader_xx.jar')
+        compile files('libs/cloudssp_mediation_xx.jar')
 	}
 
 ```
 
-* Add the below Activity in AndroidManifest.xml for reward video AD
+* Update the AndroidManifest.xml for Reward Video:
 
 ``` xml    
     <activity 
@@ -589,409 +585,485 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ```
 
-* You should preload reward vidoe ad before show it.
+* Set the listener for Reward Video
 
-``` java
-    CTRewardInterstitialAd ctRewardInterstitialAd = CTRewardInterstitialAd.preload("your slotid", context, false, new CTAdEventListener() {...});
-```
+    Implement the Rewarded Video Listener, and the SDK will notify your listener of all possible events listed below:
 
-* Show the reward video AD.
+```java
+    CloudmobiSDK.setRewardedVideoListener(new RewardedVideoListener() {
+            /**
+             * Invoked when the RewardedVideo ad view has opened.
+             */
+            @Override
+            public void onRewardedVideoAdOpened() {
+            }
 
-``` java
-    if (ctRewardInterstitialAd.isReadyToDisplay()) {
-        ctRewardInterstitialAd.show(context, new VideoAdListener() {...}
-    }
-```
+            /*
+             *Invoked when the RewardedVideo ad view is about to be closed.
+             */
+            @Override
+            public void onRewardedVideoAdClosed() {
+            }
+            
+            /**
+             * Invoked when there is a change in the ad availability status.
+             *
+             * @param - available 
+             *   - value will change to true when rewarded videos are *available.
+             *   - Value will change to false when no videos are available.
+             * You can then show the video by calling showRewardedVideo().
+             */
+            @Override
+            public void onRewardedVideoAvailabilityChanged(boolean isAvailable) {
+            }
 
-## <a name="api">SDK API Reference</a>
+            /**
+             * Invoked when the video ad starts playing.
+             */
+            @Override
+            public void onRewardedVideoAdStarted() {
+            }
 
+            /*
+             *Invoked when the video ad finishes playing.
+             */
+            @Override
+            public void onRewardedVideoAdEnded() {
+            }
 
-#### CTService: The calling interface for the SDK.
+            /**
+             * Invoked when the user completed the video and should be rewarded.
+             *
+             * @param - placement - the Placement the user completed a video from.
+             */
+            @Override
+            public void onRewardedVideoAdRewarded(Reward reward) {
+                /** here you can reward the user according to the given amount.
+                String rewardName = reward.getRewardName();
+                int rewardAmount = reward.getRewardAmount();
+                */
+            }
 
-``` java
-
-    /**
-     * init the sdk
-     * @param context context
-     * @param slotId  one of your slotid
-     */
-    public static void init(Context context, String slotId)
-
-    /**
-     * get elements ads
-     *
-     * @param slotId  			 the id for cloudssp ads
-     * @param context  		 context
-     * @param imageRatioType  the imageType you want(1.9:1 or 1:1)
-     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param adListener  	callback for the advertisement load process
-     * @return				      the object to get the elements
-     */
-    public static CTAdvanceNative getAdvanceNative(String slotId,
-                                                   Context context,
-                                                   CTImageRatioType imageType,
-                                                   CTAdEventListener adListener)
-
-
-     /**
-     * get elements ads with preload image and icon
-     *
-     * @param slotId  			 the id for cloudssp ads
-     * @param context  		 context
-     * @param imageRatioType  the imageType you want(1.9:1 or 1:1)
-     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param autoLoadImage   switch for preload image
-     * @param adListener  	 callback for the advertisement load process
-     * @return				       the object to get the elements
-     */
-    public static CTAdvanceNative getAdvanceNative(String slotId,
-                                                   Context context,
-                                                   CTImageRatioType imageType,
-                                                   boolean autoLoadImage,
-                                                   CTAdEventListener adListener)
-                                                   
-                                                   
-    /** 
-     * get elements ads for cache
-     *
-     * @param slotId     the id for cloudssp ads
-     * @param context    context
-     * @param imageType  the imageType you want 
-     * @param adListener callback for ads  load process
-     * @return           the object for ads
-     */
-    public static CTAdvanceNative getAdvanceNativeForCache(String slotId,
-                                                   Context context,
-                                                   CTImageRatioType imageType,
-                                                   CTAdEventListener adListener)   
-                                                                                             
-                                                   
-    /**
-     * get elements ads by keywords or category
-     *
-     * @param slotId  		the id for cloudssp ads
-     * @param context  			context
-     * @param imageRatioType  		the imageType you want(1.9:1 or 1:1)
-     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param adsCat     		the adsCategory you want(default,games,tools)
-     		(TYPE_DEFAULT / TYPE_GAME / TYPE_TOOL)
-     * @param keywords   		get ads by keywords，fill null if not need
-     * @param adListener   		callback for ads load process
-     * @return  			    the object to get the elements
-     */
-    public static CTAdvanceNative getAdvanceNativeByKeyword(String slotId,
-                                                   Context context,
-                                                   CTImageRatioType imageType,
-                                                   CTAdsCat adsCat,
-                                                   List<String> keywords,
-                                                   CTAdEventListener adListener)
-
-
-    /**
-     * Get multi elements Ads. The actual number will decied by server side, between [1,reqAdNumber]
-     * @param reqAdNumber    the number of request Ads
-     * @param slotId         cloudtech Ads slot id
-     * @param context        Android context
-     * @param imageRatioType      Imagetype for the picture.(1.9:1 or 1:1)
-     		(CTImageRatioType.RATIO_19_TO_10 / CTImageRatioType.RATIO_1_TO_1)
-     * @param adListener     Callback for the advertisement load process.
-     * @return
-     */
-    public static void getMultiNativeAds(int reqAdNumber,
-                                         String slotId,
-                                         Context context,
-                                         CTImageRatioType imageRatioType,
-                                         MultiAdsEventListener adListener)
-
-
-    /**
-     * Get banner style advertisement.
-     * @param slotId 				banner advertisement space id
-     * @param isShowCloseButton 		the switch of close-button
-     * @param context				Activity or application context.
-     * @param adListener 			Callback for the advertisement load process.
-     * @return 					An container view which include advertisement.
-     */
-    public static CTNative getBanner(String slotId,
-                                      boolean isShowCloseButton,
-                                      Context context,
-                                      CTAdEventListener adListener)
-
-
-    /**
-     * Get template native advertisement
-     * @param slotId 				natvie advertisement space id
-     * @param isShowCloseButton 	the switch of close-button
-     * @param context 				Activity or application context.
-     * @param adListener 			Callback for the advertisement load process.
-     * @return 					An container view which include advertisement.
-     */
-    public static CTNative getNative(String slotId,
-                                     boolean isShowCloseButton,
-                                     Context context,
-                                     CTAdEventListener adListener)
-
-
-    /**
-     * Preload interstitial advertisement
-     * @param slotId 				interstitial advertisement space id
-     * @param isShowCloseButton 	the switch of close-button
-     * @param isFullScreen          the switch of ad size
-     * @param context 				Activity or application context.
-     * @param adListener 			Callback for the advertisement load process.
-     * @return 					An container view which include advertisement.
-     */
-    public static CTNative preloadInterstitial(String slotId,
-                                               boolean isShowCloseButton,
-                                               boolean isFullScreen,
-                                               Context context,
-                                               CTAdEventListener adListener)
-
-    /**
-     * Show interstitial advertisement after you get it success.
-     * @param adView The advertisement container which return by preload
-     */
-    public static void showInterstitial(CTNative adView)
-
-    /**
-     * Close the interstitial advertisement
-     * @param adView The advertisement container which return by preload
-     */
-    public static void closeInterstitial(CTNative adView)
-
-```
-
-
-#### CTNative: A framelayout container view which hold the advertisement.
-
-``` java
-
-    /**
-     * Get all error logs which return by the advertisement query process.
-     * @return Error List
-     */
-    public List<CTError> getErrors()
-
-
-    /**
-     * Is current advertisement load successfully.
-     * @return
-     */
-    public boolean isLoaded()
-
-```
-
-
-
-#### CTAdvanceNative: An object which hold the elements of advertisment.
-
-``` java
-
-    /**
-     * get the imageUrl of ads
-     */
-    public String getImageUrl()
-
-    /**
-     * get the iconUrl of ads.
-     */
-    public String getIconUrl()
-
-    /**
-	 * get the title of ads
-	 */
-    public String getTitle()
-
-    /**
-	 * get the desc of ads
-	 */
-    public String getDesc()
-
-    /**
-	 * get the callToAction of ads
-	 */
-    public String getButtonStr()
-
-    /**
-	 * get the rates of ads
-	 */
-    public String getRate()
-
-    /**
-	 * get the adchoiceIconUrl of ads
-	 */
-    public String getAdChoiceIconUrl()
-
-	/**
-	 * get the adChoiceLinkUrl of ads
-	 */
-    public String getAdChoiceLinkUrl()
-
-    /**
-     * Add AD layout to AD container
-     * Mandatory. Add the customized ad layout  to ad container. the caller must call this method to defince click behavior.
-     * @param adLayout
-     */
-    public void addADLayoutToADContainer(View adLayout)
-
-    /*
-     * Define the AD click/interaction area
-     * Optional. Set the ad click area. the default click area is the whole ad layout.
-     * @param adLayout
-     */
-    public void registeADClickArea(View adLayout)
-
-    /**
-     * set the preload Icon
-     */
-    public void setIconImage(ImageView icon)
-
-    /**
-     * set the preload Image
-     */
-    public void setLargeImage(ImageView largeImage)
+            /* 
+             * Invoked when RewardedVideo call to show a rewarded video has failed
+             * CloudmobiError contains the reason for the failure.
+             */
+            @Override
+            public void onRewardedVideoAdShowFailed(CloudmobiError error) {
+            }
+        });
     
-    /**
-     * set the nativeVO from cache
-     */
-    public void setNativeVO(AdsNativeVO nativeVO)
-
-
 ```
 
+* Set UserID to Verify AdRewarded Transactions(Optional)
 
-#### CTAdEventListener: Call back interface for the advertisement loading process.
+    This parameter helps verify AdRewarded transactions and must be set before calling initRewardVideo.
 
-``` java
-    /**
-     * Load and render advertisement successful.
-     */
-    public void onAdviewGotAdSucceed(CTNative result);
-
-    /**
-     * Load and render interstitial advertisement successful.
-     */
-    public void onInterstitialLoadSucceed(CTNative result);
-
-    /**
-     * Load and render advertisement failed.
-     */
-    public void onAdviewGotAdFail(CTNative result);
-
-    /**
-     * Advertisement landing page will show.
-     */
-    public void onAdviewIntoLandpage(CTNative result);
-
-    /**
-     * Try to go to advertisement landing page, but failed.
-     */
-    public void onStartLandingPageFail(CTNative result);
-
-    /**
-     * User left the advertisement landing page.
-     */
-    public void onAdviewDismissedLandpage(CTNative result);
-
-    /**
-     * User click the advertisement.
-     */
-    public void onAdviewClicked(CTNative result);
-
-    /**
-     * User close the advertisement.
-     */
-    public void onAdviewClosed(CTNative result);
-
-    /**
-     * When the advertisement has been destroyed or garbage collected.
-     */
-    public void onAdviewDestroyed(CTNative result);
-
+```java
+    CloudmobiSDK.setUserId("userID");
 ```
 
-#### AppwallHelper: get the appwall ads
+* Preload the Reward Video
 
+    It‘s better to preload ads for Reward Video before show it. 
+    
 ``` java
-    /**
-     * init the appwall
-     * @param Context context
-     * @param slotId     cloudtech Ads slot id
-     *
-     */
-    public static void init(Context context, String slotId)
 
-    /**
-     * set up the appwall color
-     * @param customizeColor
-     */
-    public static void setThemeColor(CustomizeColor customizeColor)
-
-    /**
-     * show the app wall UI.
-     * @param Context context
-     * @param slotId     cloudtech Ads slot id
-     *
-     */
-    public static void showAppwall(Context context, String slotId)
-
-
+    CloudmobiSDK.initRewardVideo(activity);
 ```
 
-#### CTRewardInterstitialAd: Reward video ad api
+* Show Reward Video to Your Users
 
-``` java
-    /**
-     * preload one reward video ad
-     * @param Context context
-     * @param slotId     cloudtech Ads slot id
-     * @param isVertical  the orientation of dialog after video 
-     * @return a new instance of CTRewardInterstitialAdcloudtech
-     *
-     */
-    public static CTRewardInterstitialAd preload(String slotId, Context context, boolean isVertical, CTAdEventListener listener) {
-        return VideoAds.getRewardInterstitialAd(slotId, context, listener);
+By implementing the RewardedVideoListener, you can receive the availability status through the onVideoAvailabilityChanged callback.
+    
+```java
+    public void onVideoAvailabilityChanged(boolean available)
+```
+
+Alternatively, ask for ad availability directly by calling:
+
+```java
+    boolean available = CloudmobiSDK.isRewardedVideoAvailable(slotId);;
+```
+
+Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method like following:
+
+```java
+    CloudmobiSDK.showRewardedVideo(slotId);
+```
+    
+*  Reward the User
+
+The Cloudmobi SDK will fire the onRewardedVideoAdRewarded event each time the user successfully completes a video. The RewardedVideoListener will be in place to receive this event so you can reward the user successfully.
+
+The Placement object contains both the Reward Name & Reward Amount of the Placement as defined in your ironSource Admin:
+
+
+```java
+    public void onRewardedVideoAdRewarded(Reward reward) {
+        //TODO - here you can reward the user according to the given amount
+        String rewardName = reward.getRewardName();
+        int rewardAmount = reward.getRewardAmount();
     }
-
-    /**
-     * Show/Play the reward video
-     *
-     */
-    public void show(Context context) {
-        show(context, null);
-    }
-
-    /**
-     * Show/Play the reward video
-     * @param videoAdListener  callback of video play.
-     */
-    public void show(Context context, VideoAdListener videoAdListener)
-
-    /**
-     * get the reward video's lenght as second time unit.
-     * @return -1 -- length is not avaiable.
-     *
-     */
-    public int getVideoLengthAsSecond()
-
-    /**
-     * get the reward video's current play postion as second time unit.
-     * @return -1 -- current postion is not avaiable.
-     *
-     */
-    public int getCurrentVideoPositionAsSecond()
-
-    /**
-     * Wether the video is ready to play
-     * @return boolean   video ready or not.
-     *
-     */
-    public boolean isReadyToDisplay()
-
-
+    
 ```
 
-## <a name="errorcode">Error Code From SDK</a>：
+## Reward Video Ad Mediation
+
+Before integrate each platform for Reward Video,  you shoud configure it's Parameters(appId\placementName) into Cloudmoni platform.
+
+### applovin
+
+* [applovin-7.3.2](https://www.applovin.com/integration#androidIntegration)
+    
+* Add the Applovin-SDK to Your Build
+        
+   ```groovy
+       dependencies {
+           compile files('libs/applovin-sdk-7.3.2.jar')
+       }
+   ```
+        
+* Update AndroidManifest.xml
+    
+   ```xml
+   Manifest Permissions:
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"       
+                    android:maxSdkVersion="18" />
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+   Manifest activities:
+   <activity
+       android:name="com.applovin.adview.AppLovinInterstitialActivity"/>
+   <activity
+       android:name="com.applovin.adview.AppLovinConfirmationActivity"/>
+   
+   for SDK versions >= 6.4.0  add the configChanges for better performance:
+   <activity 
+       android:name="com.applovin.adview.AppLovinInterstitialActivity"         
+       android:configChanges="orientation|screenSize"/>
+   <activity 
+       android:name="com.applovin.adview.AppLovinConfirmationActivity" 
+       android:configChanges="orientation|screenSize"/>
+   ```
+
+### vungle
+
+* [vungle-5.1.0](https://dashboard.vungle.com/sdk)
+
+* Add the Vungle-SDK to Your Build：
+            
+    ```groovy
+    Via Gradle:
+    Open the project-level build.gradle, and add maven URL in the all project section.
+       allprojects {
+          repositories {
+              maven {
+                  url 'https://jitpack.io'
+              }
+          }
+       }
+       
+    Open the app-level build.gradle file for your app, and add compile dependencies in the dependencies section.
+    
+        dependencies {
+        	   compile 'com.github.vungle:vungle-android-sdk:5.1.0'
+        }
+    
+    
+    Via ohters:
+    Download Vungle SDK, copy all the jars and add it to your project library.
+    Open the project-level build.gradle, and update the repositories section.
+    
+        allprojects {
+            repositories {
+                jcenter()
+            }
+        }
+        
+    Open the app-level build.gradle file for your app, and add other dependencies in dependencies section. 
+
+        dependencies {
+            compile files('libs/dagger-2.7.jar')
+            compile files('libs/javax.inject-1.jar')
+            compile files('libs/eventbus-2.2.1.jar')
+            compile files('libs/publisher-sdk-android-5.1.0.jar')
+            compile files('libs/rxjava-1.2.0.jar')
+        }
+    
+    ``` 
+       
+        
+* Update AndroidManifest.xml
+
+    ```xml    
+    Manifest Permissions：
+    <uses-permission 
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"        
+        android:maxSdkVersion="18"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    
+    Manifest Activities:
+    <activity 
+        android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+    <activity 
+        android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+    <activity 
+        android:name="com.vungle.publisher.FlexViewAdActivity"          
+        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+
+    ```
+
+* For Proguard Users Only
+
+    ```
+        # Vungle
+        -dontwarn com.vungle.**
+        -dontnote com.vungle.**
+        -keep class com.vungle.** { *; }
+        -keep class javax.inject.*
+        
+        # GreenRobot
+        -dontwarn de.greenrobot.event.util.**
+        
+        # RxJava
+        -dontwarn rx.internal.util.unsafe.**
+        -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+           long producerIndex;
+           long consumerIndex;
+        }
+        -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+           rx.internal.util.atomic.LinkedQueueNode producerNode;
+        }
+        -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+           rx.internal.util.atomic.LinkedQueueNode consumerNode;
+        }
+        -keep class rx.schedulers.Schedulers { public static <methods>; }
+        -keep class rx.schedulers.ImmediateScheduler { public <methods>; }
+        -keep class rx.schedulers.TestScheduler { public <methods>; }
+        -keep class rx.schedulers.Schedulers { public static ** test(); }
+        
+        # MOAT
+        -dontwarn com.moat.**
+        -keep class com.moat.** {
+           public protected private *;
+        }
+    
+    ```
+
+
+### unityads
+
+* [Unityads-2.1.1](https://github.com/Unity-Technologies/unity-ads-android/releases)
+
+* Integrate Unity Ads with Android Studio:
+
+    ```
+    Download the unity-ads.aar, copy the aar and add it to your project library.
+    Open the project-level build.gradle, update the repositories section.               
+        
+        repositories {
+            flatDir {
+                dirs 'libs'
+            }
+        }
+        
+    Open the app-level build.gradle file for your app, and add the dependencies in dependencies section.
+        
+        dependencies {
+            compile(name: 'unity-ads', ext: 'aar')
+        }
+    
+    This is all what you should do for integration unity-ads.
+        
+    ```
+
+
+* Integrating without Android Studio
+   
+    If you can't use the AAR packages with your build system, you can do as this:
+    
+    1、 Download the  unity-ads.zip, and include classes.jar in your build;
+    2、 update the AndroidManifest.xml
+    
+    ```xml
+    Manifest Permissions：  
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.INTERNET" />
+    
+    
+    Manifest Activities:
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    
+        <activity
+            android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+    ```
+    
+    3、 For Proguard Users Only
+    
+    ```
+        # Keep filenames and line numbers for stack traces
+        -keepattributes SourceFile,LineNumberTable
+        
+        # Keep JavascriptInterface for WebView bridge
+        -keepattributes JavascriptInterface
+        
+        # Sometimes keepattributes is not enough to keep annotations
+        -keep class android.webkit.JavascriptInterface {
+           *;
+        }
+        
+        # Keep all classes in Unity Ads package
+        -keep class com.unity3d.ads.** {
+           *;
+        }
+    ```
+
+### tapjoy
+
+* [tapjoy-11.11.0](https://ltv.tapjoy.com/s/59ae541e-2d18-8000-8000-72469900001d/onboarding#guide/basic?os=android)
+
+* Add the Applovin-SDK to Your Build：
+    
+```groovy
+    dependencies { 
+        compile files('libs/tapjoyconnectlibrary.jar') 
+    }
+```
+
+* Update AndroidManifest.xml
+
+```xml
+Manifest Permissions
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
+
+Manifest Activities
+    <activity
+        android:name="com.tapjoy.TJAdUnitActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:hardwareAccelerated="true"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+    <activity
+        android:name="com.tapjoy.mraid.view.ActionHandler"
+        android:configChanges="orientation|keyboardHidden|screenSize" />
+    <activity
+        android:name="com.tapjoy.mraid.view.Browser"
+        android:configChanges="orientation|keyboardHidden|screenSize" />
+    <activity
+        android:name="com.tapjoy.TJContentActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:hardwareAccelerated="true" />
+```
+
+
+### adcolony
+
+* [adcolony-3.2.1](https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Project-Setup)
+
+* Add the Adcolony-SDK to Your Build:
+    
+```xml
+Via Gradle:
+
+    Add the following Maven configuration to your build.gradle file that contains your application's or module's 'repositories' configuration block:
+    
+    repositories {
+        maven {
+          url  "https://adcolony.bintray.com/AdColony"      
+        }
+    }
+    
+    Add the following lines to your 'dependencies' configuration within your module's build.gradle:
+    
+    dependencies {
+        compile 'com.adcolony:sdk:3.2.1'
+    }
+    
+  
+    
+Via others:
+    
+    Download our SDK distribution. 
+    Place adcolony.jar into your project's "libs" folder.
+    Place the armeabi, armeabi-v7a, arm64-v8a, x86_64, and x86 folders into your    
+project's "libs" folder as necessary. 
+    Add the following to your module's build.gradle under 'dependencies':
+
+        dependencies {
+          compile fileTree(dir: 'libs', include: ['*.jar'])
+        }
+        
+    And the following in your module's build.gradle under 'android':
+
+        android {
+          sourceSets {
+            main {
+              jniLibs.srcDirs = ['libs']
+            }
+          }
+        }
+```
+
+* Update AndroidManifest.xml
+    
+    ```xml
+    Manifest Permissions
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission        
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+
+
+    Manifest Activities
+        <activity 
+            android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"/>
+        <activity 
+            android:name="com.adcolony.sdk.AdColonyAdViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"/>
+    
+    ```
+
+* For ProGuard Users Only 
+
+    ```
+    # For communication with AdColony's WebView
+    -keepclassmembers class * { 
+        @android.webkit.JavascriptInterface <methods>; 
+    }
+    
+    # Keep ADCNative class members unobfuscated
+    -keepclassmembers class com.adcolony.sdk.ADCNative** {
+        *;
+     }
+    ```
+
+
+## Error Code From SDK
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -1017,173 +1089,101 @@ public class MyCTAdEventListener implements CTAdEventListener {
 | ERR\_999\_OTHERS     | All other errors  |
 
 
-## <a name="release_notes">Release Notes</a>
+## Release Notes
 
-##### Version 1.1.3
-1. Add the feature for customize the app wall colors.
-2. Fix a crash bug when call system service too frequently.
+*  Version 1.4.0  [release date: 2017-02-21]
 
-##### Version 1.1.4  [release date: 2016-12-15]
-1. (New feature)Improve the Ads promote logic.
-2. (New feature)App wall support animation when show/hide
-3. (New feature)App wall add new API about native fragment
-4. (Bug fix)One method consume too much UI thread time(130ms).
-5. (Bug fix)Some app wall ads ignore the user click event.
+    1. Use the new Ad server address.
+    2. Add a new api in CTAdvanceNative for unregister click area.
 
-##### Version 1.2.0  [release date: 2016-12-23]
-1. [New feature] Add news feed
-2. [New feature] Continue improve the promote performance.
-3. [Bug] Update third party ads impression log logic.
-4. [Bug] Fix a crash issue when call system service getInstalledApplication.
+* Version 1.4.6 [release data: 2017-03-08]
+    
+    1. Admob advance native ads don't send impressions.
+    2. Fix a accidental crash bug when android api version is 4.0.4.
+    3. Appwall don't load ads, when use the appwall function only.
 
-##### Version 1.2.1  [release date: 2016-12-29]
-1. [New feature] Use more server side parameter for the promote logic.
-2. [New feature] In app wall, get title ad from integration api, so that it can show fb ads.
-3. [New feature] Auto ad impression for native ads.
-4. [New feature] Update newsfeed sdk; add the call back interface when user click the news.
-5. [New feature] Add the app’s version code when request ad from server.
+* Version 1.4.8 [release data: 2017-03-17]
 
-##### Version 1.2.2  [release date: 2017-01-05]
-1. [Feature] Integrate admob advance native ads.
-2. [Bug] Update the cache logic for ads in app wall.
-3. [Bug] Memory leaks issue when exit the app wall.
-4. [Feature] Now, news feed support early version of v4 library.
+    1. Feature: add the video ads module
+    2. Feature: video ads support reward video ad
 
-##### Version 1.3.0  [release date: 2017-01-18]
-1. [Feature] Add CTService::init() API.
+* Version 1.5.0 [release data: 2017-03-30]
 
-##### Version 1.3.1  [release date: 2017-02-08]
-1. Remove some ambiguous log.
-2. Improve the network request.
-3. Fix a crash bug when SD card fails in some devices.
-4. Update impression logic according AD server log update.
+    1. Fix bug: do a workaround for Oppo phone's crash.
+    2. Fix bug: resolve the bug about ConcurrentModification.
+    3. Feature: Update impression logic.
+    4. Feature: Add animation support when show app wall. 
 
-##### Version 1.4.0  [release date: 2017-02-21]
-1. Use the new Ad server address.
-2. Add a new api in CTAdvanceNative for unregister click area.
+* Version 1.6.0 [release data: 2017-05-05]
 
-##### Version 1.4.6 [release data: 2017-03-08]
-1. Admob advance native ads don't send impressions.
-2. Fix a accidental crash bug when android api version is 4.0.4.
-3. Appwall don't load ads, when use the appwall function only.
+    1. Upgrade video ad with cache feature.
+    2. Support more vast track events.
+    3. Interstitisl-ads support two sizes: fullscreen\notfullscreen
+    4. Fix bug: the template can be null for advanceNative slotid.
 
-##### Version 1.4.8 [release data: 2017-03-17]
-1. Feature: add the video ads module
-2. Feature: video ads support reward video ad
+* Version 1.6.5 [release data: 2017-05-15]
 
-##### Version 1.5.0 [release data: 2017-03-30]
+    1. support facebook-audience-network 4.22.0
+    2. Fix bug: Reward Video continue play when back from background.
 
-0. Fix bug: do a workaround for Oppo phone's crash.
-1. Fix bug: resolve the bug about ConcurrentModification.
-2. Feature: Update impression logic.
-3. Feature: Add animation support when show app wall. 
+* Version 1.6.6 [release data: 2017-05-17]
 
-##### Version 1.6.0 [release data: 2017-05-05]
+    1. Fix two bugs for reward video
+    2. update the eclpise sample
 
-1. Upgrade video ad with cache feature.
-2. Support more vast track events.
-3. Interstitisl-ads support two sizes: fullscreen\notfullscreen
-4. Fix bug: the template can be null for advanceNative slotid.
+* Version 1.6.7 [release data: 2017-05-24]
 
-##### Version 1.6.5 [release data: 2017-05-15]
+    1. add preload image cache for Advance Native Ad
 
-1. support facebook-audience-network 4.22.0
-2. Fix bug: Reward Video continue play when back from background.
+* Version 1.7.0 [release data: 2017-06-02]
 
-##### Version 1.6.6 [release data: 2017-05-17]
+    1. update layout for reward video finish
 
-1. Fix two bugs for reward video
-2. update the eclpise sample
+* Version 1.7.2 [release data: 2017-06-20]
 
-##### Version 1.6.7 [release data: 2017-05-24]
+    1. Fix bugs: Reward video progress bar.
+    2. Fix bugs: not show dialog after Reward video finished.
 
-1. add preload image cache for Advance Native Ad
+* Version 1.7.3 [release data:2017-07-03]
 
-##### Version 1.7.0 [release data: 2017-06-02]
+    1. Support cache the ads by getAdvanceNativeFroCache()
+    2. Provide adapter for Mopub with Cloudmobi sdk.
 
-1. update layout for reward video finish
+* Version 1.7.6 [relase data:2017-07-25]
 
-##### Version 1.7.2 [release data: 2017-06-20]
-
-1. Fix bugs: Reward video progress bar.
-2. Fix bugs: not show dialog after Reward video finished.
-
-##### Version 1.7.3 [release data:2017-07-03]
-
-1. Support cache the ads by getAdvanceNativeFroCache()
-2. Provide adapter for Mopub with Cloudmobi sdk.
-
-##### Version 1.7.6 [relase data:2017-07-25]
-
-1. Optimize multithreading issues;
-2. Support multiple processes;
-3. Optimize templates and configuration request;
-4. Optimize ContextHolder,TrackUtil,Utils and so on
-5. Fix the occasional crash when request on android 4;
-6. Fix the problem when video restore from minimization;
-7. Fix bug: Gridview first Item not work in appwall;
-8. Fix bug: the interface for proladImage stop when load facebook ads.
+    1. Optimize multithreading issues;
+    2. Support multiple processes;
+    3. Optimize templates and configuration request;
+    4. Optimize ContextHolder,TrackUtil,Utils and so on
+    5. Fix the occasional crash when request on android 4;
+    6. Fix the problem when video restore from minimization;
+    7. Fix bug: Gridview first Item not work in appwall;
+    8. Fix bug: the interface for proladImage stop when load facebook ads.
 
 
-## <a name="reference">About Facebook/Admob advertisement</a>：
-#### [Apply Facebook advertisement](https://developers.facebook.com/docs/audience-network)
-
-* Notes: The cloudssp-sdk has group the facebook ads in native/banner /interstitial interface.
-
-* Add the audience-network-sdk in the module's build.gradle for facebook ads
-
-``` groovy
-	dependencies {
-    	compile 'com.facebook.android:audience-network-sdk:4.13.0'
-	}
-```
-* Add the facebook placementid in ssp.
-
-#### [Apply Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
-
-* Notes:The cloudssp-sdk has group the admob ads in native/banner/interstitial interface.
-
-* Add the firebase-ads in the module's build.gradle for admob ads
-
-``` groovy
-	dependencies {
-    	compile 'com.google.firebase:firebase-ads:9.0.2'
-	}
-```
-* Add the below content in AndroidManifest.xml for admob ads
-
-```
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-    <activity android:name="com.google.android.gms.ads.AdActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|
-            screenLayout|uiMode|screenSize|smallestScreenSize"
-        android:theme="@android:style/Theme.Translucent" />
-```
-
-* Add the admob unitid in ssp.
-
-## <a name="eclipse">SDK Initialization with eclipse</a>
+## SDK Initialization with eclipse
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
 * Add the Cloudssp SDK into target project folder /libs/ , and Add them to build path.
 * If you need group facebook/admob ads by Cloudssp SDK, you should add the related dependence in your project and add the corresponding id.
 
- ``` 
+ ```java 
     //for basic sdk
     cloudssp_xx.jar
+    
+    //for imageloader
+    cloudssp_imageloader_xx.jar
     
     //for appwall
     cloudssp_appwall_xx.jar
  
- 	//for facebook ads
-	AudienceNetwork.jar
+ 	  //for facebook ads
+	   AudienceNetwork.jar
 
-	//for admob ads
-	google-play-services-ads-lite.jar
-	google-play-services-basement.jar
+	   //for admob ads
+	   google-play-services-ads-lite.jar
+	   google-play-services-basement.jar
 	
 	//notes
 	If you need facebook or admob ads， please add facebook placement id and admob ad unit id in ssp.
