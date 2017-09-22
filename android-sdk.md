@@ -1,6 +1,24 @@
-[TOC]
+* [Getting Started with Cloudmobi SDK](#start)
+* [Integration Notes](#integration)
+* [Native Ads Integration](#native)
+* [Banner Ads Integration](#banner)
+* [Interstitial Ads Integration](#interstitial)
+* [Appwall integration](#appwall)
+* [Basic Ad Mediation (Banner-Interstitial-Native)](#basic)
+    * [facebook](#facebook)
+    * [admob](#admob)
+* [Reward Video Ad Integration](#reward)
+* [Reward Video Ad Mediation](#mediation)   
+    * [applovin](#applovin)
+    * [vungle](#vungle)
+    * [unityads](#unityads)
+    * [tapjoy](#tapjoy)
+    * [adcolony](#adcolony)
+* [Error Code From SDK](#error)
+* [Release Notes](#release)
+* [SDK Initialization with eclipse](#eclipse)
 
-## Getting Started with Cloudmobi SDK
+## <a name="start">Getting Started with Cloudmobi SDK</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Gradle
@@ -102,7 +120,7 @@ dependencies {
 ```
 
 
-## Integration Notes
+## <a name="integration">Integration Notes</a>
 
 * Two permises are need for Cloudmobi ads.
     
@@ -175,7 +193,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ```
 
 
-## Native Ads Integration
+## <a name="native">Native Ads Integration</a>
 
 ### Single elements-Native ads interface
 
@@ -394,7 +412,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
                 
 ```
 
-## Banner Ads Integration
+## <a name="banner">Banner Ads Integration</a>
 
 * The method to load Banner Ads:
 
@@ -431,7 +449,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
                 });
 ```
 
-## Interstitial Ads Integration
+## <a name="interstitial">Interstitial Ads Integration</a>
 
 * update AndroidManifest.xml for Interstitial Ads
 
@@ -473,7 +491,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
                 
 ```
 
-## Appwall integration
+## <a name="appwall">Appwall integration</a>
 
 * Update the module's build.gradle for Appwall：
 
@@ -521,12 +539,12 @@ public class MyCTAdEventListener implements CTAdEventListener {
     AppwallHelper.showAppwall(context, "your slotid");
 ```
 
-## Basic Ad Mediation [Banner-Interstitial-Native]
+## <a name="basic">Basic Ad Mediation</a> [Banner-Interstitial-Native]
 
-### [Facebook advertisement](https://developers.facebook.com/docs/audience-network)
+### <a name="facebook">Facebook</a>
 
+* [Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 * Set up the facebook placementId in Cloudmobi platform.
-
 * Update the module's build.gradle as below:
 
 ``` groovy
@@ -535,10 +553,10 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	}
 ```
 
-### [Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
+### <a name="admob">Google Admob</a>
 
+* [Google Admob advertisement](https://firebase.google.com/docs/admob/android/quick-start)
 * Set up the admob unitId in Cloudmobi platform.
-
 * Update the module's build.gradle ad bolow:
 
 ``` groovy
@@ -561,7 +579,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
         android:theme="@android:style/Theme.Translucent" />
 ```
 
-## Reward Video Ad Integration
+## <a name="reward">Reward Video Ad Integration</a>
 
 * Update the module's build.gradle for Reward Video：
 
@@ -708,11 +726,11 @@ The Placement object contains both the Reward Name & Reward Amount of the Placem
     
 ```
 
-## Reward Video Ad Mediation
+## <a name="mediation">Reward Video Ad Mediation</a>
 
 Before integrate each platform for Reward Video,  you shoud configure it's Parameters(appId\placementName) into Cloudmoni platform.
 
-### applovin
+### <a name="applovin">applovin</a>
 
 * [applovin-7.3.2](https://www.applovin.com/integration#androidIntegration)
     
@@ -749,7 +767,7 @@ Before integrate each platform for Reward Video,  you shoud configure it's Param
        android:configChanges="orientation|screenSize"/>
    ```
 
-### vungle
+### <a name="vungle">vungle</a>
 
 * [vungle-5.1.0](https://dashboard.vungle.com/sdk)
 
@@ -861,7 +879,7 @@ Before integrate each platform for Reward Video,  you shoud configure it's Param
     ```
 
 
-### unityads
+### <a name="unityads">unityads</a>
 
 * [Unityads-2.1.1](https://github.com/Unity-Technologies/unity-ads-android/releases)
 
@@ -936,7 +954,7 @@ Before integrate each platform for Reward Video,  you shoud configure it's Param
         }
     ```
 
-### tapjoy
+### <a name="tapjoy">tapjoy</a>
 
 * [tapjoy-11.11.0](https://ltv.tapjoy.com/s/59ae541e-2d18-8000-8000-72469900001d/onboarding#guide/basic?os=android)
 
@@ -978,7 +996,7 @@ Manifest Activities
 ```
 
 
-### adcolony
+### <a name="adcolony">adcolony</a>
 
 * [adcolony-3.2.1](https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Project-Setup)
 
@@ -1063,7 +1081,7 @@ project's "libs" folder as necessary.
     ```
 
 
-## Error Code From SDK
+## <a name="error">Error Code From SDK</a>
 
 | Erro Code               | Description                   |
 | ------------------ | -------------------- |
@@ -1089,7 +1107,7 @@ project's "libs" folder as necessary.
 | ERR\_999\_OTHERS     | All other errors  |
 
 
-## Release Notes
+## <a name="release">Release Notes</a>
 
 *  Version 1.4.0  [release date: 2017-02-21]
 
@@ -1161,7 +1179,7 @@ project's "libs" folder as necessary.
     8. Fix bug: the interface for proladImage stop when load facebook ads.
 
 
-## SDK Initialization with eclipse
+## <a name="eclipse">SDK Initialization with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
 * Build tool：Ant
