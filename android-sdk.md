@@ -83,25 +83,7 @@ dependencies {
 ```java
    CTService.init(context, "one of your slotId");
 ```
-
-
-* **Google Play Services**
-
-    1、Google Play Services in Your Android Manifest
-
-    Add the following  inside the <application> tag in your AndroidManifest:
-    
-    ```
-    <meta-data android:name="com.google.android.gms.version"
-              android:value="@integer/google_play_services_version" />
-    ```
-    
-    2、Google Advertising ID
-    
-    The Cloudmobi SDK requires access to the Google Advertising ID in order to operate properly. See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
-    
-    3、If you need integrate the admob-sdk for basic ads, it's not necessary to do this.
-    
+ 
 
 *  **For ProGuard Users**
 
@@ -587,6 +569,24 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ## <a name="reward">Reward Video Ad Integration</a>
 
+* **Google Play Services**
+
+    1、Google Advertising ID
+    
+    The RewardVideo requires access to the Google Advertising ID in order to operate properly. See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
+    
+    2、Google Play Services in Your Android Manifest
+
+    Add the following  inside the <application> tag in your AndroidManifest:
+    
+    ```
+    <meta-data android:name="com.google.android.gms.version"
+              android:value="@integer/google_play_services_version" />
+    ```
+    
+    3、If you have integrated the admob-sdk for basic ads, it's not necessary to do this.
+
+
 * Update the module's build.gradle for Reward Video：
 
 ``` groovy
@@ -596,7 +596,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
         compile files('libs/cloudssp_imageloader_xx.jar')
         compile files('libs/cloudssp_mediation_xx.jar')
 	}
-
 ```
 
 * Update the AndroidManifest.xml for Reward Video:
@@ -720,7 +719,7 @@ Once you get an available Reward Video, you are ready to show this video ad to y
 
 The Cloudmobi SDK will fire the onRewardedVideoAdRewarded event each time the user successfully completes a video. The RewardedVideoListener will be in place to receive this event so you can reward the user successfully.
 
-The Placement object contains both the Reward Name & Reward Amount of the Placement as defined in your ironSource Admin:
+The Reward object contains both the Reward Name & Reward Amount of the SlotId as defined in your Cloudmobi ssp:
 
 
 ```java
