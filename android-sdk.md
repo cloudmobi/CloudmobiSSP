@@ -737,7 +737,7 @@ The Placement object contains both the Reward Name & Reward Amount of the Placem
 Before You Start
 
 1. Make sure you have correctly integrated Cloudmobi's Rewarded Video into your application. 
-2. You shoud configure the folliwing platform's Parameters(appId\placementName) into Cloudmoni platform.
+2. You shoud configure the following platform's Parameters(appId\placementName) into Cloudmoni platform.
 
 ### <a name="applovin">applovin</a>
 
