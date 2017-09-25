@@ -775,6 +775,15 @@ Before You Start
        android:name="com.applovin.adview.AppLovinConfirmationActivity" 
        android:configChanges="orientation|screenSize"/>
    ```
+    
+* For Proguard Users Only
+    
+    ```
+   #applovin
+   -keep class com.applovin.sdk.**{
+       *;
+   }
+    ```
 
 ### <a name="vungle">vungle</a>
 
@@ -1087,6 +1096,10 @@ project's "libs" folder as necessary.
     -keepclassmembers class com.adcolony.sdk.ADCNative** {
         *;
      }
+  
+    -keep class com.adcolony.sdk.**{
+        *;
+     }
     ```
 
 
@@ -1187,7 +1200,11 @@ project's "libs" folder as necessary.
     7. Fix bug: Gridview first Item not work in appwall;
     8. Fix bug: the interface for proladImage stop when load facebook ads.
 
+* Version 2.0.0 [release data:2017-09-22]
 
+    1. Optimize the base function jar
+    2. public the Reward Video mediation function jar
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
