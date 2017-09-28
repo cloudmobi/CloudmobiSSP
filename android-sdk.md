@@ -1204,6 +1204,10 @@ project's "libs" folder as necessary.
     1. Optimize the base function jar
     2. public the Reward Video mediation function jar
     
+* Version 2.0.2 [release data:2017-09-28]
+
+    1. Fix bug: Thread Pool Exception
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
