@@ -1207,6 +1207,12 @@ project's "libs" folder as necessary.
 * Version 2.0.2 [release data:2017-09-28]
 
     1. Fix bug: Thread Pool Exception
+
+* Version 2.0.3 [release data:2017-10-10]
+    
+    1. Fix bug: compatible the template request url version
+    2. upload log of RewardVideo Mediation for important node
+    3. remove the facebook/admob error msg for not group facebook/admob ads
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
