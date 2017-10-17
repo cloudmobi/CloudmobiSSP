@@ -195,6 +195,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * The method to load elements-Native Ads:
 
 ``` java
+
+    /**
+     * @param slotId     cloudmobi id
+     * @param context    context
+     * @param imageType  the rate of image(1.9:1 or 1:1) 
+     * @param adListener callback listener 
+     * @return 
+     */
  	CTService.getAdvanceNative("your slotid",context,
  	          CTImageRatioType.RATIO_19_TO_10,new MyCTAdEventListener(){
                   @Override
@@ -250,6 +258,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
     }   
 
     //load ads
+    /**
+     * @param slotId        cloudmobi id
+     * @param context       context
+     * @param imageType     the rate of image(1.9:1 or 1:1)
+     * @param autoLoadImage is image preload 
+     * @param adListener    callback listener
+     * @return
+     */
     CTService.getAdvanceNative("your slotid", context,
             CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
                 @Override
