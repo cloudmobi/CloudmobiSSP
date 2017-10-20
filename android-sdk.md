@@ -195,6 +195,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * The method to load elements-Native Ads:
 
 ``` java
+
+    /**
+     * @param slotId     cloudmobi id
+     * @param context    context
+     * @param imageType  the rate of image(1.9:1 or 1:1) 
+     * @param adListener callback listener 
+     * @return 
+     */
  	CTService.getAdvanceNative("your slotid",context,
  	          CTImageRatioType.RATIO_19_TO_10,new MyCTAdEventListener(){
                   @Override
@@ -250,6 +258,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
     }   
 
     //load ads
+    /**
+     * @param slotId        cloudmobi id
+     * @param context       context
+     * @param imageType     the rate of image(1.9:1 or 1:1)
+     * @param autoLoadImage is image preload 
+     * @param adListener    callback listener
+     * @return
+     */
     CTService.getAdvanceNative("your slotid", context,
             CTImageRatioType.RATIO_19_TO_10, true, new MyCTAdEventListener() {
                 @Override
@@ -296,8 +312,15 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * get Ads for cache
 
 ```java
-        
-    CTService.getAdvanceNativeForCache("your slotid",context,
+        
+    /**
+     * @param slotId     cloudmobi id
+     * @param context    context
+     * @param imageType  the rate of image(1.9:1 or 1:1)
+     * @param adListener callback listener 
+     * @return
+     */
+    CTService.getAdvanceNativeForCache("your slotid",context,
             CTImageRatioType.RATIO_19_TO_10, new MyCTAdEventListener() {
                 @Override
                 public void onAdsVoGotAdSucceed(AdsNativeVO result) {
@@ -344,7 +367,16 @@ public class MyCTAdEventListener implements CTAdEventListener {
     keywords.add("tools");
     keywords.add("games");
 
-    CTService.getAdvanceNativeByKeywords("your slotid", context,
+    /**
+     * @param slotId     cloudmobi id
+     * @param context    context
+     * @param imageType  the rate of image(1.9:1 or 1:1)
+     * @param adsCat     the type of ads 
+     * @param keywords   the keywords for ads
+     * @param adListener callback listener 
+     * @return
+     */
+    CTService.getAdvanceNativeByKeywords("your slotid", context,
     		 CTImageRatioType.RATIO_19_TO_10, CTAdsCat.TYPE_TOOL, keywords,
     		 	new MyCTAdEventListener(){
                @Override
@@ -366,6 +398,15 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * The method to load multi Native ads
 
 ``` java
+
+    /**
+     * @param reqAdNumber request ads num
+     * @param slotId      cloudmobi id
+     * @param context     context
+     * @param imageType   the rate of image(1.9:1 or 1:1)
+     * @param adListener  callback listener 
+     * @return
+     */
 	CTService.getMultiNativeAds(required_num, "your slotid",context,
 	   CTImageRatioType.RATIO_19_TO_10,new MultiAdsEventListener() {
             public void onMultiNativeAdsSuccessful(List<CTAdvanceNative> res) {
@@ -386,6 +427,13 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` java
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 
+    /**
+     * @param slotId            cloudmobi id
+     * @param isShowCloseButton close button switch 
+     * @param context           context
+     * @param adListener        callback listener 
+     * @return
+     */
  	CTService.getNative("your slotid", false, context,
                 new MyCTAdEventListener(){
                     @Override
@@ -407,6 +455,13 @@ public class MyCTAdEventListener implements CTAdEventListener {
 ``` java
 	ViewGroup container = (ViewGroup) view.findViewById(R.id.container);
 
+    /**
+     * @param slotId            cloudmobi id
+     * @param isShowCloseButton close button switch 
+     * @param context           context
+     * @param adListener        callback listener 
+     * @return
+     */
   	CTService.getBanner("your slotid", false, context,
   	 		new MyCTAdEventListener(){
 
@@ -455,7 +510,16 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * The method to show Interstitial Ads
 
 ``` java
-    CTService.preloadInterstitial("your slotid",true,false,context,
+
+    /**
+     * @param slotId            cloudmobi id
+     * @param isShowCloseButton close button switch 
+     * @param isFullScreen      full screen switch 
+     * @param context           context
+     * @param adListener        callback listener 
+     * @return
+     */
+   CTService.preloadInterstitial("your slotid",true,false,context,
     		  new MyCTAdEventListener(){
                    @Override
                    public void onInterstitialLoadSucceed(CTNative result) {
