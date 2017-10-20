@@ -1278,6 +1278,12 @@ project's "libs" folder as necessary.
     2. upload log of RewardVideo Mediation for important node
     3. remove the facebook/admob error msg for not group facebook/admob ads
     
+*  Version 2.0.4 [release data:2017-10-20]    
+    
+    1. add volum controller in RewardedVideo
+    2. add params pn in RewardedVideo Tracking-log 
+    3. fix RewardedVideo impression log ts tag  
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
