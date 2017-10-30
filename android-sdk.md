@@ -31,13 +31,13 @@
 * Select API 14: Android 4.0 or later.
 * Add the Cloudssp SDK to your Project：
 
-	| jar name           		    | jar function           | require(Y/N) |
-	| ------------------ 		    | --------------------   | --------     |
-	| cloudssp_xx.jar    		| basic functions(banner\interstitial\native ads)| Y|
-	| cloudssp_imageloader_xx.jar | imageloader functions  |     N        |
-	| cloudssp_appwall_xx.jar     | appwall ads functions      |     N        |
-	| cloudssp_videoads_xx.jar    | video ads functions    |     N        |
-	| cloudssp_mediation_xx.jar   | Rewarded Video Mediation |     N       | 
+  | jar name                    | jar function                             | require(Y/N) |
+  | --------------------------- | ---------------------------------------- | ------------ |
+  | cloudssp_xx.jar             | basic functions(banner\interstitial\native ads) | Y            |
+  | cloudssp_imageloader_xx.jar | imageloader functions                    | N            |
+  | cloudssp_appwall_xx.jar     | appwall ads functions                    | N            |
+  | cloudssp_videoads_xx.jar    | video ads functions                      | N            |
+  | cloudssp_mediation_xx.jar   | Rewarded Video Mediation                 | N            |
 
 * Update the module's build.gradle for basic functions：
 
@@ -83,12 +83,12 @@ dependencies {
 ```java
    CTService.init(context, "one of your slotId");
 ```
- 
+
 
 *  **For ProGuard Users**
 
     If you are using ProGuard with the Cloudmobi SDK, you must add the following code to your ProGuard file:
-    
+
 ``` java
     #for sdk
     -keep public class com.cloudtech.**{*;}
@@ -111,10 +111,10 @@ dependencies {
 ## <a name="integration">Integration Notes</a>
 
 * Two permises are need for Cloudmobi ads.
-    
+
     1. **GooglePlay** is installed on your mobile.
     2. **VPN** is needed for ads.
-    
+
 * About the CTAdEventListerner.
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
 
@@ -356,7 +356,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
        }
 
 ```
- 
+
 
 
 ### <a name="keywords">Single elements-Native ads interface for keywords</a>
@@ -571,7 +571,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * Preload appwall
 
     It‘s better to preload ads for Appwall before show it. 
-    
+
 ``` java
 
     AppwallHelper.init(context, "your slotid");
@@ -636,18 +636,18 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * **Google Play Services**
 
     1、Google Advertising ID
-    
+
     The RewardVideo requires access to the Google Advertising ID in order to operate properly. See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
-    
+
     2、Google Play Services in Your Android Manifest
 
     Add the following  inside the <application> tag in your AndroidManifest:
-    
+
     ```
     <meta-data android:name="com.google.android.gms.version"
               android:value="@integer/google_play_services_version" />
     ```
-    
+
     3、If you have integrated the admob-sdk for basic ads, it's not necessary to do this.
 
 
@@ -753,7 +753,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * Preload the Reward Video
 
     It‘s better to preload ads for Reward Video before show it. 
-    
+
 ``` java
 
     CloudmobiSDK.initRewardVideo(activity);
@@ -762,7 +762,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 * Show Reward Video to Your Users
 
 By implementing the RewardedVideoListener, you can receive the availability status through the onVideoAvailabilityChanged callback.
-    
+​    
 ```java
     public void onVideoAvailabilityChanged(boolean available)
 ```
@@ -778,7 +778,7 @@ Once you get an available Reward Video, you are ready to show this video ad to y
 ```java
     CloudmobiSDK.showRewardedVideo(slotId);
 ```
-    
+
 *  Reward the User
 
 The Cloudmobi SDK will fire the onRewardedVideoAdRewarded event each time the user successfully completes a video. The RewardedVideoListener will be in place to receive this event so you can reward the user successfully.
@@ -805,23 +805,24 @@ Before You Start
 ### <a name="applovin">applovin</a>
 
 * [applovin-7.3.2](https://www.applovin.com/integration#androidIntegration)
-    
+
 * Add the Applovin-SDK to Your Build
-        
+   ​      
    ```groovy
        dependencies {
            compile files('libs/applovin-sdk-7.3.2.jar')
        }
    ```
-        
+
 * Update AndroidManifest.xml
-    
+
    ```xml
    Manifest Permissions:
    <uses-permission android:name="android.permission.INTERNET"/>
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"       
                     android:maxSdkVersion="18" />
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   ```
 
 
    Manifest activities:
@@ -829,7 +830,7 @@ Before You Start
        android:name="com.applovin.adview.AppLovinInterstitialActivity"/>
    <activity
        android:name="com.applovin.adview.AppLovinConfirmationActivity"/>
-   
+
    for SDK versions >= 6.4.0  add the configChanges for better performance:
    <activity 
        android:name="com.applovin.adview.AppLovinInterstitialActivity"         
@@ -841,19 +842,19 @@ Before You Start
     
 * For Proguard Users Only
     
-    ```
+   ```
    #applovin
    -keep class com.applovin.sdk.**{
        *;
    }
-    ```
+    ​```
 
 ### <a name="vungle">vungle</a>
 
 * [vungle-5.1.0](https://dashboard.vungle.com/sdk)
 
 * Add the Vungle-SDK to Your Build：
-            
+    ​          
     ```groovy
     Via Gradle:
     Open the project-level build.gradle, and add maven URL in the all project section.
@@ -866,16 +867,16 @@ Before You Start
        }
        
     Open the app-level build.gradle file for your app, and add compile dependencies in the dependencies section.
-    
+
         dependencies {
         	   compile 'com.github.vungle:vungle-android-sdk:5.1.0'
         }
-    
-    
+
+
     Via ohters:
     Download Vungle SDK, copy all the jars and add it to your project library.
     Open the project-level build.gradle, and update the repositories section.
-    
+
         allprojects {
             repositories {
                 jcenter()
@@ -891,10 +892,9 @@ Before You Start
             compile files('libs/publisher-sdk-android-5.1.0.jar')
             compile files('libs/rxjava-1.2.0.jar')
         }
-    
-    ``` 
-       
-        
+
+    ```
+
 * Update AndroidManifest.xml
 
     ```xml    
@@ -904,8 +904,8 @@ Before You Start
         android:maxSdkVersion="18"/>
     <uses-permission
         android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    
+
+
     Manifest Activities:
     <activity 
         android:name="com.vungle.publisher.VideoFullScreenAdActivity"
@@ -956,7 +956,7 @@ Before You Start
         -keep class com.moat.** {
            public protected private *;
         }
-    
+
     ```
 
 
@@ -981,32 +981,32 @@ Before You Start
         dependencies {
             compile(name: 'unity-ads', ext: 'aar')
         }
-    
+
     This is all what you should do for integration unity-ads.
         
     ```
 
 
 * Integrating without Android Studio
-   
+
     If you can't use the AAR packages with your build system, you can do as this:
-    
+
     1、 Download the  unity-ads.zip, and include classes.jar in your build;
     2、 update the AndroidManifest.xml
-    
+
     ```xml
     Manifest Permissions：  
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         <uses-permission android:name="android.permission.INTERNET" />
-    
-    
+
+
     Manifest Activities:
         <activity
             android:name="com.unity3d.ads.adunit.AdUnitActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
             android:hardwareAccelerated="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-    
+
         <activity
             android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
             android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
@@ -1014,9 +1014,9 @@ Before You Start
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
     ```
-    
+
     3、 For Proguard Users Only
-    
+
     ```
         # Keep filenames and line numbers for stack traces
         -keepattributes SourceFile,LineNumberTable
@@ -1040,7 +1040,7 @@ Before You Start
 * [tapjoy-11.11.0](https://ltv.tapjoy.com/s/59ae541e-2d18-8000-8000-72469900001d/onboarding#guide/basic?os=android)
 
 * Add the Applovin-SDK to Your Build：
-    
+
 ```groovy
     dependencies { 
         compile files('libs/tapjoyconnectlibrary.jar') 
@@ -1082,7 +1082,7 @@ Manifest Activities
 * [adcolony-3.2.1](https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Project-Setup)
 
 * Add the Adcolony-SDK to Your Build:
-    
+
 ```xml
 Via Gradle:
 
@@ -1126,13 +1126,14 @@ project's "libs" folder as necessary.
 ```
 
 * Update AndroidManifest.xml
-    
+
     ```xml
     Manifest Permissions
         <uses-permission android:name="android.permission.INTERNET" />
         <uses-permission        
             android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
+    ```
 
 
     Manifest Activities
@@ -1145,7 +1146,7 @@ project's "libs" folder as necessary.
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"/>
     
-    ```
+    ​```
 
 * For ProGuard Users Only 
 
@@ -1154,12 +1155,12 @@ project's "libs" folder as necessary.
     -keepclassmembers class * { 
         @android.webkit.JavascriptInterface <methods>; 
     }
-    
+
     # Keep ADCNative class members unobfuscated
     -keepclassmembers class com.adcolony.sdk.ADCNative** {
         *;
      }
-  
+      
     -keep class com.adcolony.sdk.**{
         *;
      }
@@ -1168,28 +1169,28 @@ project's "libs" folder as necessary.
 
 ## <a name="error">Error Code For SDK</a>
 
-| Erro Code               | Description                   |
-| ------------------ | -------------------- |
-| ERR\_000\_TRACK  | Track exception              |
-| ERR\_001\_INVALID_INPUT     | Invalid parameter            |
-| ERR\_002\_NETWORK | Network exception                 |
-| ERR\_003\_REAL_API     | Error from Ad Server            |
-| ERR\_004\_INVALID_DATA     | Invalid advertisement data                |
-| ERR\_005\_RENDER_FAIL     | Advertisement render failed               |
-| ERR\_006\_LANDING_URL     | Landing failed         |
-| ERR\_007\_TO_DEFAULT_MARKET     | Implicitly lading failed            |
-| ERR\_008\_DL_URL     | Deep-Link exception        |
-| ERR\_009\_DL_URL_JUMP     | Deep-Link jump exception        |
-| ERR\_010\_APK_DOWNLOAD_URL     | Application package download failed            |
-| ERR\_011\_APK_INSTALL     | Application install failed                |
-| ERR\_012\_VIDEO_LOAD     | Load the video exception              |
-| ERR\_013\_PAGE_LOAD     | Load the html5 page failed               |
-| ERR\_014\_JAR_UPDATE_VERSION     | Check the update jar failed        |
-| ERR\_015\_GET_GAID     | Cannot get google advertisement id failed |
-| ERR\_016\_GET_AD_CONFIG     | Cannot get the account configuration or template |
-| ERR\_017\_INTERSTITIAL_SHOW_NO_AD     | Try to load the interstitial advertisement, but the advertisement is not ready  |
-| ERR\_018\_AD_CLOSED  |Ad slotId has been closed|
-| ERR\_999\_OTHERS     | All other errors  |
+| Erro Code                         | Description                              |
+| --------------------------------- | ---------------------------------------- |
+| ERR\_000\_TRACK                   | Track exception                          |
+| ERR\_001\_INVALID_INPUT           | Invalid parameter                        |
+| ERR\_002\_NETWORK                 | Network exception                        |
+| ERR\_003\_REAL_API                | Error from Ad Server                     |
+| ERR\_004\_INVALID_DATA            | Invalid advertisement data               |
+| ERR\_005\_RENDER_FAIL             | Advertisement render failed              |
+| ERR\_006\_LANDING_URL             | Landing failed                           |
+| ERR\_007\_TO_DEFAULT_MARKET       | Implicitly lading failed                 |
+| ERR\_008\_DL_URL                  | Deep-Link exception                      |
+| ERR\_009\_DL_URL_JUMP             | Deep-Link jump exception                 |
+| ERR\_010\_APK_DOWNLOAD_URL        | Application package download failed      |
+| ERR\_011\_APK_INSTALL             | Application install failed               |
+| ERR\_012\_VIDEO_LOAD              | Load the video exception                 |
+| ERR\_013\_PAGE_LOAD               | Load the html5 page failed               |
+| ERR\_014\_JAR_UPDATE_VERSION      | Check the update jar failed              |
+| ERR\_015\_GET_GAID                | Cannot get google advertisement id failed |
+| ERR\_016\_GET_AD_CONFIG           | Cannot get the account configuration or template |
+| ERR\_017\_INTERSTITIAL_SHOW_NO_AD | Try to load the interstitial advertisement, but the advertisement is not ready |
+| ERR\_018\_AD_CLOSED               | Ad slotId has been closed                |
+| ERR\_999\_OTHERS                  | All other errors                         |
 
 
 ## <a name="release">Release Notes</a>
@@ -1198,61 +1199,60 @@ project's "libs" folder as necessary.
 
     1. Use the new Ad server address.
     2. Add a new api in CTAdvanceNative for unregister click area.
+*  Version 1.4.6 [release date: 2017-03-08]
 
-* Version 1.4.6 [release data: 2017-03-08]
-    
     1. Admob advance native ads don't send impressions.
     2. Fix a accidental crash bug when android api version is 4.0.4.
     3. Appwall don't load ads, when use the appwall function only.
 
-* Version 1.4.8 [release data: 2017-03-17]
+*  Version 1.4.8 [release date: 2017-03-17]
 
     1. Feature: add the video ads module
     2. Feature: video ads support reward video ad
 
-* Version 1.5.0 [release data: 2017-03-30]
+*  Version 1.5.0 [release date: 2017-03-30]
 
     1. Fix bug: do a workaround for Oppo phone's crash.
     2. Fix bug: resolve the bug about ConcurrentModification.
     3. Feature: Update impression logic.
     4. Feature: Add animation support when show app wall. 
 
-* Version 1.6.0 [release data: 2017-05-05]
+*  Version 1.6.0 [release date: 2017-05-05]
 
     1. Upgrade video ad with cache feature.
     2. Support more vast track events.
     3. Interstitisl-ads support two sizes: fullscreen\notfullscreen
     4. Fix bug: the template can be null for advanceNative slotid.
 
-* Version 1.6.5 [release data: 2017-05-15]
+*  Version 1.6.5 [release date: 2017-05-15]
 
     1. support facebook-audience-network 4.22.0
     2. Fix bug: Reward Video continue play when back from background.
 
-* Version 1.6.6 [release data: 2017-05-17]
+*  Version 1.6.6 [release date: 2017-05-17]
 
     1. Fix two bugs for reward video
     2. update the eclpise sample
 
-* Version 1.6.7 [release data: 2017-05-24]
+*  Version 1.6.7 [release date: 2017-05-24]
 
     1. add preload image cache for Advance Native Ad
 
-* Version 1.7.0 [release data: 2017-06-02]
+*  Version 1.7.0 [release date: 2017-06-02]
 
     1. update layout for reward video finish
 
-* Version 1.7.2 [release data: 2017-06-20]
+*  Version 1.7.2 [release date: 2017-06-20]
 
     1. Fix bugs: Reward video progress bar.
     2. Fix bugs: not show dialog after Reward video finished.
 
-* Version 1.7.3 [release data:2017-07-03]
+*  Version 1.7.3 [release date: 2017-07-03]
 
     1. Support cache the ads by getAdvanceNativeFroCache()
     2. Provide adapter for Mopub with Cloudmobi sdk.
 
-* Version 1.7.6 [relase data:2017-07-25]
+*  Version 1.7.6 [relase date: 2017-07-25]
 
     1. Optimize multithreading issues;
     2. Support multiple processes;
@@ -1263,27 +1263,29 @@ project's "libs" folder as necessary.
     7. Fix bug: Gridview first Item not work in appwall;
     8. Fix bug: the interface for proladImage stop when load facebook ads.
 
-* Version 2.0.0 [release data:2017-09-22]
+*  Version 2.0.0 [release date: 2017-09-22]
 
     1. Optimize the base function jar
     2. public the Reward Video mediation function jar
-    
-* Version 2.0.2 [release data:2017-09-28]
+
+*  Version 2.0.2 [release date: 2017-09-28]
 
     1. Fix bug: Thread Pool Exception
 
-* Version 2.0.3 [release data:2017-10-10]
-    
+*  Version 2.0.3 [release date: 2017-10-10]
+
     1. Fix bug: compatible the template request url version
     2. upload log of RewardVideo Mediation for important node
     3. remove the facebook/admob error msg for not group facebook/admob ads
-    
-*  Version 2.0.4 [release data:2017-10-20]    
-    
+
+*  Version 2.0.4 [release date: 2017-10-20]    
+
     1. add volum controller in RewardedVideo
     2. add params pn in RewardedVideo Tracking-log 
     3. fix RewardedVideo impression log ts tag  
-    
+
+*  Version 2.0.6 [release date: 2017-10-30]    
+    1. fix replace slot id 019 error
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
