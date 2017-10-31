@@ -1285,7 +1285,11 @@ project's "libs" folder as necessary.
     3. fix RewardedVideo impression log ts tag  
 
 *  Version 2.0.6 [release date: 2017-10-30]    
-    1. fix replace slot id 019 error
+    1. fix replace slot id 019 error  
+   
+*  Version 2.0.7 [release date: 2017-10-31]    
+    1. fix ContextHolder null exception
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
