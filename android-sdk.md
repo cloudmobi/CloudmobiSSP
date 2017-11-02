@@ -1290,6 +1290,9 @@ project's "libs" folder as necessary.
 *  Version 2.0.7 [release date: 2017-10-31]    
     1. fix ContextHolder null exception
     
+*  Version 2.0.8 [release date: 2017-11-02]    
+    1. Optimize RewardedVideo logic
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
