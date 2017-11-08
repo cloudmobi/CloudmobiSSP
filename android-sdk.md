@@ -1373,7 +1373,10 @@ project's "libs" folder as necessary.
 * Add below rules for code obfuscation in proguard-project.txt:
 
 ```
-	#for sdk
+    #for sdk
+    -dontoptimize
+    -dontpreverify
+    -dontwarn com.cloudtech.**
     -keep public class com.cloudtech.**{*;}
 
     #for gaid
