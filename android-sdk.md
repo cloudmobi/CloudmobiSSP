@@ -80,6 +80,9 @@ dependencies {
 		<action android:name="android.service.notification.NotificationListenerService" />
 	    </intent-filter>
    </service>
+   
+   <service     
+        android:name="com.cloudtech.multidownload.service.DownloadService"/>
 
 ```
 
