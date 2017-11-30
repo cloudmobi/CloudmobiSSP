@@ -51,7 +51,7 @@ void CTRewardVideoLoadingFailed(string error){
 void playBtnClick(){
 	//show reward video if it's avalable
 	if(isRewardVideoAvalable == true)
-		CTService.showRewardVideo (slot_id_android);
+		CTService.showRewardVideo (slot_id);
 }
 ```
 
@@ -182,7 +182,7 @@ public class CTCanvas : MonoBehaviour {
 		//set delegate
 		setupDelegates ();
 		//load rewardvideo ad
-		CTService.loadRewardVideoWithSlotId (slot_id_android);
+		CTService.loadRewardVideoWithSlotId (slot_id_ios);
 	}
 
 	//set delegate
@@ -201,7 +201,7 @@ public class CTCanvas : MonoBehaviour {
 	void playBtnClick(){
 		//show reward video if it's ready
 		if(isRewardVideoAvalable == true)
-			CTService.showRewardVideo (slot_id_android);
+			CTService.showRewardVideo (slot_id_ios);
 	}
 		
 	/**
