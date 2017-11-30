@@ -76,7 +76,7 @@ public static void loadRequestGetCTSDKConfigBySlot_id(string slot_id)
 
 /**
 *  Get RewardVideo Ad
-*  First,you must should Call (loadRewardVideoWithSlotId) method get RewardVideo Ad！Then On his return to the success of the *proxy method invokes the （showRewardVideo） method
+*  Call (loadRewardVideoWithSlotId) method get RewardVideo Ad！
 @param slot_id         Cloud Tech AD ID
 */
 public static void loadRewardVideoWithSlotId(string slot_id)
@@ -84,7 +84,7 @@ public static void loadRewardVideoWithSlotId(string slot_id)
 
 /**
 *  show RewardVideo
-*  you should call it in the rewardVideoLoadSuccess delegate function.
+*  you should call it after rewardVideoLoadSuccess delegate function is invoked.
  */
 public static void showRewardVideo()		
 
@@ -94,7 +94,7 @@ CTReward video ad delegate
 */
 
 /**
-*  video loaded successfully delegate, you can call showRewardVideo() in this function.
+*  video loaded successfully delegate. You shoud not call 'showRewardVideo' here, for android sdk would preload rewardedvideos, it may call this function serveral times.
 **/
 public static event Action rewardVideoLoadSuccess;
 
