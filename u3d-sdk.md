@@ -1,5 +1,5 @@
 ## Unity plugin
-* support Unity4.x, Unity5.x and Unity2017;
+* support Unity4.x, Unity2017;
 * support iOS 7.0+;
 * support Android API Level 16+;
 * [click here to download SDK;](https://github.com/tianwenshi/CloudmobiSSP/raw/master/U3D-CTServiceSDK.unitypackage.zip)
