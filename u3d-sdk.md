@@ -2,7 +2,7 @@
 * support Unity4.x, Unity2017;
 * support iOS 7.0+;
 * support Android API Level 16+;
-* [click here to download SDK;](https://github.com/tianwenshi/CloudmobiSSP/raw/master/U3D-CTServiceSDK.unitypackage.zip)
+* [click here to download SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
 
 ## SDK setup
 
