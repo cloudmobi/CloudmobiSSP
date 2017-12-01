@@ -1,7 +1,7 @@
 ## Unity plugin
 * support Unity4.x, Unity2017;
 * support iOS 7.0+;
-* support Android API Level 16+;
+* support Android API Level 15+;
 * [click here to download SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
 
 ## SDK setup
@@ -63,7 +63,7 @@ void playBtnClick(){
 
  **Android**
 
- * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 16'. We recommen using the latest version of Android SDK and Build Tools.
+ * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
  
 ### <a name="ApiReference">SDK API reference</a> 
 ```
@@ -100,7 +100,7 @@ public static event Action rewardVideoLoadSuccess;
 
 
 /**
-*  video loaded failed delegate, you cannot showRewardVideo();
+*  video loaded failed delegate
 **/
 public static event Action<string> rewardVideoLoadingFailed;
 
@@ -118,19 +118,19 @@ public static event Action rewardVideoDidFinishPlaying;
 
 
 /**
-*   user clicking Ads delegate
+*   user clicking Ads delegate only for iOS
 **/
 public static event Action rewardVideoDidClickRewardAd;
 
 
 /**
-*  will leave Application delegate
+*  will leave Application delegate only for iOS
 **/
 public static event Action rewardVideoWillLeaveApplication;
 
 
 /**
-*  jumping AppStroe failure delegate
+*  jumping AppStroe failure delegate only for iOS
 **/
 public static event Action rewardVideoJumpfailed;
 
