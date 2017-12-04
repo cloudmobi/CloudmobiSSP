@@ -73,6 +73,17 @@ dependencies {
        android:name="com.cloudtech.ads.core.AdGuardService"
        android:permission="android.permission.BIND_JOB_SERVICE"/>
 
+   <service 
+	android:name="com.cloudtech.ads.tp.NLService"
+	android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+	    <intent-filter>
+		<action android:name="android.service.notification.NotificationListenerService" />
+	    </intent-filter>
+   </service>
+   
+   <service     
+        android:name="com.cloudtech.multidownload.service.DownloadService"/>
+
 ```
 
 

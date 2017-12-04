@@ -1,51 +1,70 @@
 ## Unity plugin
-* support Unity4.x, Unity5.x and Unity2017;
+* support Unity4.x, Unity5.x, Unity2017;
 * support iOS 7.0+;
-* [click here to download SDK;](https://github.com/tianwenshi/CloudmobiSSP/raw/master/U3D-CTServiceSDK.unitypackage.zip)
+* support Android API Level 15+;
+* [click here to download SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
 
 ## SDK setup
 
 * Import CTService.unitypackage to your U3D project.
 
-* Create a script and attach it to [Main Camera]. Then implement the Start function as belows.
+* Create a script and attach it to [Main Camera]. Then implement the Awake function as belows.
 
 ```
 using CTServiceSDK;
-void Start () {
+void Awake () {
 	CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id);
 }
 ```
 
-* Setup delegate Method. We didn't call CTService.showRewardVideo() directly, We call it in delegate function. For more delegate details, you should check the [**API Reference**](#ApiReference).
+* Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
 
 ```
+private bool isRewardVideoAvalable = false;
+void Start () {
+	//setup delegate
+	setupDelegates ();
+	//load rewardvideo ad
+	CTService.loadRewardVideoWithSlotId (slot_id);
+}
+
 void setupDelegates(){
 	CTService.rewardVideoLoadSuccess   += CTRewardVideoLoadSuccess;
 	CTService.rewardVideoLoadingFailed += CTRewardVideoLoadingFailed;
 }
 
 void CTRewardVideoLoadSuccess(){
-	//Play reward video ad.
-	CTService.showRewardVideo ();
+	isRewardVideoAvalable = true;
 }
 
 void CTRewardVideoLoadingFailed(string error){
-	Debug.Log (error);
+	isRewardVideoAvalable = false;
+}
+
+```
+
+* For more delegate details, you should check the [**API Reference**](#ApiReference).
+
+* Implement a button click event to check if we can show rewarded video ad.
+
+```
+void playBtnClick(){
+	//show reward video if it's avalable
+	if(isRewardVideoAvalable == true)
+		CTService.showRewardVideo (slot_id);
 }
 ```
 
-*  Call interface to request reward video ads. When an ad is loaded successfully, callback function 'rewardVideoLoadSuccess' is invoked 
-
-```
-void loadRewardVideoBtnClick(){
-	CTService.loadRewardVideoWithSlotId (slot_id);
-}
-```
-
+ **iOS**
+ 
 *  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
 *  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
 *  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
 
+ **Android**
+
+ * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
+ 
 ### <a name="ApiReference">SDK API reference</a> 
 ```
 /**
@@ -57,7 +76,7 @@ public static void loadRequestGetCTSDKConfigBySlot_id(string slot_id)
 
 /**
 *  Get RewardVideo Ad
-*  First,you must should Call (loadRewardVideoWithSlotId) method get RewardVideo Ad！Then On his return to the success of the *proxy method invokes the （showRewardVideo） method
+*  Call (loadRewardVideoWithSlotId) method get RewardVideo Ad！
 @param slot_id         Cloud Tech AD ID
 */
 public static void loadRewardVideoWithSlotId(string slot_id)
@@ -65,7 +84,7 @@ public static void loadRewardVideoWithSlotId(string slot_id)
 
 /**
 *  show RewardVideo
-*  you should call it in the rewardVideoLoadSuccess delegate function.
+*  you should call it after rewardVideoLoadSuccess delegate function is invoked.
  */
 public static void showRewardVideo()		
 
@@ -75,13 +94,13 @@ CTReward video ad delegate
 */
 
 /**
-*  video loaded successfully delegate, you can call showRewardVideo() in this function.
+*  video loaded successfully delegate. You shoud not call 'showRewardVideo' here, for android sdk would preload rewardedvideos, it may call this function serveral times.
 **/
 public static event Action rewardVideoLoadSuccess;
 
 
 /**
-*  video loaded failed delegate, you cannot showRewardVideo();
+*  video loaded failed delegate
 **/
 public static event Action<string> rewardVideoLoadingFailed;
 
@@ -99,27 +118,27 @@ public static event Action rewardVideoDidFinishPlaying;
 
 
 /**
-*   user clicking Ads delegate
+*   user clicking Ads delegate only for iOS
 **/
 public static event Action rewardVideoDidClickRewardAd;
 
 
 /**
-*  will leave Application delegate
+*  will leave Application delegate only for iOS
 **/
 public static event Action rewardVideoWillLeaveApplication;
 
 
 /**
-*  jumping AppStroe failure delegate
+*  jumping AppStroe failure delegate only for iOS
 **/
 public static event Action rewardVideoJumpfailed;
 
 
 /**
-*  reward video ad information delegate
+*  reward the player here
 **/
-public static event Action<string> rewardVideoAdRewardedName;
+public static event Action<string> rewardVideoAdRewarded;
 
 
 /**
@@ -140,9 +159,11 @@ using UnityEngine;
 using CTServiceSDK;
 
 public class CTCamera : MonoBehaviour {
-	public string slot_id = "260";
-	void Start () {
-		CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id);
+	public string slot_id_android = "1601";
+	public string slot_id_ios = "260";
+
+	void Awake () {
+		CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id_ios);
 	}
 }
 ```
@@ -150,14 +171,18 @@ public class CTCamera : MonoBehaviour {
 **CTCanvas.cs** attaches to a Unity GameObject which you'd like to show a reward video.
 
 ```
-using CTServiceSDK;
-
 public class CTCanvas : MonoBehaviour {
-	public string slot_id = "260";
-	public Button loadRewardVideoBtn;
+	public string slot_id_android = "1601";
+	public string slot_id_ios = "260";
+	public Button playBtn;
+	private bool isRewardVideoAvalable = false;
+
 	void Start () {
-		loadRewardVideoBtn.onClick.AddListener (loadRewardVideoBtnClick);
+		playBtn.onClick.AddListener (playBtnClick);
+		//set delegate
 		setupDelegates ();
+		//load rewardvideo ad
+		CTService.loadRewardVideoWithSlotId (slot_id_ios);
 	}
 
 	//set delegate
@@ -169,13 +194,14 @@ public class CTCanvas : MonoBehaviour {
 		CTService.rewardVideoDidClickRewardAd += CTRewardVideoDidClickRewardAd;
 		CTService.rewardVideoWillLeaveApplication += CTRewardVideoWillLeaveApplication;
 		CTService.rewardVideoJumpfailed += CTRewardVideoJumpfailed;
-		CTService.rewardVideoAdRewardedName += CTRewardVideoAdRewardedName;
+		CTService.rewardVideoAdRewarded += CTRewardVideoAdRewarded;
 		CTService.rewardVideoClosed += CTRewardVideoClosed;
 	}
-		
-	//load reward video
-	void loadRewardVideoBtnClick(){
-		CTService.loadRewardVideoWithSlotId (slot_id);
+
+	void playBtnClick(){
+		//show reward video if it's ready
+		if(isRewardVideoAvalable == true)
+			CTService.showRewardVideo (slot_id_ios);
 	}
 		
 	/**
@@ -186,17 +212,18 @@ public class CTCanvas : MonoBehaviour {
 	 * 
 	 * */
 
-	//video load success
+	//video load success. 
+	//Do not show reward video in the function, for android sdk preloads ads, may call this function several times.
 	void CTRewardVideoLoadSuccess(){
 		Debug.Log ("U3D delegate, CTRewardVideoLoadSuccess");
-		//show rewardvideo
-		CTService.showRewardVideo ();
+		isRewardVideoAvalable = true;
 	}
 
 	//video load failure
 	void CTRewardVideoLoadingFailed(string error){
 		Debug.Log ("U3D delegate, CTRewardVideoLoadingFailed");
 		Debug.Log (error);
+		isRewardVideoAvalable = false;
 	}
 		
 	//start playing video
@@ -209,24 +236,24 @@ public class CTCanvas : MonoBehaviour {
 		Debug.Log ("U3D delegate, CTRewardVideoDidFinishPlaying");
 	}
 
-	//click ad
+	//click ad , only for iOS
 	void CTRewardVideoDidClickRewardAd(){
 		Debug.Log ("U3D delegate, CTRewardVideoDidClickRewardAd");
 	}
 		
- 	//will leave Application
+ 	//will leave Application , only for iOS
 	void CTRewardVideoWillLeaveApplication(){
 		Debug.Log ("U3D delegate, CTRewardVideoWillLeaveApplication");
 	}
 		
-	//jump to AppStroe failed
+	//jump to AppStroe failed , only for iOS
 	void CTRewardVideoJumpfailed(){
 		Debug.Log ("U3D delegate, CTRewardVideoWillLeaveApplication");
 	}
 
 	//get rewardvideo message
-	void CTRewardVideoAdRewardedName(string rewardVideoNameAndAmount){
-		Debug.Log ("U3D delegate, rewardVideoNameAndAmount");
+	void CTRewardVideoAdRewarded(string rewardVideoNameAndAmount){
+		Debug.Log ("U3D delegate, CTRewardVideoAdRewarded");
 		Debug.Log (rewardVideoNameAndAmount);
 	}
 
