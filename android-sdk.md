@@ -72,15 +72,7 @@ dependencies {
    <service
        android:name="com.cloudtech.ads.core.AdGuardService"
        android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-   <service 
-	android:name="com.cloudtech.ads.tp.NLService"
-	android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-	    <intent-filter>
-		<action android:name="android.service.notification.NotificationListenerService" />
-	    </intent-filter>
-   </service>
-   
+ 
    <service     
         android:name="com.cloudtech.multidownload.service.DownloadService"/>
 
@@ -1303,6 +1295,13 @@ project's "libs" folder as necessary.
     
 *  Version 2.0.8 [release date: 2017-11-02]    
     1. Optimize RewardedVideo logic
+
+*  Version 2.0.9 [release date: 2017-11-30]    
+    1. Optimize RewardedVideo logic
+    2. Fix NullPointerException in RewardedVideo
+
+*  Version 2.0.11 [release date: 2017-12-08]    
+    1. Optimize SDK logic
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
