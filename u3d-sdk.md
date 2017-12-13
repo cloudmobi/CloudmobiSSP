@@ -1,4 +1,5 @@
 ## Unity plugin
+* support rewarded video only;
 * support Unity4.x, Unity5.x, Unity2017;
 * support iOS 7.0+;
 * support Android API Level 15+;
