@@ -30,6 +30,7 @@ void Start () {
 }
 
 void setupDelegates(){
+	CTService.createDelegateObj ();
 	CTService.rewardVideoLoadSuccess   += CTRewardVideoLoadSuccess;
 	CTService.rewardVideoLoadingFailed += CTRewardVideoLoadingFailed;
 }
