@@ -689,7 +689,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 Before show the video， you can ask the video status by calling:
 
 ```java
-    boolean available = CTServiceVideo.isRewardedVideoAvaiable(ctVideo);
+    boolean available = CTServiceVideo.isRewardedVideoAvailable(ctVideo);
 ```
 
 Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method like following:
