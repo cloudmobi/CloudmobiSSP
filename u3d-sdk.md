@@ -1,4 +1,5 @@
 ## Unity plugin
+* support rewarded video only;
 * support Unity4.x, Unity5.x, Unity2017;
 * support iOS 7.0+;
 * support Android API Level 15+;
@@ -64,6 +65,8 @@ void playBtnClick(){
  **Android**
 
  * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
+ * Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Andorid box in the inspector.
+ * It's better to call all the interfaces in the same scene for andorid.
  
 ### <a name="ApiReference">SDK API reference</a> 
 ```

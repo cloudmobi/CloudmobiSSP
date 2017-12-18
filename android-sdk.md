@@ -14,12 +14,6 @@
     * [facebook](#facebook)
     * [admob](#admob)
 * [Reward Video](#reward)
-* [Reward Video Mediation](#mediation)   
-    * [applovin](#applovin)
-    * [vungle](#vungle)
-    * [unityads](#unityads)
-    * [tapjoy](#tapjoy)
-    * [adcolony](#adcolony)
 * [Error Code For SDK](#error)
 * [Release Notes](#release)
 * [Getting Started with eclipse](#eclipse)
@@ -53,36 +47,22 @@ dependencies {
 <!--Necessary Permissions-->
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-<!--Optional Permissions-->
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+<!--Optional Permissions-->
 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 
-   <!--Necessary-->
+   <!-- Necessary -->
    <activity android:name="com.cloudtech.ads.view.InnerWebLandingActivity"
-       android:launchMode="singleInstance">
-       <intent-filter>
-           <action android:name="com.cloudtech.action.InnerWebLanding" />
-           <category android:name="android.intent.category.DEFAULT" />
-       </intent-filter>
-   </activity>
-   
+       android:launchMode="singleInstance"/>
+
    <service
        android:name="com.cloudtech.ads.core.AdGuardService"
        android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-   <service 
-	android:name="com.cloudtech.ads.tp.NLService"
-	android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-	    <intent-filter>
-		<action android:name="android.service.notification.NotificationListenerService" />
-	    </intent-filter>
-   </service>
-   
-   <service     
-        android:name="com.cloudtech.multidownload.service.DownloadService"/>
+   <service android:name="com.cloudtech.multidownload.service.DownloadService"/>
 
 ```
 
@@ -669,97 +649,18 @@ public class MyCTAdEventListener implements CTAdEventListener {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_videoads_xx.jar')
         compile files('libs/cloudssp_imageloader_xx.jar')
-        compile files('libs/cloudssp_mediation_xx.jar')
 	}
 ```
 
 * Update the AndroidManifest.xml for Reward Video:
 
 ``` xml    
-    <activity 
-        android:name="com.cloudtech.videoads.api.CTInterstitialActivity"
-        android:screenOrientation="landscape"
-        android:launchMode="singleInstance"/>
+
+    <activity android:name="com.cloudtech.videoads.view.CTInterstitialActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
 ```
 
-* Set the listener for Reward Video
-
-    Implement the Rewarded Video Listener, and the SDK will notify your listener of all possible events listed below:
-
-```java
-    CloudmobiSDK.setRewardedVideoListener(new RewardedVideoListener() {
-            /**
-             * Invoked when the RewardedVideo ad view has opened.
-             */
-            @Override
-            public void onRewardedVideoAdOpened() {
-            }
-
-            /*
-             *Invoked when the RewardedVideo ad view is about to be closed.
-             */
-            @Override
-            public void onRewardedVideoAdClosed() {
-            }
-            
-            /**
-             * Invoked when there is a change in the ad availability status.
-             *
-             * @param - available 
-             *   - value will change to true when rewarded videos are *available.
-             *   - Value will change to false when no videos are available.
-             * You can then show the video by calling showRewardedVideo().
-             */
-            @Override
-            public void onRewardedVideoAvailabilityChanged(boolean isAvailable) {
-            }
-
-            /**
-             * Invoked when the video ad starts playing.
-             */
-            @Override
-            public void onRewardedVideoAdStarted() {
-            }
-
-            /*
-             *Invoked when the video ad finishes playing.
-             */
-            @Override
-            public void onRewardedVideoAdEnded() {
-            }
-
-            /**
-             * Invoked when the user completed the video and should be rewarded.
-             *
-             * @param - placement - the Placement the user completed a video from.
-             */
-            @Override
-            public void onRewardedVideoAdRewarded(Reward reward) {
-                /** here you can reward the user according to the given amount.
-                String rewardName = reward.getRewardName();
-                int rewardAmount = reward.getRewardAmount();
-                */
-            }
-
-            /* 
-             * Invoked when RewardedVideo call to show a rewarded video has failed
-             * CloudmobiError contains the reason for the failure.
-             */
-            @Override
-            public void onRewardedVideoAdShowFailed(CloudmobiError error) {
-            }
-        });
-    
-```
-
-* Set UserID to Verify AdRewarded Transactions(Optional)
-
-    This parameter helps verify AdRewarded transactions and must be set before calling initRewardVideo.
-
-```java
-    CloudmobiSDK.setUserId("userID");
-```
 
 * Preload the Reward Video
 
@@ -767,416 +668,78 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ``` java
 
-    CloudmobiSDK.initRewardVideo(activity);
+     CTServiceVideo.preloadRewardedVideo(getContext(), “your slotid”,
+               new VideoAdLoadListener() {
+                   @Override
+                   public void onVideoAdLoaded(CTVideo ctVideo) {
+                        Log.e(TAG, "onVideoAdLoaded: ");
+                   }
+
+                   @Override
+                   public void onVideoAdLoadFailed(CTError error) {
+                        Log.e(TAG, "onVideoAdLoadFailed: " + error.getMsg());
+                   }
+               });
+
 ```
 
 * Show Reward Video to Your Users
 
-By implementing the RewardedVideoListener, you can receive the availability status through the onVideoAvailabilityChanged callback.
-​    
-```java
-    public void onVideoAvailabilityChanged(boolean available)
-```
 
-Alternatively, ask for ad availability directly by calling:
+Before show the video， you can ask the video status by calling:
 
 ```java
-    boolean available = CloudmobiSDK.isRewardedVideoAvailable(slotId);;
+    boolean available = CTServiceVideo.isRewardedVideoAvailable(ctVideo);
 ```
 
 Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method like following:
 
 ```java
-    CloudmobiSDK.showRewardedVideo(slotId);
+    
+ CTServiceVideo.showRewardedVideo(ctVideo, new VideoAdListener() {
+             @Override
+             public void videoPlayBegin() {
+                 Log.e(TAG, "videoPlayBegin: ");
+             }
+    
+             @Override
+             public void videoPlayFinished() {
+                 Log.e(TAG, "videoPlayFinished: ");
+             }
+    
+             @Override
+             public void videoPlayError(Exception e) {
+                 Log.e(TAG, "videoPlayError: ");
+             }
+    
+             @Override
+             public void videoClosed() {
+                 Log.e(TAG, "videoClosed: ");
+             }
+    
+             @Override
+             public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
+                 Log.e(TAG, "onRewardedVideoAdRewarded: ");
+             }
+         });
+
+
 ```
 
 *  Reward the User
 
-The Cloudmobi SDK will fire the onRewardedVideoAdRewarded event each time the user successfully completes a video. The RewardedVideoListener will be in place to receive this event so you can reward the user successfully.
+The SDK will fire the onRewardedVideoAdRewarded event each time the user successfully completes a video. The RewardedVideoListener will be in place to receive this event so you can reward the user successfully.
 
 The Reward object contains both the Reward Name & Reward Amount of the SlotId as defined in your Cloudmobi ssp:
 
-
 ```java
-    public void onRewardedVideoAdRewarded(Reward reward) {
-        //TODO - here you can reward the user according to the given amount
-        String rewardName = reward.getRewardName();
-        int rewardAmount = reward.getRewardAmount();
-    }
-    
-```
 
-## <a name="mediation">Reward Video Ad Mediation</a>
-
-Before You Start
-
-1. Make sure you have correctly integrated Cloudmobi's Rewarded Video into your application. 
-2. You shoud configure the following platform's Parameters(appId\placementName) into Cloudmoni platform.
-
-### <a name="applovin">applovin</a>
-
-* [applovin-7.3.2](https://www.applovin.com/integration#androidIntegration)
-
-* Add the Applovin-SDK to Your Build
-   ​      
-   ```groovy
-       dependencies {
-           compile files('libs/applovin-sdk-7.3.2.jar')
-       }
-   ```
-
-* Update AndroidManifest.xml
-
-   ```xml
-   Manifest Permissions:
-   <uses-permission android:name="android.permission.INTERNET"/>
-   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"       
-                    android:maxSdkVersion="18" />
-   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-   ```
-
-
-   Manifest activities:
-   <activity
-       android:name="com.applovin.adview.AppLovinInterstitialActivity"/>
-   <activity
-       android:name="com.applovin.adview.AppLovinConfirmationActivity"/>
-
-   for SDK versions >= 6.4.0  add the configChanges for better performance:
-   <activity 
-       android:name="com.applovin.adview.AppLovinInterstitialActivity"         
-       android:configChanges="orientation|screenSize"/>
-   <activity 
-       android:name="com.applovin.adview.AppLovinConfirmationActivity" 
-       android:configChanges="orientation|screenSize"/>
-   ```
-    
-* For Proguard Users Only
-    
-   ```
-   #applovin
-   -keep class com.applovin.sdk.**{
-       *;
+public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
+      //TODO - here you can reward the user according to the given amount
+       Log.e(TAG, "onRewardedVideoAdRewarded: ");
    }
-    ​```
-
-### <a name="vungle">vungle</a>
-
-* [vungle-5.1.0](https://dashboard.vungle.com/sdk)
-
-* Add the Vungle-SDK to Your Build：
-    ​          
-    ```groovy
-    Via Gradle:
-    Open the project-level build.gradle, and add maven URL in the all project section.
-       allprojects {
-          repositories {
-              maven {
-                  url 'https://jitpack.io'
-              }
-          }
-       }
-       
-    Open the app-level build.gradle file for your app, and add compile dependencies in the dependencies section.
-
-        dependencies {
-        	   compile 'com.github.vungle:vungle-android-sdk:5.1.0'
-        }
-
-
-    Via ohters:
-    Download Vungle SDK, copy all the jars and add it to your project library.
-    Open the project-level build.gradle, and update the repositories section.
-
-        allprojects {
-            repositories {
-                jcenter()
-            }
-        }
-        
-    Open the app-level build.gradle file for your app, and add other dependencies in dependencies section. 
-
-        dependencies {
-            compile files('libs/dagger-2.7.jar')
-            compile files('libs/javax.inject-1.jar')
-            compile files('libs/eventbus-2.2.1.jar')
-            compile files('libs/publisher-sdk-android-5.1.0.jar')
-            compile files('libs/rxjava-1.2.0.jar')
-        }
-
-    ```
-
-* Update AndroidManifest.xml
-
-    ```xml    
-    Manifest Permissions：
-    <uses-permission 
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"        
-        android:maxSdkVersion="18"/>
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
-    Manifest Activities:
-    <activity 
-        android:name="com.vungle.publisher.VideoFullScreenAdActivity"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-    <activity 
-        android:name="com.vungle.publisher.MraidFullScreenAdActivity"
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-    <activity 
-        android:name="com.vungle.publisher.FlexViewAdActivity"          
-        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
-
-    ```
-
-* For Proguard Users Only
-
-    ```
-        # Vungle
-        -dontwarn com.vungle.**
-        -dontnote com.vungle.**
-        -keep class com.vungle.** { *; }
-        -keep class javax.inject.*
-        
-        # GreenRobot
-        -dontwarn de.greenrobot.event.util.**
-        
-        # RxJava
-        -dontwarn rx.internal.util.unsafe.**
-        -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-           long producerIndex;
-           long consumerIndex;
-        }
-        -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-           rx.internal.util.atomic.LinkedQueueNode producerNode;
-        }
-        -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-           rx.internal.util.atomic.LinkedQueueNode consumerNode;
-        }
-        -keep class rx.schedulers.Schedulers { public static <methods>; }
-        -keep class rx.schedulers.ImmediateScheduler { public <methods>; }
-        -keep class rx.schedulers.TestScheduler { public <methods>; }
-        -keep class rx.schedulers.Schedulers { public static ** test(); }
-        
-        # MOAT
-        -dontwarn com.moat.**
-        -keep class com.moat.** {
-           public protected private *;
-        }
-
-    ```
-
-
-### <a name="unityads">unityads</a>
-
-* [Unityads-2.1.1](https://github.com/Unity-Technologies/unity-ads-android/releases)
-
-* Integrate Unity Ads with Android Studio:
-
-    ```
-    Download the unity-ads.aar, copy the aar and add it to your project library.
-    Open the project-level build.gradle, update the repositories section.               
-        
-        repositories {
-            flatDir {
-                dirs 'libs'
-            }
-        }
-        
-    Open the app-level build.gradle file for your app, and add the dependencies in dependencies section.
-        
-        dependencies {
-            compile(name: 'unity-ads', ext: 'aar')
-        }
-
-    This is all what you should do for integration unity-ads.
-        
-    ```
-
-
-* Integrating without Android Studio
-
-    If you can't use the AAR packages with your build system, you can do as this:
-
-    1、 Download the  unity-ads.zip, and include classes.jar in your build;
-    2、 update the AndroidManifest.xml
-
-    ```xml
-    Manifest Permissions：  
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.INTERNET" />
-
-
-    Manifest Activities:
-        <activity
-            android:name="com.unity3d.ads.adunit.AdUnitActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-            android:hardwareAccelerated="true"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <activity
-            android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
-            android:hardwareAccelerated="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-    ```
-
-    3、 For Proguard Users Only
-
-    ```
-        # Keep filenames and line numbers for stack traces
-        -keepattributes SourceFile,LineNumberTable
-        
-        # Keep JavascriptInterface for WebView bridge
-        -keepattributes JavascriptInterface
-        
-        # Sometimes keepattributes is not enough to keep annotations
-        -keep class android.webkit.JavascriptInterface {
-           *;
-        }
-        
-        # Keep all classes in Unity Ads package
-        -keep class com.unity3d.ads.** {
-           *;
-        }
-    ```
-
-### <a name="tapjoy">tapjoy</a>
-
-* [tapjoy-11.11.0](https://ltv.tapjoy.com/s/59ae541e-2d18-8000-8000-72469900001d/onboarding#guide/basic?os=android)
-
-* Add the Applovin-SDK to Your Build：
-
-```groovy
-    dependencies { 
-        compile files('libs/tapjoyconnectlibrary.jar') 
-    }
+    
 ```
-
-* Update AndroidManifest.xml
-
-```xml
-Manifest Permissions
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    
-
-Manifest Activities
-    <activity
-        android:name="com.tapjoy.TJAdUnitActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:hardwareAccelerated="true"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-    <activity
-        android:name="com.tapjoy.mraid.view.ActionHandler"
-        android:configChanges="orientation|keyboardHidden|screenSize" />
-    <activity
-        android:name="com.tapjoy.mraid.view.Browser"
-        android:configChanges="orientation|keyboardHidden|screenSize" />
-    <activity
-        android:name="com.tapjoy.TJContentActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"
-        android:hardwareAccelerated="true" />
-```
-
-
-### <a name="adcolony">adcolony</a>
-
-* [adcolony-3.2.1](https://github.com/AdColony/AdColony-Android-SDK-3/wiki/Project-Setup)
-
-* Add the Adcolony-SDK to Your Build:
-
-```xml
-Via Gradle:
-
-    Add the following Maven configuration to your build.gradle file that contains your application's or module's 'repositories' configuration block:
-    
-    repositories {
-        maven {
-          url  "https://adcolony.bintray.com/AdColony"      
-        }
-    }
-    
-    Add the following lines to your 'dependencies' configuration within your module's build.gradle:
-    
-    dependencies {
-        compile 'com.adcolony:sdk:3.2.1'
-    }
-    
-  
-    
-Via others:
-    
-    Download our SDK distribution. 
-    Place adcolony.jar into your project's "libs" folder.
-    Place the armeabi, armeabi-v7a, arm64-v8a, x86_64, and x86 folders into your    
-project's "libs" folder as necessary. 
-    Add the following to your module's build.gradle under 'dependencies':
-
-        dependencies {
-          compile fileTree(dir: 'libs', include: ['*.jar'])
-        }
-        
-    And the following in your module's build.gradle under 'android':
-
-        android {
-          sourceSets {
-            main {
-              jniLibs.srcDirs = ['libs']
-            }
-          }
-        }
-```
-
-* Update AndroidManifest.xml
-
-    ```xml
-    Manifest Permissions
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission        
-            android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> 
-    ```
-
-
-    Manifest Activities
-        <activity 
-            android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"/>
-        <activity 
-            android:name="com.adcolony.sdk.AdColonyAdViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"/>
-    
-    ​```
-
-* For ProGuard Users Only 
-
-    ```
-    # For communication with AdColony's WebView
-    -keepclassmembers class * { 
-        @android.webkit.JavascriptInterface <methods>; 
-    }
-
-    # Keep ADCNative class members unobfuscated
-    -keepclassmembers class com.adcolony.sdk.ADCNative** {
-        *;
-     }
-      
-    -keep class com.adcolony.sdk.**{
-        *;
-     }
-    ```
-
 
 ## <a name="error">Error Code For SDK</a>
 
@@ -1303,6 +866,17 @@ project's "libs" folder as necessary.
     
 *  Version 2.0.8 [release date: 2017-11-02]    
     1. Optimize RewardedVideo logic
+
+*  Version 2.0.9 [release date: 2017-11-30]    
+    1. Optimize RewardedVideo logic
+    2. Fix NullPointerException in RewardedVideo
+
+*  Version 2.0.11 [release date: 2017-12-08]    
+    1. Optimize SDK logic
+
+*  Version 2.1.0 [release date: 2017-12-13]
+    1. Optimize SDK RewardedVideo logic
+    2. Fix MediaPlay NullPointerException in RewardedVideo
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
