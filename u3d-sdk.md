@@ -28,6 +28,10 @@ void Start () {
 	CTService.loadRewardVideoWithSlotId (slot_id);
 }
 
+void OnDestroy(){
+	CTService.releaseCTService ();
+}
+
 void setupDelegates(){
 	CTService.rewardVideoLoadSuccess   += CTRewardVideoLoadSuccess;
 	CTService.rewardVideoLoadingFailed += CTRewardVideoLoadingFailed;
@@ -202,6 +206,10 @@ public class CTCanvas : MonoBehaviour {
 		setupDelegates ();
 		//Notice: load rewardvideo ad when you init UI.
 		CTService.loadRewardVideoWithSlotId (slot_id); 
+	}
+	
+	void OnDestroy(){
+		CTService.releaseCTService ();
 	}
 
 	//set delegate
