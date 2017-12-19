@@ -314,5 +314,5 @@ public class CTCanvas : MonoBehaviour {
 
 ## Release Notes
 *  Version 1.0.1  [release date: 2017-12-19]
-	1. fix iOS bug: Solve frequent switching tasks leading to video stuck problem.
+	1. fix iOS bug: Solve problem that frequent switching tasks make video stuck .
 	2. fix Andorid bug: Memory Leak.
