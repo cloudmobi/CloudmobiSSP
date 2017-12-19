@@ -50,7 +50,7 @@ void CTRewardVideoLoadingFailed(string error){
 ```
 void playBtnClick(){
 	//show reward video if it's avalable
-	if(isRewardVideoAvalable == true)
+	if(CTService.checkRewardVideoIsReady ())
 		CTService.showRewardVideo (slot_id);
 	else
 		Debug.Log ("CT Rewarded Video is not ready");
