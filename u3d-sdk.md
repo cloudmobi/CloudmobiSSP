@@ -29,6 +29,7 @@ void Start () {
 }
 
 void OnDestroy(){
+	//do not forget to call release, otherwise it will casue memory leak on android platform.
 	CTService.release ();
 }
 
