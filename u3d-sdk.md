@@ -93,9 +93,14 @@ public static void loadRewardVideoWithSlotId(string slot_id)
 /**
 *  show RewardVideo
 *  you should call it after rewardVideoLoadSuccess delegate function is invoked.
- */
+*/
 public static void showRewardVideo()		
 
+/**
+* Check if RewardVideo is read 
+* if true, you can call showRewardVideo;
+*/
+public static bool checkRewardVideoIsReady()
 
 /**
 CTReward video ad delegate
