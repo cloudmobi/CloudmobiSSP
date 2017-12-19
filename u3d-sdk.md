@@ -29,7 +29,7 @@ void Start () {
 }
 
 void OnDestroy(){
-	CTService.releaseCTService ();
+	CTService.release ();
 }
 
 void setupDelegates(){
@@ -209,7 +209,7 @@ public class CTCanvas : MonoBehaviour {
 	}
 	
 	void OnDestroy(){
-		CTService.releaseCTService ();
+		CTService.release ();
 	}
 
 	//set delegate
