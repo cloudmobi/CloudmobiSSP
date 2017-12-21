@@ -219,15 +219,15 @@ public class CTCanvas : MonoBehaviour {
 
 	//set delegate
 	void setupDelegates(){
-		CTService.rewardVideoLoadSuccess += CTRewardVideoLoadSuccess;
-		CTService.rewardVideoLoadingFailed += CTRewardVideoLoadingFailed;
-		CTService.rewardVideoDidStartPlaying += CTRewardVideoDidStartPlaying;
-		CTService.rewardVideoDidFinishPlaying += CTRewardVideoDidFinishPlaying;
-		CTService.rewardVideoDidClickRewardAd += CTRewardVideoDidClickRewardAd;
-		CTService.rewardVideoWillLeaveApplication += CTRewardVideoWillLeaveApplication;
-		CTService.rewardVideoJumpfailed += CTRewardVideoJumpfailed;
-		CTService.rewardVideoAdRewarded += CTRewardVideoAdRewarded;
-		CTService.rewardVideoClosed += CTRewardVideoClosed;
+		CTService.rewardVideoLoadSuccess = CTRewardVideoLoadSuccess;
+		CTService.rewardVideoLoadingFailed = CTRewardVideoLoadingFailed;
+		CTService.rewardVideoDidStartPlaying = CTRewardVideoDidStartPlaying;
+		CTService.rewardVideoDidFinishPlaying = CTRewardVideoDidFinishPlaying;
+		CTService.rewardVideoDidClickRewardAd = CTRewardVideoDidClickRewardAd;
+		CTService.rewardVideoWillLeaveApplication = CTRewardVideoWillLeaveApplication;
+		CTService.rewardVideoJumpfailed = CTRewardVideoJumpfailed;
+		CTService.rewardVideoAdRewarded = CTRewardVideoAdRewarded;
+		CTService.rewardVideoClosed = CTRewardVideoClosed;
 	}
 
 	//Notice: You should call this api as soon as you can. For example, call it in Start function.(not in awake, beacause we must call CTService.loadRequestGetCTSDKConfigBySlot_id first in camera awake function)
