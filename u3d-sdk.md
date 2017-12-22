@@ -28,13 +28,18 @@ void Start () {
 	CTService.loadRewardVideoWithSlotId (slot_id);
 }
 
-void OnDestroy(){
-	CTService.release ();
-}
-
-void setupDelegates(){
+void OnEnable() {
 	CTService.rewardVideoLoadSuccess   += CTRewardVideoLoadSuccess;
 	CTService.rewardVideoLoadingFailed += CTRewardVideoLoadingFailed;
+}
+
+void OnDisable(){
+	CTService.rewardVideoLoadSuccess -= CTRewardVideoLoadSuccess;
+	CTService.rewardVideoLoadingFailed -= CTRewardVideoLoadingFailed;
+}
+
+void OnDestroy(){
+	CTService.release ();
 }
 
 void CTRewardVideoLoadSuccess(){
