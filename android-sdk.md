@@ -661,13 +661,19 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ```
 
+* Setup the UserID
+  
+  You should set the userUD for s2s-postback before preload the RewardedVideo
+  
+```java
+    CTServiceVideo.setUserId("custom_id");
+```
 
-* Preload the Reward Video
+* Preload the RewardedVideo
 
     It‘s better to preload ads for Reward Video before show it. 
 
 ``` java
-
      CTServiceVideo.preloadRewardedVideo(getContext(), “your slotid”,
                new VideoAdLoadListener() {
                    @Override
@@ -695,7 +701,6 @@ Before show the video， you can ask the video status by calling:
 Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method like following:
 
 ```java
-    
  CTServiceVideo.showRewardedVideo(ctVideo, new VideoAdListener() {
              @Override
              public void videoPlayBegin() {
@@ -877,6 +882,16 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 *  Version 2.1.0 [release date: 2017-12-13]
     1. Optimize SDK RewardedVideo logic
     2. Fix MediaPlay NullPointerException in RewardedVideo
+    
+ *  Version 2.1.1 [release date: 2017-12-15]
+    1. Optimize the finishPage UI for RewardedVideo
+    2. Fix the requestFailed callback preblem
+    
+*   Version 2.1.5 [release date: 2017-12-22]
+
+    1. Add the setUserId() function for s2s-postback
+    2. Fix the bug for RewardedVideo play
+    3. Fix the bug for multi callback for RewardedView callback.  
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
