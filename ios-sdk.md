@@ -30,6 +30,9 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 ```
 	We recommend use CTNative Interface！！！
 	//You should pass the singleton method to create the object, then calls the requests of the different types of ads.
+	
+	！！！ Please do add “advertising choice” to the ad placement.
+	
 	+(instancetype)shareManager;
 	
  	/**
