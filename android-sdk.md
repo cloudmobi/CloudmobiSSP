@@ -104,7 +104,8 @@ dependencies {
 * Two permises are need for Cloudmobi ads.
 
     1. **GooglePlay** is installed on your mobile.
-    2. **VPN** is needed for ads.
+    2. “advertising icon” is necessary to the ad placement. 
+    3. **VPN** is needed for ads.
 
 * About the CTAdEventListerner.
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
