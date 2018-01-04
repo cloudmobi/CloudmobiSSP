@@ -2,7 +2,7 @@
 
 #### Integrate AD Slots
 
-- [SDK Integration Guide](https://github.com/cloudmobi/CloudmobiSSP/blob/master/ios-sdk.md#install)
+- [SDK Integration Guide](https://github.com/cloudmobi/CloudmobiSSP/blob/master/ios-sdk.md)
 - [Basic SDK Download](https://github.com/cloudmobi/CloudmobiSSP/blob/master/(CT)iOS-SDK.zip)
 - [SDK with Facebook and Admob medation Download](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS-SDK.zip)
 
