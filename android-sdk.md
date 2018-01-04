@@ -894,6 +894,12 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
     2. Fix the bug for RewardedVideo play
     3. Fix the bug for multi callback for RewardedView callback.  
     
+*   Version 2.1.8 [release date: 2018-01-04]
+
+    1. Fix ANR for RewardedVideo finished.
+    2. Optimize the AdTemplateManager logic for template.
+    3. Set the button content from service in FinishUI for RewardedVideo.
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
