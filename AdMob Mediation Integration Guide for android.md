@@ -102,3 +102,5 @@ Currently we support rewarded video and interstitial mediation for Android
 ```
 **Done!** You are now all set to deliver CloudMobi Ads within your application!
 
+For more details information about Custom Events in Admob Mediation, please click [here](https://developers.google.com/admob/android/custom-events)
+
