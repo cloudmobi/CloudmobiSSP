@@ -2,6 +2,8 @@
 
 This guide instructs you step-by-step on how to set CloudMobi live as an Ad Network on the Admob Mediation platform.
 
+Currently we support Rewarded Video and Interstitial for mediation.
+
 #### Before You Start
 
 - Make sure you have CloudMobi SSP account, created application and ad slots on CloudMobi Platform.
