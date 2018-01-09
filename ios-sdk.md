@@ -1,4 +1,3 @@
-
 ### index
 * [SDK download and setup](#install)
 * [SDK Advanced API reference](#advancedApi)
@@ -7,23 +6,53 @@
 * [Sample code](#sample)
 * [How to apply Facebook/Admob advertisement](#reference)
 
-
 ### <a name="install">SDK download and setup</a>
-* According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags -> $(OTHER_LDFLAGS) -ObjC.
+* CTSDK Download Path
+    
+    ```
+    https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip
+    https://github.com/cloudmobi/CloudmobiSSP/raw/master/iOS-SDK.zip(Need facebook and admob support)
+    ```
 
-		FBAudienceNetwork.framework
-		GoogleMobileAds.framework
-		CTSDK.framework 
-		SystemConfiguration.framework
-		StoreKit.framework
+* According to the [How to apply Facebook/Admob advertisement](#reference) import relevant Framework , add a static link to: Build Settings -> Other Linker Flags
 
-* In Build Phases -> Link Binary With Libraries -> add AdSupport.framework and libsqlite3.0.tbd 
-* In Info.plist added the NSAppTransportSecurity, the type for Dictionary.
-In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting the YES
-* Import the hearder file : #import &lt;CTSDK/CTService.h&gt;
-* You should call _[[CTService shareManager] loadRequestGetCTSDKConfigBySlot\_id:@"slotID"]_ in didFinishLaunchingWithOptions Method
-* If you use Admob ADs,you should import Firebase SDK,then introduced the AppDelegate header file # import &lt;Firebase. H&gt;,And then call methods in didFinishLaunchingWithOptions [FIRApp configure];
+    ```
+    $(OTHER_LDFLAGS) -ObjC
+    ```
 
+* Add Frameworks : In Build Phases -> Link Binary With Libraries  
+   
+    ```
+    FBAudienceNetwork.framework
+    GoogleMobileAds.framework
+    AdSupport.framework
+    CTSDK.framework 
+    SystemConfiguration.framework
+    StoreKit.framework
+    ```
+
+* In Info.plist added the NSAppTransportSecurity
+
+    ```
+    <key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+    ```
+    
+* Import the SDK hearder file And pull the SDK configuration
+    
+    ```
+    We recommend that you call the SDK initialization method in didFinishLaunchingWithOptions Method!
+    
+    For example:
+    
+    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+        [[CTService shareManager] loadRequestGetCTSDKConfigBySlot_id:slotID];
+        return YES;
+}
+    ```
 
 ### <a name="advancedApi">SDK Advanced API reference</a>
 
@@ -56,7 +85,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
 	
     /**
-     * Get Multiterm Element Native ADs 
+     * Get Multiterm Native ADs 
      * Using inheritance CTNativeAd advertising View customize layout,
        in prior to add to the parent View will return to the frame
        and successful nativeModel assigned to a custom View.
@@ -78,7 +107,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 	
 	
 	/**
-     * Get Keywords Element Native ADs 
+     * Get Keywords Native ADs 
      * Using inheritance CTNativeAd advertising View customize layout,
        in prior to add to the parent View will return to the frame
        and successful nativeModel assigned to a custom View.
@@ -212,31 +241,7 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
                     
     -(UIViewController *)showAppWallViewController;
 	
-```
-
-```
-/**
-     * Get Video Ad
-     * First,you must should Call (getVideoADswithSlotId:delegate:frame:isTest:success:failure:) method,Then get successs,call videoViewPlay:isMute: method show Video Ad！
-     * @param slot_Id		Cloud Tech AD ID
-     * @param delegate		Set Delegate of Ads event (<CTVideoDelegate>)
-     * @param frame 		Set frame for video Ad
-     * @param isTest		Use test advertisement or not
-     * @param success		The request is successful Block
-     * @param failure		The request failed Block, retuen error
-     */
-
-    -(void)getVideoADswithSlotId:(NSString *)slot_id
-                        delegate:(id)delegate
-                           frame:(CGRect)frame
-                          isTest:(BOOL)isTest
-                         success:(void (^)(UIView *videoView))success
-                         failure:(void (^)(NSError *error))failure;
-    
-    -(void)videoViewPlay:(UIView *)videoView  isMute:(BOOL)mute;
-
-
-/**
+    /**
      * Get RewardVideo Ad
      * First,you must should Call (loadRewardVideoWithSlotId:delegate:) method get RewardVideo Ad！Then On his return to the success of the proxy method invokes the （showRewardVideo） method 
      * @param slot_Id		Cloud Tech AD ID
@@ -249,7 +254,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
     -(void)showRewardVideo;
 
 ```
-
 
 ###### CTNativeAdDelegate Class Methods：Call back interface for the advertisement loading process.
 
@@ -273,7 +277,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 
  
 ```
-
 
 ###### CTAppWallDelegate Class Methods：Call back interface for the advertisement loading process.
 
@@ -397,33 +400,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
  
 ```
 
-###### CTVideoDelegate Class Methods：Call back interface for the advertisement loading process.
-
-```
-/**
- *  CTVideo bigin playing Ad
- **/
-- (void)CTVideoStartPlay:(UIView *)videoView;
-/**
- *  CTVideo playing Ad end
- **/
-- (void)CTVideoPlayEnd:(UIView *)videoView;
-/**
- *  CTVideo click Ad
- **/
-- (void)CTVideoClicked:(UIView *)videoView;
-/**
- *  CTVideo Ad DidLeaveApplication
- **/
-- (void)CTVideoDidLeaveApplication:(UIView *)videoView;
-/**
- *  CTVideo Ad Jumpfailed
- **/
-- (void)CTVideoJumpfailed:(UIView *)videoView;
-
-```
-
-
 ###### CTRewardVideoDelegate Class Methods：Call back interface for the advertisement loading process.
 
 ```
@@ -468,8 +444,6 @@ In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting t
 - (void)CTRewardVideoClosed;
 
 ```
-
-
 
 ### <a name="errorcode">Error Code From SDK</a>：
 
@@ -712,28 +686,6 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
 
 ```
 
-#### CTVideoAd advertisement：
-```
-    [[CTService shareManager] getVideoADswithSlotId:@"260" delegate:self frame:CGRectMake(20, 100, self.view.frame.size.width - 40, (self.view.frame.size.width - 40)/1.8) isTest:YES success:^(UIView *videoView) {
-       NSLog(@"%@",NSStringFromCGRect(videoView.frame));
-       self.videoV = videoView;
-       [self.view addSubview:videoView];
-   } failure:^(NSError *error) {
-       
-   }];
-
-    - (void)CTVideoStartPlay:(UIView *)videoView
-    {
-        [[CTService shareManager] videoViewPlay:self.videoV isMute:NO];
-    }
-    - (void)closeAdView
-    {
-        [self.videoV removeFromSuperview];
-        self.videoV = nil;
-    }
-
-```
-
 #### CTRewardVideo advertisement：
 ```
     [[CTService shareManager] loadRewardVideoWithSlotId:@"260" delegate:self];
@@ -750,7 +702,6 @@ First, you should create an inheritance in CTElementAd view, and carries on the 
     }
 
 ```
-
 
 ### <a name="reference">How to apply Facebook/Admob advertisement：</a>：
 * [Facebook Ad SDK Insert Description](https://developers.facebook.com/docs/audience-network)
