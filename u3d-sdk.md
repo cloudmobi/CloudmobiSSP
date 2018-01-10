@@ -345,3 +345,6 @@ public class CTCanvas : MonoBehaviour {
 	
 *  Version 1.0.2  [release date: 2018-01-08]
 	1. new iOS feature: creatives optimaztion.
+
+*  Version 1.0.3  [release date: 2018-01-10]
+	
