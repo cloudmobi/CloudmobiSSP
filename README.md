@@ -20,7 +20,7 @@
 
 #### Mediation Partners
 
-- [Integrating Admob Medation & CloudMobi SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AdMob%20Mediation%20Integration%20Guide%20for%20android.md)
+- [Integrating Admob Medation & CloudMobi SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AdMob_Mediation_Integration_Guide_For_Android.md)
 - [Integrating Mopub Mediation & CloudMobi SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK_Adapter-For-Mopub.zip)
 
 ##  Unity3D 
