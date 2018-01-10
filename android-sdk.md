@@ -900,6 +900,10 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
     2. Optimize the AdTemplateManager logic for template.
     3. Set the button content from service in FinishUI for RewardedVideo.
     
+*   Version 2.2.0 [release date: 2018-01-10]
+    1. Fix ANR for Service.
+    2. Optimize the appwall logic.
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
