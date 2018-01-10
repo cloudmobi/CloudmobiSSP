@@ -347,4 +347,5 @@ public class CTCanvas : MonoBehaviour {
 	1. new iOS feature: creatives optimaztion.
 
 *  Version 1.0.3  [release date: 2018-01-10]
+	1. fix ANR problem.
 	
