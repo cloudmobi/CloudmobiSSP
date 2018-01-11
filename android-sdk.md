@@ -672,7 +672,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * Preload the RewardedVideo
 
-    It‘s better to preload ads for Reward Video before show it. 
+    It‘s better to call this interface when you want to show RewardedVideo to user.
 
 ``` java
      CTServiceVideo.preloadRewardedVideo(getContext(), “your slotid”,
