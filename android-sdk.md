@@ -31,7 +31,6 @@
   | cloudssp_imageloader_xx.jar | imageloader functions                    | N            |
   | cloudssp_appwall_xx.jar     | appwall ads functions                    | N            |
   | cloudssp_videoads_xx.jar    | video ads functions                      | N            |
-  | cloudssp_mediation_xx.jar   | Rewarded Video Mediation                 | N            |
 
 * Update the module's build.gradle for basic functions：
 
