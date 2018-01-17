@@ -38,13 +38,14 @@
 
 4. 应用程序传输安全 (ATS)
    从 iOS 9（使用 Xcode 7 构建）开始，应用程序传输安全性需要通过 HTTPS 保护的应用程序所做的所有网络流量。来自CloudMobi iOS SDK 的流量还有一部分未支持 HTTPS。在此之前，我们建议您将 NSAllowsArbitraryLoads 值设置为 YES。
+
    ```
-   <key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-</dict>
-   ```
+    <key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+    ```
 
 5. SDK的初始化
    务必尽快初始化 SDK，以确保广告SDK拉取配置并预先缓存。 对于我们的 [demo](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS-SDK-Demo.zip)（以及我们对所有 iOS 项目的建议），我们会将初始化调用添加到主 AppDelegate 上的 didFinishLaunchingWithOptions 方法。
