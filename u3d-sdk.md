@@ -349,3 +349,6 @@ public class CTCanvas : MonoBehaviour {
 *  Version 1.0.3  [release date: 2018-01-10]
 	1. fix ANR problem.
 	
+*  Version 1.0.4  [release date: 2018-01-17]
+	1. enable iOS bitcode.
+	
