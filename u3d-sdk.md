@@ -352,3 +352,5 @@ public class CTCanvas : MonoBehaviour {
 *  Version 1.0.4  [release date: 2018-01-17]
 	1. enable iOS bitcode.
 	
+*  Version 1.0.5  [release date: 2018-01-19]
+	1. fit iPad endCard.
