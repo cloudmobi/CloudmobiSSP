@@ -354,3 +354,8 @@ public class CTCanvas : MonoBehaviour {
 	
 *  Version 1.0.5  [release date: 2018-01-19]
 	1. fit iPad endCard.
+	
+*  Version 1.0.6  [release date: 2018-01-22]
+	1. Android: support back button in the endCard
+	2. Android: support both landscape right and landscape left
+	3. new Android feature: creatives optimaztion
