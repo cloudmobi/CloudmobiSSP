@@ -902,6 +902,12 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 *   Version 2.2.0 [release date: 2018-01-10]
     1. Fix ANR for Service.
     2. Optimize the appwall logic.
+
+*   Version 2.2.1 [release date: 2018-01-19]
+    1. Support sensorlandscape for RewardedVideo
+    2. Support back button for finishUI of RewardedVideo
+    3. Update the CloseButton for finishUI of RewardedVideo
+    4. Protect the referenced RewardedVideo Creative 
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
