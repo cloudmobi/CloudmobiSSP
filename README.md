@@ -3,7 +3,7 @@
 #### Integrate Cloudmobi SDK
 
 - [SDK Integration Guide](https://github.com/cloudmobi/CloudmobiSSP/blob/master/ios-sdk.md)
- ([SDK中文版对接文档](https://github.com/cloudmobi/CloudmobiSSP/blob/master/CloudMobi-iOS_CTSDK_%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97.md))
+ ([SDK中文版对接文档](https://github.com/cloudmobi/CloudmobiSSP/blob/master/CloudMobi-iOS_CTSDK_入门指南.md))
 - [SDK Download (Basic)](https://github.com/cloudmobi/CloudmobiSSP/blob/master/(CT)iOS-SDK.zip)
 - [SDK Download (Integrate Facebook Audience Network and Admob with Cloudmobi mediation)](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS-SDK.zip)
 
