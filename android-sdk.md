@@ -909,6 +909,10 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
     3. Update the CloseButton for finishUI of RewardedVideo
     4. Protect the referenced RewardedVideo Creative 
     
+*   Version 2.2.3 [release date: 2018-02-06]
+    1. Update necessary params in requestUrl
+    2. fix black screen for some Incomplete-Video.
+    
 ## <a name="eclipse">Getting Started with eclipse</a>
 
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
