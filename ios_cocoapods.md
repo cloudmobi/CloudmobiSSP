@@ -13,4 +13,4 @@ or
 
 pod 'CTMediationSDK'
 ```
-* 4. Start Coding! Check-out the tutorials available online at https://github.com/cloudmobi/CloudmobiSSP
+* 4. Start Coding! Check-out the tutorials available online below at https://github.com/cloudmobi/CloudmobiSSP
