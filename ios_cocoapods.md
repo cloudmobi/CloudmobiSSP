@@ -5,13 +5,12 @@
 source 'https://github.com/cloudadrd/CTSDKSpecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 ```
-* 3. Add CTSDK in your Podfile. 
+* 3. Add CTSDK or CTMediationSDK pods in your Podfile. CTMediationSDK integrates Facebook and Admob mediation.
 ```
-#only CTSDK
 pod 'CTSDK'
 
 or
 
-#meidation with facebook and admob
 pod 'CTMediationSDK'
 ```
+* 4. Start Coding! Check-out the tutorials available online at https://github.com/cloudmobi/CloudmobiSSP
