@@ -1,4 +1,4 @@
-
+# Mopub Mediation Integration Guide
 
 ## <a name="start">Before You Start</a>  
 
