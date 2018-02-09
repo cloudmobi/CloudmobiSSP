@@ -1,14 +1,14 @@
 # Getting Started with the CloudMobi iOS SDK
 
 - [Before You Start](#start)
-- [SDK Set Up Manually](#step 1)
-  - [Rewarded Video](#rewarded video)
+- [SDK Set Up Manually](#step1)
+  - [Rewarded Video](#rewardedvideo)
   - [Native](#native)
   - [banner](#banner)
   - [Interstitial](#interstitial)
-  - [Native Template](#native template)
+  - [Native Template](#nativetemplate)
 
-- [Cocoapods Integration](#step 2)
+- [Cocoapods Integration](#step2)
 
 
 
@@ -20,7 +20,7 @@
 - please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
 - please download [our latest SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip)
 
-## <a name="start">SDK Set Up Manually</a>
+## <a name="step1">SDK Set Up Manually</a>
 
 * 1. Unzip the SDK package and drop CTSDK.framework k into your Xcode project.
 
@@ -57,7 +57,7 @@ Where can I find my Slot ID ?Please refer to the picture
 
 
 
-###  <a name="rewarded video">Adding the RewardVideo Ad API in iOS</a>
+###  <a name="rewardedvideo">Adding the RewardVideo Ad API in iOS</a>
 
 
 ```     
@@ -281,7 +281,7 @@ Where can I find my Slot ID ?Please refer to the picture
 
 
 
-### <a name="native template">Adding the Native Template Ad API in iOS</a>
+### <a name="nativetemplate">Adding the Native Template Ad API in iOS</a>
 
 ```
 
@@ -332,7 +332,7 @@ Done!
 
 You are now all set to deliver CloudMobi Ads within your application!
 
-## <a name="step 2">Cocoapods Integration</a>
+## <a name="step2">Cocoapods Integration</a>
 * Install CocoaPods and make sure you are running the latest version of CocoaPods by running:
 
 ```
@@ -356,7 +356,7 @@ or
 
 pod 'CTMediationSDK'
 ```
-* Start Coding! You can check the [SDK Set Up tutorials](#step 1) above.
+* Start Coding! You can check the [SDK Set Up tutorials](#step1) above.
 
 
 
