@@ -17,8 +17,8 @@
 - CloudMobi iOS SDK supports banner, interstitial, native, and rewarded video 
 - CloudMobi iOS supports iOS 7.0+;
 - Please make sure you have signed up in CloudMobi Platform. If you haven't signed up,please contact us, email: sdk_support@yeahmobi.com
-- please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
-- please download [our latest SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip)
+- Please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
+- Please download [our latest SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip)
 
 ## <a name="step1">SDK Set Up Manually</a>
 
@@ -356,7 +356,7 @@ or
 
 pod 'CTMediationSDK'
 ```
-* Start Coding! You can check the [SDK Set Up tutorials](#step1) above.
+* Start Coding! You can check the [SDK Set Up Tutorials](#step1) above.
 
 
 
