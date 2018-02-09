@@ -1,9 +1,9 @@
 # Getting Started with the CloudMobi Unity Plugin
 
 * [Before You Start](#start)
-* [Step 1.SDK Set Up](#step1)
-* [Step 2.Additional Settings for iOS](#step2)
-* [Step 2.Additional Settings for Android](#step3)
+* [SDK Set Up](#step1)
+* [Additional Settings for iOS](#step2)
+* [Additional Settings for Android](#step3)
 * [CloudMobi SDK API Reference](#ApiReference)
 * [Sample Code](#sample_code)
 * [SDK Changelog](#release_notes)
@@ -77,13 +77,13 @@ void playBtnClick(){
 		Debug.Log ("CT Rewarded Video is not ready");
 }
 ```
-## <a name="step2">Step 2. Additional Settings for iOS</a>
+## <a name="step2">Additional Settings for iOS</a>
 
 *  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
 *  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
 *  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
 
-## <a name="step3">Step 3. Additional Settings for Android</a>
+## <a name="step3">Additional Settings for Android</a>
 
 * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
 * Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Andorid box in the inspector.
