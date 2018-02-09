@@ -1,11 +1,11 @@
 ## Download SDK Via CocoaPods
 * 1. Install CocaPods, here is official website https://cocoapods.org. 
-* 2. Add private source in your Podfile.
+* 2. Add private source in Podfile.
 ```
 source 'https://github.com/cloudadrd/CTSDKSpecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 ```
-* 3. Add CTSDK or CTMediationSDK pods in your Podfile. CTMediationSDK integrates Facebook and Admob mediation.
+* 3. Add CTSDK or CTMediationSDK pods in Podfile. CTMediationSDK integrates Facebook and Admob mediation.
 ```
 pod 'CTSDK'
 
