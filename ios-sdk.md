@@ -4,7 +4,7 @@
 - [SDK Set Up Manually](#step1)
   - [Rewarded Video](#rewardedvideo)
   - [Native](#native)
-  - [banner](#banner)
+  - [Banner](#banner)
   - [Interstitial](#interstitial)
   - [Native Template](#nativetemplate)
 
