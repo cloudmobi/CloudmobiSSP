@@ -1,11 +1,23 @@
-## Unity plugin
-* support rewarded video only;
-* support Unity4.x, Unity5.x, Unity2017;
-* support iOS 7.0+;
-* support Android API Level 15+;
-* [click here to download SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
+# Getting Started with the CloudMobi Unity Plugin
 
-## SDK setup
+* [Before You Start](#start)
+* [SDK Set Up](#step1)
+* [Additional Settings for iOS](#step2)
+* [Additional Settings for Android](#step3)
+* [CloudMobi SDK API Reference](#ApiReference)
+* [Sample Code](#sample_code)
+* [SDK Changelog](#release_notes)
+
+## <a name="start">Before You Start</a>
+
+
+* Support rewarded video only;
+* Support Unity4.x, Unity5.x, Unity2017;
+* Support iOS 7.0+;
+* Support Android API Level 15+;
+* [Click Here to Download Latest SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
+
+## <a name="step1">Step 1. CloudMobi Unity SDK Set Up</a>
 
 * Import CTService.unitypackage to your U3D project.
 
@@ -65,19 +77,19 @@ void playBtnClick(){
 		Debug.Log ("CT Rewarded Video is not ready");
 }
 ```
+## <a name="step2">Additional Settings for iOS</a>
 
- **iOS**
- 
 *  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
 *  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
 *  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
 
- **Android**
+## <a name="step3">Additional Settings for Android</a>
 
- * Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
- * Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Andorid box in the inspector.
- 
-### <a name="ApiReference">SDK API reference</a> 
+* Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
+* Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Andorid box in the inspector.
+
+## <a name="ApiReference">SDK API reference</a>
+
 ```
 /**
 Get CT AD Config in Appdelegate(didFinishLaunchingWithOptions:)
@@ -165,10 +177,13 @@ public static event Action rewardVideoClosed;
 		
 ```
 
-## Sample Code
+
+
+
+##  <a name="sample_code"> Sample Code </a>
 
  **CTCamera.cs** attaches to [Main Camera]
- 
+
 ```
 using System.Collections;
 using System.Collections.Generic;
@@ -335,27 +350,31 @@ public class CTCanvas : MonoBehaviour {
 		setReady (false);
 	}
 }
-
 ```
 
-## Release Notes
+
+
+
+
+## <a name="release_notes"> SDK Changelog </a>
+
 *  Version 1.0.1  [release date: 2017-12-19]
-	1. fix iOS bug: Solve problem that frequent switching tasks make video stuck .
-	2. fix Andorid bug: Memory Leak.
-	
+ 1. fix iOS bug: Solve problem that frequent switching tasks make video stuck .
+ 2. fix Andorid bug: Memory Leak.
+
 *  Version 1.0.2  [release date: 2018-01-08]
-	1. new iOS feature: creatives optimaztion.
+ 1. new iOS feature: creatives optimaztion.
 
 *  Version 1.0.3  [release date: 2018-01-10]
-	1. fix ANR problem.
-	
+ 1. fix ANR problem.
+
 *  Version 1.0.4  [release date: 2018-01-17]
-	1. enable iOS bitcode.
-	
+ 1. enable iOS bitcode.
+
 *  Version 1.0.5  [release date: 2018-01-19]
-	1. fit iPad endCard.
-	
+ 1. fit iPad endCard.
+
 *  Version 1.0.6  [release date: 2018-01-22]
-	1. Android: support back button in the endCard
-	2. Android: support both landscape right and landscape left
-	3. new Android feature: creatives optimaztion
+ 1. Android: support back button in the endCard
+ 2. Android: support both landscape right and landscape left
+ 3. new Android feature: creatives optimaztion
