@@ -37,7 +37,10 @@ PRO TIP: Checkmark the Copy items if needed option. This creates a local copy of
 	<true/>
 </dict>
 ```
-* 3. Add the import header #import <CTSDK/CTSDK.h> to your 
+
+* 3. You should add a static link to Xcode project: Build Settings -> Other Linker Flags -> -ObjC
+
+* 4. Add the import header #import <CTSDK/CTSDK.h> to your 
      AppDelegate.m file.
      4.Initialize CTSDK in your didFinishLaunchingWithOptions method.
 
@@ -49,7 +52,7 @@ PRO TIP: Checkmark the Copy items if needed option. This creates a local copy of
 ```
 **If you have rewarded video ads in your app, please make sure to use the rewarded video slot id for Initialization**
 
-* 4. Add your Slot ID .
+* 5. Add your Slot ID .
 
 Replace  and Your_Cloudmobi_slotID with your Slot ID 
 Where can I find my Slot ID ?Please refer to the picture
