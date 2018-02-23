@@ -344,7 +344,6 @@ gem install cocoapods
 sudo gem install cocoapods
 ```
 
-```
 * Add CTSDK or CTMediationSDK pods in Podfile. CTMediationSDK integrates Facebook and Admob mediation.
 
 ```
