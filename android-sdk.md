@@ -107,7 +107,7 @@ dependencies {
     3. **VPN** is needed for ads.
 
 * About the CTAdEventListerner.
-   We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. just as follows:
+   We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. See the following example:
 
 ``` java
 public class MyCTAdEventListener implements CTAdEventListener {
@@ -561,7 +561,8 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * Preload appwall
 
-    It‘s better to preload ads for Appwall before show it. 
+    It‘s better to preload ads for Appwall, to ensure they show properly and in a timely fashion. You can have ads preload with the following line of code:
+ 
 
 ``` java
 
@@ -588,7 +589,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * [Facebook advertisement](https://developers.facebook.com/docs/audience-network)
 * Set up the facebook placementId in Cloudmobi platform.
-* Update the module's build.gradle as below:
+* Update the module's build.gradle, as per below:
 
 ``` groovy
 	dependencies {
@@ -622,13 +623,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
         android:theme="@android:style/Theme.Translucent" />
 ```
 
-## <a name="reward">Reward Video Ad Integration</a>
+## <a name="reward">Rewarded Video Ad Integration</a>
 
 * **Google Play Services**
 
     1、Google Advertising ID
 
-    The RewardVideo requires access to the Google Advertising ID in order to operate properly. See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
+    The Rewarded Video function requires access to the Google Advertising ID in order to operate properly.
+ See this guide on how to integrate [Google Play Services](https://developers.google.com/android/guides/setup).
 
     2、Google Play Services in Your Android Manifest
 
@@ -642,7 +644,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
     3、If you have integrated the admob-sdk for basic ads, it's not necessary to do this.
 
 
-* Update the module's build.gradle for Reward Video：
+* Update the module's build.gradle for Rewarded Video：
 
 ``` groovy
 	dependencies {
@@ -652,7 +654,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	}
 ```
 
-* Update the AndroidManifest.xml for Reward Video:
+* Update the AndroidManifest.xml for Rewarded Video:
 
 ``` xml    
 
@@ -663,7 +665,8 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * Setup the UserID
   
-  You should set the userUD for s2s-postback before preload the RewardedVideo
+  You should set the userID for s2s-postback before preloading the RewardedVideo function call
+
   
 ```java
     CTServiceVideo.setUserId("custom_id");
@@ -671,7 +674,8 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 * Preload the RewardedVideo
 
-    It‘s better to call this interface when you want to show RewardedVideo to user.
+    It‘s best to call this interface when you want to show RewardedVideo ads to the user. This will help reduce latency and ensure effective, prompt delivery of ads
+
 
 ``` java
      CTServiceVideo.preloadRewardedVideo(getContext(), “your slotid”,
@@ -689,16 +693,17 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ```
 
-* Show Reward Video to Your Users
+* Show Rewarded Video ads to Your Users
 
 
-Before show the video， you can ask the video status by calling:
+Before showing the video, you can request or query the video status by calling:
 
 ```java
     boolean available = CTServiceVideo.isRewardedVideoAvailable(ctVideo);
 ```
 
-Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method like following:
+Once you get an available Reward Video, you are ready to show this video ad to your users by calling the showRewardedVideo() method as in the following example:
+
 
 ```java
  CTServiceVideo.showRewardedVideo(ctVideo, new VideoAdListener() {
@@ -748,7 +753,7 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 
 ## <a name="error">Error Code For SDK</a>
 
-| Erro Code                         | Description                              |
+| Error Code                         | Description                              |
 | --------------------------------- | ---------------------------------------- |
 | ERR\_000\_TRACK                   | Track exception                          |
 | ERR\_001\_INVALID_INPUT           | Invalid parameter                        |
@@ -756,8 +761,8 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 | ERR\_003\_REAL_API                | Error from Ad Server                     |
 | ERR\_004\_INVALID_DATA            | Invalid advertisement data               |
 | ERR\_005\_RENDER_FAIL             | Advertisement render failed              |
-| ERR\_006\_LANDING_URL             | Landing failed                           |
-| ERR\_007\_TO_DEFAULT_MARKET       | Implicitly lading failed                 |
+| ERR\_006\_LANDING_URL             | Landing URL failed                          |
+| ERR\_007\_TO_DEFAULT_MARKET       | Default Landing URL failed                 |
 | ERR\_008\_DL_URL                  | Deep-Link exception                      |
 | ERR\_009\_DL_URL_JUMP             | Deep-Link jump exception                 |
 | ERR\_010\_APK_DOWNLOAD_URL        | Application package download failed      |
