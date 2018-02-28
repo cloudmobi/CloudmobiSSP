@@ -13,7 +13,7 @@
 * [Basic Ad Mediation (Banner-Interstitial-Native)](#basic)
     * [facebook](#facebook)
     * [admob](#admob)
-* [Reward Video](#reward)
+* [Rewarded Video](#reward)
 * [Error Code For SDK](#error)
 * [Release Notes](#release)
 * [Getting Started with eclipse](#eclipse)
@@ -100,7 +100,7 @@ dependencies {
 
 ## <a name="integration">Integration Notes</a>
 
-* Two permises are need for Cloudmobi ads.
+* Two permissions are needed for Cloudmobi ads.
 
     1. **GooglePlay** is installed on your mobile.
     2. “advertising icon” is necessary to the ad placement. 
