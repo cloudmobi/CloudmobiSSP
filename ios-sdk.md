@@ -16,8 +16,8 @@
 
 - CloudMobi iOS SDK supports banner, interstitial, native, and rewarded video 
 - CloudMobi iOS supports iOS 7.0+;
-- Please make sure you have signed up in CloudMobi Platform. If you haven't signed up,please contact us, email: sdk_support@yeahmobi.com
-- Please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
+- Please make sure you have signed up on the Cloudmobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
+- Please make sure you have added an app and at least one ad slot in CloudMobi Platform
 - Please download [our latest SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip)
 
 ## <a name="step1">SDK Set Up Manually</a>
@@ -54,8 +54,8 @@ PRO TIP: Checkmark the Copy items if needed option. This creates a local copy of
 
 * 5. Add your Slot ID .
 
-Replace  and Your_Cloudmobi_slotID with your Slot ID 
-Where can I find my Slot ID ?Please refer to the picture
+Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? Please refer to the picture below
+
 ![image](https://user-images.githubusercontent.com/20314643/35969194-03005aa0-0d01-11e8-8d24-92a6b9882a77.png)
 
 

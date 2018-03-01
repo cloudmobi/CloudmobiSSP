@@ -8,10 +8,10 @@
 
 * please make sure you have correctly integrated Admob Rewarded Video or Interstitial or Banner Mediation into your application. 
 * support banner, interstitial and rewarded video;
-* support both of 32 bit and 64 bit operation system;
+* support both of 32 bit and 64 bit operating systems;
 * support iOS 7.0+;
-* Please make sure you have signed up in CloudMobi Platform. If you haven't signed up,please contact us, email: sdk_support@yeahmobi.com
-* please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
+* Please make sure you have signed up on the CloudMobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
+* please make sure you have added an app and at least one ad slot in CloudMobi Platform
 * [click here to download mediation adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
 
 
@@ -41,7 +41,7 @@
 
 
 
-#### 3. Create the related between Cloudmobi slot id and Admob ad unit id, as below
+#### 3. Create the Ad Unit in your Admob dashboard that corresponds to your Cloudmobi slot ID 
 
 ![image](https://user-images.githubusercontent.com/7203578/32546982-63059b44-c446-11e7-97e5-04e4c03f918a.png)
 
@@ -68,7 +68,7 @@ Parameter: 260 (Cloudmobi slot id)
 
 Add files to your project !!!
 
-#### 6. Admob RewardedVIdeo Integrate 
+#### 6. Admob Rewarded Video Integration 
 
 See this [link](https://developers.google.com/admob/android/rewarded-video)
 
