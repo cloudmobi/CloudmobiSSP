@@ -6,8 +6,8 @@ Currently we support Rewarded Video and Interstitial for mediation.
 
 #### Before You Start
 
-- Make sure you have CloudMobi SSP account, created application and ad slots on CloudMobi Platform.
-- To serve CloudMobi's Ad, you must have [CloudMobi Basic Android SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip) integrated also.
+- Make sure you have a Cloudmobi SSP account, & created an application and ad slots on the CloudMobi Platform.
+- To serve CloudMobi's Ads, you must have the [CloudMobi Basic Android SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip) integrated also.  
 
 #### Adapter-For-Admob [Download](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK_Adapter-For-Admob.zip)
 
@@ -21,13 +21,13 @@ Currently we support rewarded video and interstitial mediation for Android
 
 ![image](https://user-images.githubusercontent.com/20314643/34598771-abf82482-f229-11e7-8f5b-849a295461fa.png)
 
-1.2 Select your targetting location, turn the status on and "add ad units"
+1.2 Select your targeting location, turn the status on and "add ad units"
 
 ![image](https://user-images.githubusercontent.com/20314643/34598876-34953cd0-f22a-11e7-9d76-f2610179dc99.png)
 
 
 
-1.3 Select your application and ad units to be integrating with CloudMobi
+1.3 Select your application and ad units that you plan to integrate with Cloudmobi
 
 ![image](https://user-images.githubusercontent.com/20314643/34598969-da664082-f22a-11e7-9441-c6aca7cd93ba.png)
 
@@ -47,10 +47,15 @@ Currently we support rewarded video and interstitial mediation for Android
 
 ![image](https://user-images.githubusercontent.com/20314643/34600301-c64459c0-f231-11e7-8ab5-67a61423e5ea.png)
 
+(1)Class Names should match the ad formats in Cloudmobi -- for example, if you are integrating rewarded video ads, the class name should be: 
+
  ```
-(1)Class Name should follow to the ad formats in  cloudmobi, for example, if you are integrating the rewarded video ,class name should  be:com.cloudtech.admob.mediation.CTRewardedVideoAdapter 
-(2)Parameter is the slot ID in CloudMobi platform. You can figure it out in your app list
+ com.cloudtech.admob.mediation.CTRewardedVideoAdapter 
+ 
  ```
+ 
+(2)Parameter is the slot ID in the CloudMobi platform. You can find it in your app list on the Cloudmobi platform
+ 
 
 ![image](https://user-images.githubusercontent.com/20314643/34601111-7ecc1b88-f235-11e7-90e1-017785793815.png)
 
