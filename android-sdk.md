@@ -768,11 +768,11 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 | ERR\_010\_APK_DOWNLOAD_URL        | Application package download failed      |
 | ERR\_011\_APK_INSTALL             | Application install failed               |
 | ERR\_012\_VIDEO_LOAD              | Load the video exception                 |
-| ERR\_013\_PAGE_LOAD               | Load the html5 page failed               |
-| ERR\_014\_JAR_UPDATE_VERSION      | Check the update jar failed              |
-| ERR\_015\_GET_GAID                | Cannot get google advertisement id failed |
+| ERR\_013\_PAGE_LOAD               | HTML5 page load failed             |
+| ERR\_014\_JAR_UPDATE_VERSION      | Update jar check failed             |
+| ERR\_015\_GET_GAID                | Cannot get google advertisement id - GAID retrieval failed |
 | ERR\_016\_GET_AD_CONFIG           | Cannot get the account configuration or template |
-| ERR\_017\_INTERSTITIAL_SHOW_NO_AD | Try to load the interstitial advertisement, but the advertisement is not ready |
+| ERR\_017\_INTERSTITIAL_SHOW_NO_AD | Tried to load the interstitial advertisement, but the advertisement is not ready/loading |
 | ERR\_018\_AD_CLOSED               | Ad slotId has been closed                |
 | ERR\_999\_OTHERS                  | All other errors                         |
 
