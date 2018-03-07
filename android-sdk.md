@@ -1,5 +1,9 @@
 * [Getting Started with AS](#start)
-* [Integration Notes](#integration)
+    * [Add the SDK to Your Project](#Add)
+    * [Update AndroidManifest.xml](#AndroidManifest)
+    * [Init the SDK](#Init)
+    * [For Proguard](#ProGuard)
+    * [Integration Notes](#integration)
 * [Native](#native)
     * [Element-Native](#common)
     * [Element-Native with imagePreload](#preload)
@@ -20,10 +24,16 @@
 
 ## <a name="start">Getting Started with AS</a>
 
+Before You Start, We support Android API 14 or later.
+
+### <a name="Add">Add the SDK to Your Project</a>
+
+We supports both Maven dependencies and jar dependencies to integrate our SDK:
+
+#### Jar dependencies
+
 * [Download the SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/AndroidSDK.zip)
-* Build tool：Gradle
-* Select API 14: Android 4.0 or later.
-* Add the Cloudssp SDK to your Project：
+* Detail of the different jars：
 
   | jar name                    | jar function                             | require(Y/N) |
   | --------------------------- | ---------------------------------------- | ------------ |
@@ -35,12 +45,32 @@
 * Update the module's build.gradle for basic functions：
 
 ``` groovy
-dependencies {
-    compile files('libs/cloudssp_xx.jar')
-}
+    dependencies {
+        compile files('libs/cloudssp_xx.jar')
+    }
 ```
 
-* Update AndroidManifest.xml as below:
+#### Maven dependencies
+
+* Maven version notes:  the newest version is 2.4.0.
+* Detail of the different link
+
+ | link name                        | link function               | require(Y/N) |
+  | ---------------------------     | --------------------------- | ------------ |
+  | com.cloudtech:ads:2.4.0         | basic functions             | Y |
+  | com.cloudtech:imageloader:2.4.0 | imageloader functions       | N |
+  | com.cloudtech:appwall:2.4.0     | appwall ads functions       | N |
+  | com.cloudtech:videoads:2.4.0    | video ads functions         | N |
+  
+ * Update the module's build.gradle for basic functions：
+
+``` groovy
+    dependencies {
+        compile 'com.cloudtech:ads:2.4.0'
+    }
+``` 
+
+### <a name="AndroidManifest">Update AndroidManifest.xml</a>  
 
 ``` xml
 <!--Necessary Permissions-->
@@ -65,19 +95,17 @@ dependencies {
 
 ```
 
+### <a name="Init">Init the SDK</a>  
 
-* **Init the SDK**
-
-    You can init the SDK in your application as detailed below:
+You can init the SDK in your application as detailed below:
 
 ```java
    CTService.init(context, "one of your slotId");
 ```
 
+### <a name="ProGuard">For ProGuard</a> 
 
-*  **For ProGuard Users**
-
-    If you are using ProGuard with the Cloudmobi SDK, you must add the following code to your ProGuard file:
+If you are using ProGuard with the Cloudmobi SDK, you must add the following code to your ProGuard file:
 
 ``` java
     #for sdk
@@ -98,9 +126,9 @@ dependencies {
 ```
 
 
-## <a name="integration">Integration Notes</a>
+### <a name="integration">Integration Notes</a>
 
-* Two permissions are needed for Cloudmobi ads.
+* Three permissions are needed for Cloudmobi ads.
 
     1. **GooglePlay** is installed on your mobile.
     2. “advertising icon” is necessary to the ad placement. 
@@ -170,7 +198,6 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	}
 
 ```
-
 
 ## <a name="native">Native Ads Integration</a>
 
@@ -246,7 +273,15 @@ public class MyCTAdEventListener implements CTAdEventListener {
     dependencies {
         compile files('libs/cloudssp_xx.jar')       
         compile files('libs/cloudssp_imageloader_xx.jar')   // for preload image
-    }   
+    }  
+    
+    or
+    
+    dependencies {
+        compile 'com.cloudtech:ads:2.4.0'
+        cimpile 'com.cloudtech:imageloader:2.4.0'   // for preload image
+    } 
+     
 
     //load ads
     /**
@@ -542,7 +577,15 @@ public class MyCTAdEventListener implements CTAdEventListener {
 	dependencies {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_appwall_xx.jar')       // for appwall        
-        compile files('libs/cloudssp_imageloader_xx.jar')   // imageloader for appwall
+        compile files('libs/cloudssp_imageloader_xx.jar')   // for imageloader
+	}
+	
+	or
+	
+	dependencies {
+        compile 'com.cloudtech:ads:2.4.0'
+        compile 'com.cloudtech:appwall:2.4.0'       // for appwall        
+        compile 'com.cloudtech:imageloader:2.4.0'   // for imageloader
 	}
 
 ```
@@ -593,7 +636,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ``` groovy
 	dependencies {
-    	compile 'com.facebook.android:audience-network-sdk:4.23.0'
+    	compile 'com.facebook.android:audience-network-sdk:4.25.0'
 	}
 ```
 
@@ -605,7 +648,7 @@ public class MyCTAdEventListener implements CTAdEventListener {
 
 ``` groovy
 	dependencies {
-    	compile 'com.google.firebase:firebase-ads:9.0.2'
+    	compile 'com.google.android.gms:play-services-ads:11.8.0'
 	}
 ```
 
@@ -651,6 +694,14 @@ public class MyCTAdEventListener implements CTAdEventListener {
         compile files('libs/cloudssp_xx.jar')
         compile files('libs/cloudssp_videoads_xx.jar')
         compile files('libs/cloudssp_imageloader_xx.jar')
+	}
+	
+	or
+	
+	dependencies {
+	     compile 'com.cloudtech:ads:2.4.0'
+	     compile 'com.cloudtech:videoads:2.4.0'
+	     compile 'com.cloudtech:imageloader:2.4.0'
 	}
 ```
 
@@ -917,6 +968,11 @@ public void onRewardedVideoAdRewarded(String rewardName, String rewardAmount) {
 *   Version 2.2.3 [release date: 2018-02-06]
     1. Update necessary params in requestUrl
     2. fix black screen for some Incomplete-Video.
+    
+*   Version 2.4.0 [release date: 2018-03-07]     
+    1. Support intergate sdk by maven; 
+    2. Fix https problem encounter on api 15;
+    3. Optimize the finish UI for RewardedVideo.
     
 ## <a name="eclipse">Getting Started with eclipse</a>
 
