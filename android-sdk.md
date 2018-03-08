@@ -128,13 +128,13 @@ If you are using ProGuard with the Cloudmobi SDK, you must add the following cod
 
 ### <a name="integration">Integration Notes</a>
 
-* Three permissions are needed for Cloudmobi ads.
+* If you live in a country, like China, which is forbidden google play, two prerequisites to get Cloudmobi ads: 
 
-    1. **GooglePlay** is installed on your mobile.
-    2. “advertising icon” is necessary to the ad placement. 
-    3. **VPN** is needed for ads.
+  1. GooglePlay has installed on your device.
+  2. Your device have connect to VPN.
 
 * About the CTAdEventListerner.
+
    We suggest you define a class to implement the CTAdEventListener yourself , then you can just override the methods you need when you getBanner or getNative. See the following example:
 
 ``` java
