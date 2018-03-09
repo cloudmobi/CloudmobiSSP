@@ -1,13 +1,13 @@
 # AdMob Mediation Integration Guide
 
-This guide instructs you step-by-step on how to set CloudMobi live as an Ad Network on the Admob Mediation platform.
+This guide instructs you step-by-step on how to set Cloudmobi live as an Ad Network on the Admob Mediation platform.
 
 Currently we support Rewarded Video and Interstitial for mediation.
 
 #### Before You Start
 
-- Make sure you have a Cloudmobi SSP account, & created an application and ad slots on the CloudMobi Platform.
-- To serve CloudMobi's Ads, you must have the [CloudMobi Basic Android SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip) integrated also.  
+- Make sure you have a Cloudmobi SSP account, & created an application and ad slots on the Cloudmobi Platform.
+- To serve CloudMobi's Ads, you must have the [Cloudmobi Basic Android SDK](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip) integrated also.  
 
 #### Adapter-For-Admob [Download](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK_Adapter-For-Admob.zip)
 
