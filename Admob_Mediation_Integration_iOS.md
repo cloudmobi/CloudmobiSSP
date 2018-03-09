@@ -10,14 +10,14 @@
 * support banner, interstitial and rewarded video;
 * support both of 32 bit and 64 bit operating systems;
 * support iOS 7.0+;
-* Please make sure you have signed up on the CloudMobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
-* please make sure you have added an app and at least one ad slot in CloudMobi Platform
+* Please make sure you have signed up on the Cloudmobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
+* please make sure you have added an app and at least one ad slot in Cloudmobi Platform
 * [click here to download mediation adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
 
 
 
 
-## <a name="step 2">Set Up CloudMobi as your ad sources in Admob</a>
+## <a name="step 2">Set Up Cloudmobi as your ad sources in Admob</a>
 
 #### 1. Create apps and ad unit id in Admob console, as below
 
@@ -56,7 +56,7 @@
 ![image](https://user-images.githubusercontent.com/7203578/32547248-3a9321bc-c447-11e7-8f41-41d8e383507f.png)
 
 ```
-Class Name: GADMAdapterCloudMobi (example)
+Class Name: GADMAdapterCloudmobi (example)
 Parameter: 260 (Cloudmobi slot id)
 ```
 
@@ -64,7 +64,7 @@ Parameter: 260 (Cloudmobi slot id)
 
 
 
-#### 5. Copy GADMAdapterCloudMobi.h and GADMAdapterCloudMobi.m into your code folder
+#### 5. Copy GADMAdapterCloudmobi.h and GADMAdapterCloudmobi.m into your code folder
 
 Add files to your project !!!
 
@@ -73,4 +73,4 @@ Add files to your project !!!
 See this [link](https://developers.google.com/admob/android/rewarded-video)
 
 Done!
-You are now all set to deliver CloudMobi Ads within your application!
+You are now all set to deliver Cloudmobi Ads within your application!
