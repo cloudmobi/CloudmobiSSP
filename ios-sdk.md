@@ -1,4 +1,4 @@
-# Getting Started with the CloudMobi iOS SDK
+# Getting Started with the Cloudmobi iOS SDK
 
 - [Before You Start](#start)
 - [SDK Set Up Manually](#step1)
@@ -14,10 +14,10 @@
 
 ## <a name="start">Before You Start</a>
 
-- CloudMobi iOS SDK supports banner, interstitial, native, and rewarded video 
-- CloudMobi iOS supports iOS 7.0+;
+- Cloudmobi iOS SDK supports banner, interstitial, native, and rewarded video 
+- Cloudmobi iOS supports iOS 7.0+;
 - Please make sure you have signed up on the Cloudmobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
-- Please make sure you have added an app and at least one ad slot in CloudMobi Platform
+- Please make sure you have added an app and at least one ad slot in Cloudmobi Platform
 - Please download [our latest SDK](https://github.com/cloudmobi/CloudmobiSSP/raw/master/(CT)iOS-SDK.zip)
 
 ## <a name="step1">SDK Set Up Manually</a>
