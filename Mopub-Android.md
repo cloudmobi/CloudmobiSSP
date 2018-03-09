@@ -8,8 +8,8 @@
 * Support API 14(Android 4.0 or later)
 * Mopub Platform account needed. 
 * Make sure you have correctly integrated Mopub Rewarded Video or Interstitial(Fullscreen) or Banner or native Mediation into your application.
-* Please make sure you have signed up in CloudMobi Platform. If you haven't signed up,please contact us, email: sdk_support@yeahmobi.com
-* please make sure you have added an app and at leaset one ad slot in CloudMobi Platform
+* Please make sure you have signed up in Cloudmobi Platform. If you haven't signed up,please contact us, email: sdk_support@yeahmobi.com
+* please make sure you have added an app and at leaset one ad slot in Cloudmobi Platform
 * [Download Adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK_Adapter-For-Mopub.zip)
 
 ## <a name="Docking">Intergation</a>

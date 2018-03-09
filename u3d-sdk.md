@@ -1,10 +1,10 @@
-# Getting Started with the CloudMobi Unity Plugin
+# Getting Started with the Cloudmobi Unity Plugin
 
 * [Before You Start](#start)
 * [SDK Set Up](#step1)
 * [Additional Settings for iOS](#step2)
 * [Additional Settings for Android](#step3)
-* [CloudMobi SDK API Reference](#ApiReference)
+* [Cloudmobi SDK API Reference](#ApiReference)
 * [Sample Code](#sample_code)
 * [SDK Changelog](#release_notes)
 
@@ -17,7 +17,7 @@
 * Support Android API Level 15+;
 * [Click Here to Download Latest SDK;](https://github.com/cloudmobi/CloudmobiSSP/blob/master/U3D-CTServiceSDK.unitypackage.zip)
 
-## <a name="step1">Step 1. CloudMobi Unity SDK Set Up</a>
+## <a name="step1">Step 1. Cloudmobi Unity SDK Set Up</a>
 
 * Import CTService.unitypackage to your U3D project.
 
