@@ -333,7 +333,7 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
 
 Done!
 
-You are now all set to deliver CloudMobi Ads within your application!
+You are now all set to deliver Cloudmobi Ads within your application!
 
 ## <a name="step2">Cocoapods Integration</a>
 * Install CocoaPods and make sure you are running the latest version of CocoaPods by running:
