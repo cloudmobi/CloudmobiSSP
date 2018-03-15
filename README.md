@@ -16,13 +16,13 @@
 
 #### Integrate Cloudmobi SDK
 
-- [SDK Integration Guide](https://github.com/cloudmobi/CloudmobiSSP/blob/master/android-sdk.md)
-- [SDK Download](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK.zip)
+- [SDK Integration Guide](https://github.com/cloudmobi/AndroidSDK/blob/master/AndroidSDK_Integration_Guide.md)
+- [SDK Download](https://github.com/cloudmobi/AndroidSDK/blob/master/AndroidSDK.zip)
 
 #### Mediation Partners
 
-- [Integrating Admob Mediation](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AdMob_Mediation_Integration_Guide_For_Android.md)
-- [Integrating Mopub Mediation](https://github.com/cloudmobi/CloudmobiSSP/blob/master/AndroidSDK_Adapter-For-Mopub.zip)
+- [Integrating Admob Mediation](https://github.com/cloudmobi/AndroidSDK/blob/master/AdMob_Mediation_Integration_Guide_For_Android.md)
+- [Integrating Mopub Mediation](https://github.com/cloudmobi/AndroidSDK/blob/master/Mopub_Mediation_Integration_Guide_For_Android.md)
 
 ##  Unity3D 
 
