@@ -13,6 +13,7 @@
 
 ### Step 1. Download the adpater
 
+![image](https://user-images.githubusercontent.com/20314643/37516166-37e68bb4-2948-11e8-8418-d1e859c4a210.png)
 
 
 The folders within the download include:
