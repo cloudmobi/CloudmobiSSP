@@ -6,13 +6,13 @@
 ## <a name="start">Before You Start</a>
 
 
-* please make sure you have correctly integrated Admob Rewarded Video or Interstitial or Banner Mediation into your application. 
-* support banner, interstitial and rewarded video;
-* support both of 32 bit and 64 bit operating systems;
-* support iOS 7.0+;
-* Please make sure you have signed up on the Cloudmobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
-* please make sure you have added an app and at least one ad slot in Cloudmobi Platform
-* [click here to download mediation adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
+* Please make sure you have correctly integrated Admob Rewarded Video or Interstitial or Banner Mediation into your application. 
+* Support banner, interstitial and rewarded video;
+* Support both of 32 bit and 64 bit operating systems;
+* Support iOS 7.0+;
+* Please make sure you have signed up on Cloudmobi Platform to get your own slot id for test. If you haven't signed up, please contact us, email to sdk_support@yeahmobi.com.
+* Please make sure you have added an app and at least one ad slot in Cloudmobi Platform
+* [click here to download the mediation adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
 
 
 
