@@ -4,10 +4,10 @@
 
 * Support native, banner, interstitial (Fullscreen) and rewarded video.
 * Support iOS 7.0+.
-* Mopub Platform account needed. 
-* Make sure you have correctly integrated Mopub Rewarded Video or Interstitial(Fullscreen) or Banner or native Mediation into your application.
+* The Mopub account is needed. 
+* Make sure you have correctly integrated Mopub Rewarded Video or Interstitial(Fullscreen) or Banner or Native Mediation into your application.
 * Please make sure you have signed up on the Cloudmobi Platform. If you haven't signed up, please contact us via email: sdk_support@yeahmobi.com
-* please make sure you have added an app and at least one ad slot in Cloudmobi Platform.
+* Please make sure you have signed up on Cloudmobi Platform to get your own slot id for test. If you haven't signed up, please contact us, email to sdk_support@yeahmobi.com.
 * [Download Adapter](https://github.com/cloudmobi/CloudmobiSSP/raw/master/CTADSDKForMopub.zip)
 
 ## <a name="Docking">Integration</a>
