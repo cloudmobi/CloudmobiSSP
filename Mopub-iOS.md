@@ -17,9 +17,9 @@
 
 The folders within the download include:
 
-1.SDK Adapter for Mopub. Please put “CTSDK.framework” and the ad formats you’ll use into Mopub's Project.
-2.Integration Guidance.
-3.Demo.
+1. SDK Adapter for Mopub. Please put “CTSDK.framework” and the ad formats you’ll use into Mopub's Project.
+2. Integration Guidance.
+3. Demo.
 
 ### Step 2. Put the CTADSDK folder into the project
 
