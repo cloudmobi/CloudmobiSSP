@@ -10,9 +10,9 @@
 * [Download Adapter](https://github.com/cloudmobi/CloudmobiSSP/raw/master/CTADSDKForMopub.zip)
 
 ## <a name="Docking">Integration</a>
- ![image](https://user-images.githubusercontent.com/13117454/35846555-18b3bff0-0b52-11e8-9c58-84455dfe6863.png)
-### 1.Drag the CTADSDK folder into the project
 
+### 1.Drag the CTADSDK folder into the project
+ ![image](https://user-images.githubusercontent.com/13117454/35846555-18b3bff0-0b52-11e8-9c58-84455dfe6863.png)
  ===
 
 ### 2.Add a Network on Mopub
