@@ -77,6 +77,7 @@ NSString* slotid = @"你的CloudMobi账户当前App下的任意一个广告ID";
 - [应用墙](#Appwall)
 - [激励视频](#rewardvideo)
 - [模板广告（包括条幅广告、插屏广告和原生模板广告）](#template)
+- [原生视频广告](#nativevideo)
 
 ------
 
@@ -318,7 +319,7 @@ CTNaTemplateDelegate 代理回调方法
 -(void)CTNaTemplateHtml5Closed:(CTNaTemplate*)naTemplate;           //关闭模板
 -(void)CTNaTemplateJumpfail:(CTNaTemplate*)naTemplate;              //跳转失败
 ```
-<a name="rewardvideo">获取原生视频广告</a>
+<a name="nativevideo">获取原生视频广告</a>
 ```
 /**
  请求原生视频广告
