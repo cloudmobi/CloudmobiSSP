@@ -331,6 +331,28 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
 
 ```
 
+### <a name="native">Adding the Native Ad API in iOS</a>
+
+```
+/**
+ Get Native video Ad
+ Call this interface to get Native Video AD.
+ 
+ @param slot_id         Cloud Tech AD ID
+ @param delegate        Set Delegate of Ads event (<CTNativeVideoDelegate>)
+ @param WHRate          Set Image Rate
+ @param isTest          Use test advertisement or not
+ */
+- (void)getNativeVideoADswithSlotId:(NSString*)slot_id
+                           delegate:(id)delegate
+                imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                             isTest:(BOOL)isTest;
+			  
+CTNativeVideoDelegate Callback Delegate
+-(void)CTNativeVideoLoadSuccess:(CTNativeVideoModel *)nativeVideoModel;  //Advertisement load success.
+-(void)CTNativeVideoLoadFailed:(NSError *)error;                         //Advertisement load failed
+```
+
 Done!
 
 You are now all set to deliver Cloudmobi Ads within your application!
