@@ -7,6 +7,7 @@
   - [Banner](#banner)
   - [Interstitial](#interstitial)
   - [Native Template](#nativetemplate)
+  - [Native Video](#nativevideo)
 
 - [Cocoapods Integration](#step2)
 
@@ -331,7 +332,7 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
 
 ```
 
-### <a name="native">Adding the Native Ad API in iOS</a>
+### <a name="nativevideo">Adding the Native Ad API in iOS</a>
 
 ```
 /**
