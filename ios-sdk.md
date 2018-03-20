@@ -7,7 +7,7 @@
   - [Banner](#banner)
   - [Interstitial](#interstitial)
   - [Native Template](#nativetemplate)
-  - [Native Video](#nativevideo)
+  - [Native Video](#nativevideo)
 
 - [Cocoapods Integration](#step2)
 
