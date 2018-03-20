@@ -318,4 +318,22 @@ CTNaTemplateDelegate 代理回调方法
 -(void)CTNaTemplateHtml5Closed:(CTNaTemplate*)naTemplate;           //关闭模板
 -(void)CTNaTemplateJumpfail:(CTNaTemplate*)naTemplate;              //跳转失败
 ```
-
+<a name="rewardvideo">获取原生视频广告</a>
+```
+/**
+ 请求原生视频广告
+ 
+ @param slot_id         广告SlotID
+ @param delegate        设置遵守 <CTNativeVideoDelegate> 的代理对象
+ @param WHRate          S设置获取广告元素中大图的图片比例1.9:1/1:1
+ @param isTest          是否开启Debug模式，保留参数
+ */
+- (void)getNativeVideoADswithSlotId:(NSString*)slot_id
+                           delegate:(id)delegate
+                imageWidthHightRate:(CTImageWidthHightRate)WHRate
+                             isTest:(BOOL)isTest;
+			     
+CTNativeVideoDelegate 代理回调方法
+-(void)CTNativeVideoLoadSuccess:(CTNativeVideoModel *)nativeVideoModel;  //广告请求成功回调函数
+-(void)CTNativeVideoLoadFailed:(NSError *)error;                         //广告请求失败回调函数
+```
