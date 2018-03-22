@@ -324,8 +324,8 @@ CTNaTemplateDelegate 代理回调方法
 /**
  请求原生视频广告
  
- @param slot_id         广告SlotID
- @param delegate        设置遵守 <CTNativeVideoDelegate> 的代理对象
+ @param slot_id         Native Video广告SlotID，否则会请求不到广告
+ @param delegate        设置遵守 <CTNativeVideoDelegate> 的代理对象
  @param WHRate          设置获取广告元素中大图的图片比例1.9:1/1:1
  @param isTest          是否开启Debug模式，保留参数
  */
