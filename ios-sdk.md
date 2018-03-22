@@ -339,8 +339,8 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
  Get Native video Ad
  Call this interface to get Native Video AD.
  
- @param slot_id         Cloud Tech AD ID
- @param delegate        Set Delegate of Ads event (<CTNativeVideoDelegate>)
+ @param slot_id         You should use Native Video AD ID or you wouldn't get ads.
+ @param delegate        Set Delegate of Ads event (<CTNativeVideoDelegate>)
  @param WHRate          Set Image Rate
  @param isTest          Use test advertisement or not
  */
