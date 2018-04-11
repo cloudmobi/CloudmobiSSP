@@ -51,11 +51,4 @@ The folders within the download include:
 ### Step 6.Use Ad unit id
 ![image](https://user-images.githubusercontent.com/13117454/35846975-b426c9cc-0b53-11e8-90f3-d6f0fd06b8b1.png)
 ===
-### Step 7.NativeAd note
-The NativeAdView provided to the mopub framework needs to inherit CTNativeAd, and the dealloc method adds the following code:  
-  
-```
-[self removeObserver:self forKeyPath:@"adNativeModel"];
-``` 
-
 
