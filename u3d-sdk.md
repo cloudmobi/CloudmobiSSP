@@ -21,7 +21,7 @@
 
 * Import CTService.unitypackage to your U3D project.
 
-* Create a script and attach it to [Main Camera]. Then implement the Awake function as belows.
+* Create a script and attach it to [Main Camera]. Then implement the Awake function as belows.This is Nes
 
 ```
 using CTServiceSDK;
@@ -30,12 +30,10 @@ void Awake () {
 }
 ```
 
-* Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
+*[Rewarded Video] Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
 
 ```
 void Start () {
-	//setup delegate
-	setupDelegates ();
 	//load rewardvideo ad
 	CTService.loadRewardVideoWithSlotId (slot_id);
 }
@@ -63,10 +61,7 @@ void CTRewardVideoLoadingFailed(string error){
 }
 
 ```
-
-* For more delegate details, you should check the [**API Reference**](#ApiReference).
-
-* Implement a button click event to check if we can show rewarded video ad.
+*[Rewarded Video] Implement a button click event to check if we can show rewarded video ad.
 
 ```
 void playBtnClick(){
@@ -77,6 +72,53 @@ void playBtnClick(){
 		Debug.Log ("CT Rewarded Video is not ready");
 }
 ```
+
+*[Interstitial(coming soon)] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
+
+```
+void Start () {
+	//load interstitial ad
+	CTService.loadRewardVideoWithSlotId (slot_id);
+}
+
+void OnEnable() {
+	CTService.interstitialLoadSuccess   += CTInterstitialLoadSuccess;
+	CTService.interstitialLoadFailed += CTInterstitialLoadingFailed;
+}
+
+void OnDisable(){
+	CTService.interstitialLoadSuccess -= CTInterstitialLoadSuccess;
+	CTService.interstitialLoadFailed -= interstitialLoadFailed;
+}
+
+void OnDestroy(){
+	CTService.release ();
+}
+
+void CTInterstitialLoadSuccess(){
+
+}
+
+void CTInterstitialLoadingFailed(string error){
+	Debug.Log ("U3D delegate, CTInterstitialLoadFailed. " + error);
+}
+```
+
+*[Interstitial(coming soon)] Implement a button click event to check if we can show rewarded video ad.
+
+```
+void showBtnClick(){
+	//show interstitial if it's avalable
+	if(CTService.isInterstitialAvailable ())
+		CTService.showInterstitial ();
+	else
+		Debug.Log ("CT Interstitial is not ready");
+}
+```
+
+* For more delegate details, you should check the [**API Reference**](#ApiReference).
+
+
 ## <a name="step2">Additional Settings for iOS</a>
 
 *  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
@@ -174,7 +216,48 @@ public static event Action<string> rewardVideoAdRewarded;
 *  reward video ad closed delegate
 **/
 public static event Action rewardVideoClosed;
+
+
+/**
+ Get Interstitial Ad
+ First,you should Call (loadInterstitialWithSlotId) method get Interstitial！
+ Then On his success delegate method invokes (showInterstitia） method
+@param slot_id         Cloud Tech AD ID
+ */
+public static void preloadInterstitialWithSlotId(string slot_id)
 		
+/**
+show showInterstitial	you should call it in the loadInterstitialWithSlotId delegate function.
+*/
+public static void showInterstitial()
+		
+/**
+Check if Interstitial is read 
+
+if true, you can call showInterstitial;
+*/
+public static bool isInterstitialAvailable()
+		
+/**
+*  Interstitial is loaded successfully, you can call showInterstitial() in this function.
+**/
+public static event Action interstitialLoadSuccess;
+/**
+*  Interstitial is loaded failed;
+**/
+public static event Action<string> interstitialLoadFailed;
+/**
+*   user click Ads
+**/
+public static event Action interstitialDidClickRewardAd;
+/**
+*  jump AppStroe failed
+**/
+public static event Action interstitialJumpfailed;
+/**
+*  Interstitial is hidden
+**/
+public static event Action interstitialClose;	
 ```
 
 
@@ -203,7 +286,7 @@ public class CTCamera : MonoBehaviour {
 }
 ```
 
-**CTCanvas.cs** attaches to a Unity GameObject which you'd like to show a reward video.
+**CTRewardedVideo.cs** attaches to a Unity GameObject which you'd like to show rewarded video.
 
 ```
 using System.Collections;
@@ -351,8 +434,119 @@ public class CTCanvas : MonoBehaviour {
 	}
 }
 ```
+**CTInterstitial.cs** attaches to a Unity GameObject which you'd like to show interstitail.
+
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using CTServiceSDK;
+
+public class CTInterstitial : MonoBehaviour {
+	#if UNITY_ANDROID
+	public string slot_id = "248";
+	#elif UNITY_IOS
+	public string slot_id = "82095565";
+	#endif
+	//notice: attach your UI objcet here
+	public Button loadBtn;
+	public Button showBtn;
+	public Text statusText;
+
+	// Use this for initialization
+	void Start () {
+		showBtn.onClick.AddListener (showBtnClick);
+		loadBtn.onClick.AddListener (loadBtnClick);
+		//Notice: load Interstitial ad when you init UI.
+		CTService.preloadInterstitialWithSlotId (slot_id); 
+	}
+	
+	void OnEnable() {
+		setupDelegates();
+	}
+
+	//set delegate
+	void setupDelegates(){
+		CTService.interstitialLoadSuccess += CTInterstitialLoadSuccess;
+		CTService.interstitialLoadFailed += CTInterstitialLoadingFailed;
+		CTService.interstitialDidClickRewardAd += CTInterstitialDidClickRewardAd;
+		CTService.interstitialJumpfailed += CTInterstitialJumpfailed;
+		CTService.interstitialClose += CTInterstitialClose;
+	}
+
+	void OnDisable(){
+		CTService.interstitialLoadSuccess -= CTInterstitialLoadSuccess;
+		CTService.interstitialLoadFailed -= CTInterstitialLoadingFailed;
+		CTService.interstitialDidClickRewardAd -= CTInterstitialDidClickRewardAd;
+		CTService.interstitialJumpfailed -= CTInterstitialJumpfailed;
+		CTService.interstitialClose -= CTInterstitialClose;
+	}
+
+	void OnDestroy(){
+		//do not forget to call release, otherwise android platform will casue memory leak.
+		CTService.release ();
+	}
+
+	void setReady(bool isReady, string msg){
+		if (isReady) {
+			statusText.color = Color.green; 
+			statusText.text = "isReadyToShow: Yes";
+		} else {
+			statusText.color = Color.red; 
+			statusText.text = msg;
+		}
+	}
+
+	//Notice: You should call this api as soon as you can. For example, call it in Start function.(not in awake, beacause we must call CTService.loadRequestGetCTSDKConfigBySlot_id first in camera awake function)
+	//For convenience test, we add a button to click.
+	void loadBtnClick(){
+		//load Interstitial ad
+		CTService.preloadInterstitialWithSlotId (slot_id);
+		Debug.Log ("CT Interstitial loadBtnClick");
+	}
+
+	void showBtnClick(){
+		//you can also use this api to check if Interstitial is ready.
+		if (CTService.isInterstitialAvailable ()) {
+			setReady (true, null);
+			CTService.showInterstitial ();
+		}
+		else
+			Debug.Log ("CT Interstitial is not ready");
+	}
 
 
+	/**
+	 * 
+	 * Interstitial delegate
+	 * 
+	 * */
+	void CTInterstitialLoadSuccess(){
+		Debug.Log ("U3D delegate, CTInterstitialLoadSuccess");
+		setReady (true, null);
+	}
+
+	void CTInterstitialLoadingFailed(string error){
+		setReady (false, error);
+		Debug.Log ("U3D delegate, CTInterstitialLoadingFailed. " + error);
+	}
+
+	void CTInterstitialDidClickRewardAd(){
+		Debug.Log ("U3D delegate, CTInterstitialDidClickRewardAd");
+	}
+
+	//jump to AppStroe failed, only for iOS
+	void CTInterstitialJumpfailed(){
+		Debug.Log ("U3D delegate, CTInterstitialWillLeaveApplication");
+	}
+
+	void CTInterstitialClose(){
+		Debug.Log ("U3D delegate, CTInterstitialClose");
+		setReady (false, @"isReadyToShow: NO");
+	}
+}
+```
 
 
 
