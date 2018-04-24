@@ -242,18 +242,22 @@ public static bool isInterstitialAvailable()
 *  Interstitial is loaded successfully, you can call showInterstitial() in this function.
 **/
 public static event Action interstitialLoadSuccess;
+
 /**
 *  Interstitial is loaded failed;
 **/
 public static event Action<string> interstitialLoadFailed;
+
 /**
 *   user click Ads
 **/
 public static event Action interstitialDidClickRewardAd;
+
 /**
 *  jump AppStroe failed
 **/
 public static event Action interstitialJumpfailed;
+
 /**
 *  Interstitial is hidden
 **/
