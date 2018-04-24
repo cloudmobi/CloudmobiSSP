@@ -30,7 +30,7 @@ void Awake () {
 }
 ```
 
-*[For Rewarded Video] Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
+* [For Rewarded Video] Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
 
 ```
 void Start () {
@@ -61,7 +61,7 @@ void CTRewardVideoLoadingFailed(string error){
 }
 
 ```
-*[For Rewarded Video] Implement a button click event to check if we can show rewarded video ad.
+* [For Rewarded Video] Implement a button click event to check if we can show rewarded video ad.
 
 ```
 void playBtnClick(){
@@ -73,7 +73,7 @@ void playBtnClick(){
 }
 ```
 
-*[For Interstitial(coming soon)] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
+* [For Interstitial(coming soon)] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
 
 ```
 void Start () {
@@ -104,7 +104,7 @@ void CTInterstitialLoadingFailed(string error){
 }
 ```
 
-*[For Interstitial(coming soon)] Implement a button click event to check if we can show rewarded video ad.
+* [For Interstitial(coming soon)] Implement a button click event to check if we can show rewarded video ad.
 
 ```
 void showBtnClick(){
