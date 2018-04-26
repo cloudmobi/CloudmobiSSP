@@ -2,6 +2,8 @@
 
 * [Before You Start](#start)
 * [SDK Set Up](#step1)
+  - [Rewarded Video](#rewardedvideo)
+  - [Interstitial](#interstitial)
 * [Additional Settings for iOS](#step2)
 * [Additional Settings for Android](#step3)
 * [Cloudmobi SDK API Reference](#ApiReference)
@@ -29,6 +31,8 @@ void Awake () {
 	CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id);
 }
 ```
+
+###  <a name="rewardedvideo">Adding the RewardVideo Ad API in iOS</a>
 
 * [For Rewarded Video] Create a script and attach it to a Unity UIController which you'd like to show rewarded video on. Then implement the Start function as belows.
 
@@ -72,6 +76,8 @@ void playBtnClick(){
 		Debug.Log ("CT Rewarded Video is not ready");
 }
 ```
+
+### <a name="interstitial">Adding the Interstitial Ad API in iOS</a>
 
 * [For Interstitial] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
 
