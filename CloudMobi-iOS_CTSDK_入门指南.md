@@ -338,3 +338,60 @@ CTNativeVideoDelegate 代理回调方法
 -(void)CTNativeVideoLoadSuccess:(CTNativeVideoModel *)nativeVideoModel;  //广告请求成功回调函数
 -(void)CTNativeVideoLoadFailed:(NSError *)error;                         //广告请求失败回调函数
 ```
+
+
+<a name="NewInterstitial">获取插屏(New)</a>
+
+```
+  /**
+   预加载插屏广告.
+ 
+ 参数 slot_id         广告位
+ 参数 delegate        广告代理对象
+ 参数 isTest          是否是测试模式(填入NO即可) 
+ */
+- (void)preloadInterstitialAdWithSlotId:(NSString *)slot_id
+                             delegate:(id)delegate
+                               isTest:(BOOL)isTest;
+
+/**
+ 展示差评广告,会默认在app最上层UIViewController上present出广告
+ 在预加载接口返回成功后调用
+ */
+- (void)interstitialAdShow;
+
+/**
+ 展示差评广告,会在app传入的UIViewController上present出广告,如果填写nil,则与interstitialAdShow功能相同.
+ 在预加载接口返回成功后调用
+ */
+- (void)interstitialAdShowWithController:(UIViewController *)VC;
+
+/**
+检查广告是否准备好了,如果返回了YES 就可以调用广告展示接口了.返回NO则广告没有准备好
+ */
+- (BOOL)interstitialAdIsReady;
+
+广告返回代理接口,需app实现
+
+//广告获取成功
+-(void)CTADInterstitialGetAdSuccess;
+
+//广告获取失败
+-(void)CTADInterstitialGetAdFailed:(NSError *)error;
+
+//广告展示失败
+- (void)CTADInterstitialAdShowFailed:(NSError *)error;
+
+//广告被点击
+-(void)CTADInterstitialDidClick;
+
+//广告跳到落地页
+- (void)CTADInterstitialDidIntoLandingPage;
+
+//广告跳往落地页失败
+- (void)CTADInterstitialJumpFailed;
+
+//广告被关闭
+-(void)CTADInterstitialClosed;
+
+```
