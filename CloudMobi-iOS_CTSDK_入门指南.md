@@ -347,7 +347,7 @@ CTNativeVideoDelegate 代理回调方法
    预加载插屏广告.
  
  参数 slot_id         广告位
- 参数 delegate        广告代理对象
+ 参数 delegate        广告代理对象 <CTADInterstitialDelegate>
  参数 isTest          是否是测试模式(填入NO即可) 
  */
 - (void)preloadInterstitialAdWithSlotId:(NSString *)slot_id
@@ -371,7 +371,7 @@ CTNativeVideoDelegate 代理回调方法
  */
 - (BOOL)interstitialAdIsReady;
 
-广告返回代理接口,需app实现
+广告返回代理接口<CTADInterstitialDelegate>,需app实现
 
 //广告获取成功
 -(void)CTADInterstitialGetAdSuccess;
