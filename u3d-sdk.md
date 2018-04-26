@@ -73,7 +73,7 @@ void playBtnClick(){
 }
 ```
 
-* [For Interstitial(coming soon)] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
+* [For Interstitial] Create a script and attach it to a Unity UIController which you'd like to show intersitial ad on. Then implement the Start function as belows.
 
 ```
 void Start () {
@@ -104,7 +104,7 @@ void CTInterstitialLoadingFailed(string error){
 }
 ```
 
-* [For Interstitial(coming soon)] Implement a button click event to check if we can show rewarded video ad.
+* [For Interstitial] Implement a button click event to check if we can show rewarded video ad.
 
 ```
 void showBtnClick(){
@@ -576,3 +576,6 @@ public class CTInterstitial : MonoBehaviour {
  1. Android: support back button in the endCard
  2. Android: support both landscape right and landscape left
  3. new Android feature: creatives optimaztion
+
+*  Version 1.1.0  [release date: 2018-04-26]
+ 1. release Interstitial AD.
