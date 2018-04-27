@@ -332,7 +332,7 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
 
 ```
 
-### <a name="nativevideo">Adding the Native Ad API in iOS</a>
+### <a name="nativevideo">Adding the Native Video Ad API in iOS</a>
 
 ```
 /**
