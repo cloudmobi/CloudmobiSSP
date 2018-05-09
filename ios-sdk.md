@@ -62,7 +62,7 @@ Replace Your_Cloudmobi_slotID with your Slot ID -- Where can I find my Slot ID? 
 
 
 ###  <a name="rewardedvideo">Adding the RewardVideo Ad API in iOS</a>
-
+For the first time you request rewarded video ads, you may need to try serveral times.Because it takes some time to download video files.Once a video file downloads completely, it will response immediately.
 
 ```     
     /**
