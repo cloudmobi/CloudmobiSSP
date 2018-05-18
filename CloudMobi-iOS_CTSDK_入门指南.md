@@ -78,6 +78,7 @@ NSString* slotid = @"你的CloudMobi账户当前App下的任意一个广告ID";
 - [激励视频](#rewardvideo)
 - [模板广告（包括条幅广告、插屏广告和原生模板广告）](#template)
 - [原生视频广告](#nativevideo)
+- [新插屏广告](#NewInterstitial)
 
 ------
 
