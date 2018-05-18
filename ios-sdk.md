@@ -8,6 +8,7 @@
   - [Interstitial](#interstitial)
   - [Native Template](#nativetemplate)
   - [Native Video](#nativevideo)
+  - [New Interstitial](#NewInterstitial)
 
 - [Cocoapods Integration](#step2)
 
