@@ -93,7 +93,8 @@ NSString* slotid = @"你的CloudMobi账户当前App下的任意一个广告ID";
 
     /**
      * 获取元素广告对象,使用继承CTNativeAd广告视图定制广告展示,在显示之前添加到父视图
-     * @param slot_Id       Native元素广告SlotID
+     * 由于GDPR，因此广告角标需要媒体手动添加touch事件，可以通过safai打开返回的choices_link_url。角标使用ADsignImage对象
+     * @param slot_Id       Native元素广告SlotID
      * @param delegate      设置遵守 <CTNativeAdDelegate> 的代理对象
      * @param WHRate        设置获取广告元素中大图的图片比例1.9:1/1:1
      * @param isTest        是否开启Debug模式，保留参数
@@ -108,6 +109,7 @@ NSString* slotid = @"你的CloudMobi账户当前App下的任意一个广告ID";
                       failure:(void (^)(NSError *error))failure;
 /**
      * 获取多元素广告对象,使用继承CTNativeAd广告视图定制广告展示,在显示之前添加到父视图
+     * 由于GDPR，因此广告角标需要媒体手动添加touch事件，可以通过safai打开返回的choices_link_url。角标使用ADsignImage对象
      * @param slot_Id       Native元素广告SlotID
      * @param num                要获取多少个元素对象
      * @param delegate      设置遵守 <CTNativeAdDelegate> 的代理对象
@@ -324,7 +326,7 @@ CTNaTemplateDelegate 代理回调方法
 ```
 /**
  请求原生视频广告
- 
+ 由于GDPR，因此广告角标需要媒体手动添加touch事件，可以通过safai打开返回的choices_link_url。角标使用ADsignImage对象
  @param slot_id         Native Video广告SlotID，否则会请求不到广告
  @param delegate        设置遵守 <CTNativeVideoDelegate> 的代理对象
  @param WHRate          设置获取广告元素中大图的图片比例1.9:1/1:1
