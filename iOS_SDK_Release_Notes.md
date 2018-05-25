@@ -9,4 +9,5 @@
 | 2.3.2   |  2017-12-04  | * fixed the data structure caused crash  |
 | 2.2.2   |  2017-11-10  | * fixed issue data exception bug         |
 | 2.1.0   |  2017-10-27  | * add mute button on rewarded video<br> * fixed the bug when there is no internet |
+| 2.8.0   |  2018-05-23  | * SDK GDPR compliant and upgraded the integration Guide on how to set an ad choices in the corner about the information you shared with us|
 
