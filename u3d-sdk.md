@@ -84,7 +84,7 @@ void playBtnClick(){
 ```
 void Start () {
 	//load interstitial ad
-	CTService.loadRewardVideoWithSlotId (slot_id);
+	CTService.preloadInterstitialWithSlotId (slot_id);
 }
 
 void OnEnable() {
