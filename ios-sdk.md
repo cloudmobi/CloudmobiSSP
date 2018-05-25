@@ -125,7 +125,7 @@ For the first time you request rewarded video ads, you may need to try serveral 
 ```
     /**
      * To get the Native ads , You Custom Ad View should inherit CTNativeAd 
-     * Because GDPR, advertising Angle the need to manually add touch events, media can be opened by safai choices_link_url returns.Angle using ADsignImage object
+     * Because GDPR, you need to add touch events to the ad choices in the corner. user click the ad choices in the corner and it can be opened by safai choices_link_url.Ad choices uses ADsignImage object
      * @param slot_Id       Native Ad SlotID
      * @param delegate      declare that ViewController implements the CTNativeAdDelegate protocol
      * @param WHRate        Request image rate
@@ -141,7 +141,7 @@ For the first time you request rewarded video ads, you may need to try serveral 
                       failure:(void (^)(NSError *error))failure;
     /**
      * To get the multiple Native ads , You Custom Ad View should inherit CTNativeAd 
-     * Because GDPR, advertising Angle the need to manually add touch events, media can be opened by safai choices_link_url returns.Angle using ADsignImage object
+     * Because GDPR, you need to add touch events to the ad choices in the corner. user click the ad choices in the corner and it can be opened by safai choices_link_url.Ad choices uses ADsignImage object
      * @param slot_Id       Native Ad SlotID
      * @param num           Ad numbers
      * @param delegate      declare that ViewController implements the CTNativeAdDelegate protocol
@@ -341,7 +341,7 @@ For the first time you request rewarded video ads, you may need to try serveral 
 /**
  Get Native video Ad
  Call this interface to get Native Video AD.
- Because GDPR, advertising Angle the need to manually add touch events, media can be opened by safai choices_link_url returns.Angle using ADsignImage object
+ Because GDPR, you need to add touch events to the ad choices in the corner. user click the ad choices in the corner and it can be opened by safai choices_link_url.Ad choices uses ADsignImage object
  @param slot_id         You should use Native Video AD ID or you wouldn't get ads.
  @param delegate        Set Delegate of Ads event (<CTNativeVideoDelegate>)
  @param WHRate          Set Image Rate
