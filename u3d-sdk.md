@@ -585,3 +585,6 @@ public class CTInterstitial : MonoBehaviour {
 
 *  Version 1.1.0  [release date: 2018-04-26]
  1. release Interstitial AD.
+
+*  Version 1.1.1  [release date: 2018-05-29]
+ 1. SDK GDPR compliant.
