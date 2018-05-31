@@ -228,64 +228,9 @@ For the first time you request rewarded video ads, you may need to try serveral 
 
 
 
-### <a name="interstitial">Adding the Interstitial Ad API in iOS</a>
 
-```
-
-    /**
-     To get the Interstitial ads
-     @param slot_id         Interstitial Ad SlotID
-     @param delegate        declare that ViewController implements the CTInterstitialDelegate protocol
-     @param isFull          Set Ad is Full Screen
-     @param isTest          Debug Mode , Retention parameters
-     @param success         Load Ad success callback
-     @param failure         Load Ad failed callback
-     */
-    - (void)preloadInterstitialWithSlotId:(NSString *)slot_id
-                                 delegate:(id)delegate
-                             isFullScreen:(BOOL)isFull
-                                   isTest:(BOOL)isTest
-                                  success:(void (^)(UIView *InterstitialView))success
-                                  failure:(void (^)(NSError *error))failure;
-    /**
-     Show Interstitial
-     */
-    - (BOOL)interstitialShow;
-    /**
-     Close Interstitial
-     */
-    - (BOOL)interstitialClose;
-    /**
-     Interstitial Screen Direction
-     if you use interstitialShow，please use the interface below set your screen orientation 
-     */
-    - (void)ScreenIsVerticalScreen:(BOOL)isVerticalScreen;
-    /**
-     use Viewcontroller to show ads
-     */
-    - (BOOL)interstitialShowWithControllerStyleFromRootViewController:(UIViewController *)rootViewController;
     
-    CTInterstitialDelegate Callback interface
-    - (void)CTInterstitialDidClick:(CTInterstitial*)interstitial {
-        NSLog(@"click Ad");
-    }
-    - (void)CTInterstitialDidIntoLandingPage:(CTInterstitial*)interstitial {
-        NSLog(@"did Into LandingPage");
-    }
-    - (void)CTInterstitialDidLeaveLandingPage:(CTInterstitial*)interstitial {
-        NSLog(@"did Leave LandingPage");
-    }
-    - (void)CTInterstitialClosed:(CTInterstitial*)interstitial {
-        NSLog(@"closed ad");
-    }
-    - (void)CTInterstitialWillLeaveApplication:(CTInterstitial*)interstitial {
-        NSLog(@"will leave Application");
-    }
-    - (void)CTInterstitialJumpfail:(CTInterstitial *)interstitialAD {
-        NSLog(@"click ad Jump App store failed");
-    }
-```
-
+    
 
 
 ### <a name="nativetemplate">Adding the Native Template Ad API in iOS</a>
