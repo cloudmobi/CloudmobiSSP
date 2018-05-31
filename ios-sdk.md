@@ -301,7 +301,7 @@ CTNativeVideoDelegate Callback Delegate
 -(void)CTNativeVideoLoadFailed:(NSError *)error;                         //Advertisement load failed
 ```
 
-### <a name="NewInterstitial">Adding the New Interstitial Ad API in iOS</a>
+### <a name="NewDynamicInterstitial">Adding the New Dynamic Interstitial Ad API in iOS</a>
 
 ```
 /**
@@ -371,6 +371,7 @@ CTADInterstitialDelegate Callback Delegate
  */
 -(void)CTADInterstitialClosed;     
 ```
+**IMPORTANT: If you got the error message:"not interstitial slot",please check if the ad format in SSP is the same with the API in SDK.
 
 
 Done!
