@@ -5,7 +5,6 @@
   - [Rewarded Video](#rewardedvideo)
   - [Native](#native)
   - [Banner](#banner)
-  - [Interstitial](#interstitial)
   - [Native Template](#nativetemplate)
   - [Native Video](#nativevideo)
   - [New Dynamic Interstitial（need create new dynamic interstitial slot）](#NewInterstitial)
