@@ -9,8 +9,8 @@
 
 #### Mediation Partners
 
-- [Integrating Admob Mediation](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
-- [Integrating Mopub Mediation](https://github.com/cloudmobi/CloudmobiSSP/blob/master/CTADSDKForMopub.zip)
+- [Integrating Admob Mediation](https://github.com/cloudmobi/iOS-SDK/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
+- [Integrating Mopub Mediation](https://github.com/cloudmobi/iOS-SDK/blob/master/iOS_CTSDK_Adapter-For-Mopub.zip)
 
 ## Android SDK Integration
 
