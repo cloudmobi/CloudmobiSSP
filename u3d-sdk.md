@@ -130,6 +130,7 @@ void showBtnClick(){
 *  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
 *  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
 *  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
+*  Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
 
 ## <a name="step3">Additional Settings for Android</a>
 
