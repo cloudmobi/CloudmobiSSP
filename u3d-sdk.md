@@ -590,5 +590,5 @@ public class CTInterstitial : MonoBehaviour {
 *  Version 1.1.1  [release date: 2018-05-29]
  1. SDK GDPR compliant.
  
- *  Version 1.1.2  [release date: 2018-05-29]
+ *  Version 1.1.2  [release date: 2018-06-04]
  1. SDK Transport using gzip.
