@@ -27,7 +27,7 @@
 
 PRO TIP: Checkmark the Copy items if needed option. This creates a local copy of the framework for your project, which keeps your project organized.
 
-* 2. Link the StoreKit.framework, AVFoundation.framework, SystemConfiguration.framework, AdSupport.framework,JavaScriptCore.framework,ImageIO.framework and UIKit frameworks.
+* 2. Link the StoreKit.framework, AVFoundation.framework, SystemConfiguration.framework, AdSupport.framework,JavaScriptCore.framework,ImageIO.framework, UIKit frameworks and libz.tbd .
 
 **In Info.plist added the NSAppTransportSecurity**
 
