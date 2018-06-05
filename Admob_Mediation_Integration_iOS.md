@@ -12,7 +12,7 @@
 * Support iOS 7.0+;
 * Please make sure you have signed up on Cloudmobi Platform to get your own slot id for test. If you haven't signed up, please contact us, email to sdk_support@yeahmobi.com.
 * Please make sure you have added an app and at least one ad slot in Cloudmobi Platform
-* [click here to download the mediation adapter](https://github.com/cloudmobi/CloudmobiSSP/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
+* [click here to download the mediation adapter](https://github.com/cloudmobi/iOS-SDK/blob/master/iOS_CTSDK_Adapter-For-Admob.zip)
 
 
 
