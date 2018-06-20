@@ -127,10 +127,11 @@ void showBtnClick(){
 
 ## <a name="step2">Additional Settings for iOS</a>
 
-*  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method.
+*  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method(XUPorter or PBXProject).
 *  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
 *  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
 *  Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
+*  For Unity Cloud Build, if your Unity version is later than 5.x, you must use PBXProject to do configuration. Add this file OnPostProcessBuild.cs(see it in sample code) to assets/editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). Then Collab with Unity Cloud and build.
 
 ## <a name="step3">Additional Settings for Android</a>
 
@@ -558,7 +559,59 @@ public class CTInterstitial : MonoBehaviour {
 	}
 }
 ```
+**CTOnPostProcessBuild.cs** added to assets/editor directory.
+```
+using UnityEngine;
+using System.IO;
 
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEditor.iOS.Xcode;
+using System.Xml;
+#endif
+
+public class CTOnPostProcessBuild : Editor {
+	#if UNITY_IOS || UNITY_EDITOR  
+
+	[PostProcessBuild (100)]
+	public static void OnPostprocessBuild(BuildTarget BuildTarget, string path)  
+	{  
+		if (BuildTarget == BuildTarget.iOS)  
+		{  
+			string projPath = PBXProject.GetPBXProjectPath(path);  
+			PBXProject proj = new PBXProject();  
+			proj.ReadFromString(File.ReadAllText(projPath));  
+			 
+			//add Other link flag
+			string target = proj.TargetGuidByName(PBXProject.GetUnityTargetName());  
+			proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
+			File.WriteAllText(projPath, proj.WriteToString()); 
+
+			//add framework
+			proj.AddFrameworkToProject (target, "AdSupport.framework", false);  
+			proj.AddFrameworkToProject (target, "StoreKit.framework", false);  
+			proj.AddFrameworkToProject (target, "AVFoundation.framework", false);  
+			proj.AddFrameworkToProject (target, "SystemConfiguration.framework", false);  
+			proj.AddFrameworkToProject (target, "JavaScriptCore.framework", false);  
+			proj.AddFrameworkToProject (target, "ImageIO.framework", false);  
+			proj.AddFrameworkToProject (target, "UIKit.framework", false);  
+            proj.AddFrameworkToProject (target, "libz.1.tbd", false); 
+			File.WriteAllText(projPath, proj.WriteToString()); 
+
+			//add ATS in plist
+			string plistPath = path + "/Info.plist";  
+			PlistDocument plist = new PlistDocument();  
+			plist.ReadFromString(File.ReadAllText(plistPath));  
+			PlistElementDict dictTransportSecurity = plist.root ["NSAppTransportSecurity"].AsDict ();
+			dictTransportSecurity.SetBoolean("NSAllowsArbitraryLoads",true);
+			File.WriteAllText(plistPath, plist.WriteToString());
+		}  
+	}  
+
+	#endif
+}
+```
 
 
 ## <a name="release_notes"> SDK Changelog </a>
