@@ -596,7 +596,7 @@ public class CTOnPostProcessBuild : Editor {
 			proj.AddFrameworkToProject (target, "JavaScriptCore.framework", false);  
 			proj.AddFrameworkToProject (target, "ImageIO.framework", false);  
 			proj.AddFrameworkToProject (target, "UIKit.framework", false);  
-            proj.AddFrameworkToProject (target, "libz.1.tbd", false); 
+            		proj.AddFrameworkToProject (target, "libz.1.tbd", false); 
 			File.WriteAllText(projPath, proj.WriteToString()); 
 
 			//add ATS in plist
