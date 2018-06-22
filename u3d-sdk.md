@@ -134,7 +134,9 @@ void showBtnClick(){
 	- 4.In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
 	- 5.Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
 	
-*  For Unity 5(include 2017 and 2018) and Unity Cloud Build, you must import OnPostProcessBuild.cs to Editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). Then Collab with Unity Cloud and build.
+*  For Unity 5(include 2017 and 2018), you could import OnPostProcessBuild.cs to Editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). 
+
+*  For Unity Cloud Build, you must import OnPostProcessBuild.cs to Editor directory. Then Collab with Unity Cloud and build.
 
 ## <a name="step3">Additional Settings for Android</a>
 
