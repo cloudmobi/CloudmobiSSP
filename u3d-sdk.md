@@ -488,7 +488,6 @@ public class CTInterstitial : MonoBehaviour {
 		CTService.interstitialLoadSuccess += CTInterstitialLoadSuccess;
 		CTService.interstitialLoadFailed += CTInterstitialLoadingFailed;
 		CTService.interstitialDidClickRewardAd += CTInterstitialDidClickAd;
-		CTService.interstitialJumpfailed += CTInterstitialJumpfailed;
 		CTService.interstitialClose += CTInterstitialClose;
 	}
 
@@ -496,7 +495,6 @@ public class CTInterstitial : MonoBehaviour {
 		CTService.interstitialLoadSuccess -= CTInterstitialLoadSuccess;
 		CTService.interstitialLoadFailed -= CTInterstitialLoadingFailed;
 		CTService.interstitialDidClickRewardAd -= CTInterstitialDidClickAd;
-		CTService.interstitialJumpfailed -= CTInterstitialJumpfailed;
 		CTService.interstitialClose -= CTInterstitialClose;
 	}
 
@@ -551,11 +549,6 @@ public class CTInterstitial : MonoBehaviour {
 
 	void CTInterstitialDidClickAd(){
 		Debug.Log ("U3D delegate, CTInterstitialDidClickAd");
-	}
-
-	//jump to AppStroe failed, only for iOS
-	void CTInterstitialJumpfailed(){
-		Debug.Log ("U3D delegate, CTInterstitialWillLeaveApplication");
 	}
 
 	void CTInterstitialClose(){
