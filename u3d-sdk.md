@@ -128,11 +128,11 @@ void showBtnClick(){
 ## <a name="step2">Additional Settings for iOS</a>
  
 *  For Unity4.x you need to do some configuration or using other method to do that(eg: XUPorter):
-	1.Build Xcode project.
-	2.copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually.
-	3.Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
-	4.In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
-	5.Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
+	- 1.Build Xcode project.
+	- 2.copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually.
+	- 3.Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
+	- 4.In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
+	- 5.Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
 	
 *  For Unity 5(include 2017 and 2018) and Unity Cloud Build, you must import OnPostProcessBuild.cs to Editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). Then Collab with Unity Cloud and build.
 
