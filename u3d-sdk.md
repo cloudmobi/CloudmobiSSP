@@ -487,7 +487,7 @@ public class CTInterstitial : MonoBehaviour {
 	void setupDelegates(){
 		CTService.interstitialLoadSuccess += CTInterstitialLoadSuccess;
 		CTService.interstitialLoadFailed += CTInterstitialLoadingFailed;
-		CTService.interstitialDidClickRewardAd += CTInterstitialDidClickRewardAd;
+		CTService.interstitialDidClickRewardAd += CTInterstitialDidClickAd;
 		CTService.interstitialJumpfailed += CTInterstitialJumpfailed;
 		CTService.interstitialClose += CTInterstitialClose;
 	}
@@ -495,7 +495,7 @@ public class CTInterstitial : MonoBehaviour {
 	void OnDisable(){
 		CTService.interstitialLoadSuccess -= CTInterstitialLoadSuccess;
 		CTService.interstitialLoadFailed -= CTInterstitialLoadingFailed;
-		CTService.interstitialDidClickRewardAd -= CTInterstitialDidClickRewardAd;
+		CTService.interstitialDidClickRewardAd -= CTInterstitialDidClickAd;
 		CTService.interstitialJumpfailed -= CTInterstitialJumpfailed;
 		CTService.interstitialClose -= CTInterstitialClose;
 	}
@@ -549,8 +549,8 @@ public class CTInterstitial : MonoBehaviour {
 		Debug.Log ("U3D delegate, CTInterstitialLoadingFailed. " + error);
 	}
 
-	void CTInterstitialDidClickRewardAd(){
-		Debug.Log ("U3D delegate, CTInterstitialDidClickRewardAd");
+	void CTInterstitialDidClickAd(){
+		Debug.Log ("U3D delegate, CTInterstitialDidClickAd");
 	}
 
 	//jump to AppStroe failed, only for iOS
