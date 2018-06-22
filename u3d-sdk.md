@@ -126,12 +126,15 @@ void showBtnClick(){
 
 
 ## <a name="step2">Additional Settings for iOS</a>
-
-*  Build Xcode project. For Unity4.x or Unity5.x you need to copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually or using other method(XUPorter or PBXProject).
-*  Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
-*  In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
-*  Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
-*  For Unity Cloud Build, if your Unity version is later than 5.x, you must use PBXProject to do configuration. Add this file OnPostProcessBuild.cs(see it in sample code) to assets/editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). Then Collab with Unity Cloud and build.
+ 
+*  For Unity4.x you need to do some configuration or using other method to do that(eg: XUPorter):
+	1.Build Xcode project.
+	2.copy CTService.Framework and CTServiceCWrapper.mm to your Xcode project manually.
+	3.Add a static link to: Build Settings -> Other Linker Flags -> -ObjC
+	4.In Info.plist added the NSAppTransportSecurity, the type for Dictionary. In NSAppTransportSecurity added the NSAllowsArbitraryLoads the Boolean,setting YES.
+	5.Import libz.tbd in Project -> Target -> Build Phases -> Link Binary With Libraries.
+	
+*  For Unity 5(include 2017 and 2018) and Unity Cloud Build, you must import OnPostProcessBuild.cs to Editor directory. It will config plist and xcode building property for you (eg: add a static link to Other Linker Flags with '-ObjC' and add NSAppTransportSecurity in the plist). Then Collab with Unity Cloud and build.
 
 ## <a name="step3">Additional Settings for Android</a>
 
@@ -643,5 +646,8 @@ public class CTOnPostProcessBuild : Editor {
 *  Version 1.1.1  [release date: 2018-05-29]
  1. SDK GDPR compliant.
  
- *  Version 1.1.2  [release date: 2018-06-04]
+*  Version 1.1.2  [release date: 2018-06-04]
  1. SDK Transport using gzip.
+ 
+ *  Version 1.1.3  [release date: 2018-06-22]
+ 1. iOS update mraid Interstitial AD.
