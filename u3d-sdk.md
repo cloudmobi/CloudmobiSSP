@@ -646,3 +646,6 @@ public class CTOnPostProcessBuild : Editor {
  
  *  Version 1.1.3  [release date: 2018-06-22]
  1. iOS update mraid Interstitial AD.
+
+ *  Version 1.1.4  [release date: 2018-07-02]
+ 1. fix iOS bug: interstitial supports mute mode
