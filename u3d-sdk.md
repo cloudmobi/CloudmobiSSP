@@ -652,4 +652,3 @@ public class CTOnPostProcessBuild : Editor {
  
  *  Version 1.1.5  [release date: 2018-07-13]
  1. iOS: remove mraid location, calendar，gallery.
- 2. Android: release mraid Interstitial AD.
