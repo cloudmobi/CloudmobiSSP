@@ -652,3 +652,6 @@ public class CTOnPostProcessBuild : Editor {
  
  *  Version 1.1.5  [release date: 2018-07-13]
  1. iOS: remove mraid location, calendar，gallery.
+ 
+ *  Version 1.1.6  [release date: 2018-07-23]
+ 1. iOS: fix compilation error.
