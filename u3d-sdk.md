@@ -655,3 +655,7 @@ public class CTOnPostProcessBuild : Editor {
  
  *  Version 1.1.6  [release date: 2018-07-23]
  1. iOS: fix compilation error.
+ 
+ *  Version 1.1.7  [release date: 2018-08-01]
+ 1. android: update mraid Interstitial AD.
+ 2. android: download video files through 301.
