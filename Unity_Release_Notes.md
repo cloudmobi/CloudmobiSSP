@@ -1,4 +1,4 @@
-# Unity Release Notes
+# Unity Plugin Release Notes
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
