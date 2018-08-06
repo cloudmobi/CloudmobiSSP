@@ -34,7 +34,7 @@ void Awake () {
 
 * Use this interface to upload consent from affected users.
 ```
-	CTService.uploadConsent ("yes", "gdpr");
+	CTService.uploadConsent (consentValue, consentType);
 ```
 
 ###  <a name="rewardedvideo">Adding the RewardVideo Ad API in iOS</a>
@@ -157,6 +157,12 @@ Get CT AD Config in Appdelegate(didFinishLaunchingWithOptions:)
 */
 public static void loadRequestGetCTSDKConfigBySlot_id(string slot_id)
 
+/**
+Use this interface to upload consent from affected users 
+@param consentValue: "yes"/"no"
+@param consentType: "GDPR" or something else
+*/
+public static void uploadConsent(string consentValue, string consentType)
 
 /**
 *  Get RewardVideo Ad
