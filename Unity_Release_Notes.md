@@ -2,6 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
+| 1.1.9   |  2018-08-06  | *    add updateConsent interface for GDPR compliant.         |
 | 1.1.8   |  2018-08-03  | *    iOS: add endcard of rewarded video playable ad.         |
 | 1.1.7   |  2018-08-01  | *    Android: update mraid Interstitial AD. <br>*    Android: download video files through 301. |
 | 1.1.6   |  2018-07-23  | *    iOS: fix compilation error.                             |
