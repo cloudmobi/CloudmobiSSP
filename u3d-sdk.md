@@ -8,7 +8,7 @@
 * [Additional Settings for Android](#step3)
 * [Cloudmobi SDK API Reference](#ApiReference)
 * [Sample Code](#sample_code)
-* [SDK Release Notes](https://github.com/cloudmobi/CloudmobiSSP/edit/master/README.md)
+* [SDK Release Notes](https://github.com/cloudmobi/CloudmobiSSP/blob/master/Unity_Release_Notes.md)
 ## <a name="start">Before You Start</a>
 
 
