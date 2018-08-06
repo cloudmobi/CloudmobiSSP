@@ -28,7 +28,13 @@
 using CTServiceSDK;
 void Awake () {
 	CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id);
+	CTService.uploadConsent ("yes", "GDPR");
 }
+```
+
+* Use this interface to upload consent from affected users.
+```
+	CTService.uploadConsent ("yes", "gdpr");
 ```
 
 ###  <a name="rewardedvideo">Adding the RewardVideo Ad API in iOS</a>
@@ -298,6 +304,7 @@ public class CTCamera : MonoBehaviour {
 
 	void Awake () {
 		CTService.loadRequestGetCTSDKConfigBySlot_id (slot_id);
+		CTService.uploadConsent ("yes", "GDPR");
 	}
 }
 ```
