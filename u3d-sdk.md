@@ -8,8 +8,7 @@
 * [Additional Settings for Android](#step3)
 * [Cloudmobi SDK API Reference](#ApiReference)
 * [Sample Code](#sample_code)
-* [SDK Changelog](#release_notes)
-
+* [SDK Release Notes](https://github.com/cloudmobi/CloudmobiSSP/edit/master/README.md)
 ## <a name="start">Before You Start</a>
 
 
@@ -610,55 +609,3 @@ public class CTOnPostProcessBuild : Editor {
 	#endif
 }
 ```
-
-
-## <a name="release_notes"> SDK Changelog </a>
-
-*  Version 1.0.1  [release date: 2017-12-19]
- 1. fix iOS bug: Solve problem that frequent switching tasks make video stuck .
- 2. fix Andorid bug: Memory Leak.
-
-*  Version 1.0.2  [release date: 2018-01-08]
- 1. new iOS feature: creatives optimaztion.
-
-*  Version 1.0.3  [release date: 2018-01-10]
- 1. fix ANR problem.
-
-*  Version 1.0.4  [release date: 2018-01-17]
- 1. enable iOS bitcode.
-
-*  Version 1.0.5  [release date: 2018-01-19]
- 1. fit iPad endCard.
-
-*  Version 1.0.6  [release date: 2018-01-22]
- 1. Android: support back button in the endCard
- 2. Android: support both landscape right and landscape left
- 3. new Android feature: creatives optimaztion
-
-*  Version 1.1.0  [release date: 2018-04-26]
- 1. release Interstitial AD.
-
-*  Version 1.1.1  [release date: 2018-05-29]
- 1. SDK GDPR compliant.
- 
-*  Version 1.1.2  [release date: 2018-06-04]
- 1. SDK Transport using gzip.
- 
- *  Version 1.1.3  [release date: 2018-06-22]
- 1. iOS update mraid Interstitial AD.
-
- *  Version 1.1.4  [release date: 2018-07-02]
- 1. fix iOS bug: interstitial supports mute mode
- 
- *  Version 1.1.5  [release date: 2018-07-13]
- 1. iOS: remove mraid location, calendar，gallery.
- 
- *  Version 1.1.6  [release date: 2018-07-23]
- 1. iOS: fix compilation error.
- 
- *  Version 1.1.7  [release date: 2018-08-01]
- 1. android: update mraid Interstitial AD.
- 2. android: download video files through 301.
- 
- *  Version 1.1.8  [release date: 2018-08-03]
- 1. ios: add endcard of rewarded video playable ad
