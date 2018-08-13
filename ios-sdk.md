@@ -7,7 +7,7 @@
   - [Banner](#banner)
   - [Native Template](#nativetemplate)
   - [Native Video](#nativevideo)
-  - [New Dynamic Interstitial（need create new dynamic interstitial slot）](#NewInterstitial)
+  - [New Dynamic Interstitial（need create new dynamic interstitial slot）](#NewDynamicInterstitial)
 
 - [Cocoapods Integration](#step2)
 
