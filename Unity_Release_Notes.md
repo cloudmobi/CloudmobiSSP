@@ -8,7 +8,7 @@
 | 1.17   |  2018-08-01  | *    Android: update mraid Interstitial AD. <br>*    Android: download video files through 301. |
 | 1.16   |  2018-07-23  | *    iOS: fix compilation error.                             |
 | 1.15   |  2018-07-13  | *    iOS: remove mraid location, calendar，gallery.          |
-| 1.14   |  2018-07-02  | *    iOS: interstitial supports mute mode .                  |
+| 1.14   |  2018-07-02  | *    iOS: interstitial(deprecated) supports mute mode .                  |
 | 1.13   |  2018-06-22  | *    iOS: update mraid Interstitial AD.                      |
 | 1.12   |  2018-06-04  | *    Transport using gzip.                                   |
 | 1.11   |  2018-05-29  | *    GDPR compliant.                                         |
