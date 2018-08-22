@@ -2,6 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
+| 1.21   |  2018-08-22  | *    Android webview ssl error handle      |
 | 1.20   |  2018-08-15  | *    interstitial support mute(android) mode, custome skip time, dynamic or static style      |
 | 1.19   |  2018-08-06  | *    add updateConsent interface for GDPR compliant.         |
 | 1.18   |  2018-08-03  | *    iOS: add endcard of rewarded video playable ad.         |
