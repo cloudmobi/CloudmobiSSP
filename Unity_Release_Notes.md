@@ -2,7 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
-| 1.22   |  2018-08-28  | *    Android: fix Rewarded Video crash and layout issues, missing layout issue      |
+| 1.22   |  2018-08-28  | *    Android: fix Rewarded Video crash and layout issues, missing close callback issue      |
 | 1.21   |  2018-08-22  | *    Android: webview ssl error handle      |
 | 1.20   |  2018-08-15  | *    interstitial support mute(android) mode, custome skip time, dynamic or static style      |
 | 1.19   |  2018-08-06  | *    add updateConsent interface for GDPR compliant.         |
