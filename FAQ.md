@@ -70,6 +70,6 @@ If the answers above didn’t solve your problems, please feel free to contact u
 
 You can always contact our Business Managers or Operations team members directly, or you can contact us via email or skype, per the below:
 
-Email: sdk_support@yeahmobi.com
+Email:   sdk_support@yeahmobi.com
 
 Skype：sdk_support@yeahmobi.com
