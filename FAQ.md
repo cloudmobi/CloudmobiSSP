@@ -1,8 +1,8 @@
-FAQs for Yeahmobi SDK integration and Dashboard
+# FAQs for Yeahmobi SDK integration and Dashboard
 
  
 
-FAQs for Dashboard
+## FAQs for Dashboard
 
 1. What time standard does the reporting system use?
 
@@ -18,7 +18,7 @@ FAQs for Dashboard
 - Otherwise, you may use any of your app’s slot IDs for initialization.
 - Please note that all slot IDs used in one app must be under the same app ID or you will not receive ads.
 
-FAQs for Android Integration
+## FAQs for Android Integration
 
 1. Why can’t I get Rewarded Video Ads (Error: “No ads”)?
 
@@ -45,7 +45,7 @@ FAQs for Android Integration
 
 - Please double-check that all the slot IDs used in the app are under the same app id (if not, you will not get ads).
 
-FAQs for iOS Integration
+## FAQs for iOS Integration
 
 1. Why can’t I get Rewarded Video Ads (Error: “No ads”)?
 
@@ -70,6 +70,6 @@ If the answers above didn’t solve your problems, please feel free to contact u
 
 You can always contact our Business Managers or Operations team members directly, or you can contact us via email or skype, per the below:
 
-Email:   sdk_support@yeahmobi.com
+Email: sdk_support@yeahmobi.com
 
 Skype：sdk_support@yeahmobi.com
