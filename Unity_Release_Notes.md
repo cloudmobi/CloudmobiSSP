@@ -2,7 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
-| 1.23   |  2018-09-22  | *    Android: webview ssl error handle      |
+| 1.24   |  2018-09-25  | *    Android: webview ssl error handle      |
 | 1.23   |  2018-09-21  | *    Android: change interstitial implement from dialog to activity      |
 | 1.22   |  2018-08-28  | *    Android: fix Rewarded Video crash and layout issues, missing close callback issue      |
 | 1.21   |  2018-08-22  | *    Android: webview ssl error handle (NOT FIXED)     |
