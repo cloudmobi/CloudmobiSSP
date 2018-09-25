@@ -145,8 +145,8 @@ void showBtnClick(){
 
 ## <a name="step3">Additional Settings for Android</a>
 
-* Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommen using the latest version of Android SDK and Build Tools.
-* Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Andorid box in the inspector.
+* Open 'File' -> 'Build Settings' -> 'Player Settings', and make sure 'Minimum API Level' later than 'API Level 15'. We recommend using the latest version of Android SDK and Build Tools.
+* Select SDK folder Plugin->Android->CTServiceSDK in Project. Check the Android box in the inspector.
 
 ## <a name="ApiReference">SDK API reference</a>
 
