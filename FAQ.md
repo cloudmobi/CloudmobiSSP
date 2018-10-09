@@ -36,15 +36,6 @@
 - Since nearly all ad campaigns we serve on Android lead to the Google Play Store, the ad may be stuck if the Google Play Store is not installed or disabled.
 - If the Google Play Store is installed and enabled, but the ad is still stuck after clicking, please contact our support team at sdk_support@yeahmobi.com for assistance.
 
-4. Why is the error “Error ERR_016_Obtain Config Failed” reported?
-
-- The error occurs while getting templates and ad priority configuration information.
-- First, please check the network connection of the device. If the network is active and the error still occurs, please contact our support team at sdk_support@yeahmobi.com for help checking the slot configuration on the dashboard.
-
-5. Why is the error “ERR_019_No Corresponding Template” reported?
-
-- Please double-check that all the slot IDs used in the app are under the same app id (if not, you will not get ads).
-
 ## FAQs for iOS Integration
 
 1. Why can’t I get Rewarded Video Ads (Error: “No ads”)?
@@ -62,7 +53,7 @@ Several reasons could lead to this problem:
 - If you are using a simulator: The simulator for debugging doesn’t install the iOS app store, meaning a click-through won’t properly lead to the app store.
 - The link or click-through URL of the advertisement itself could be invalid. In this case, please contact us via email ( sdk_support@yeahmobi.com ) to check it.
 
-3. Why is the error “Error:Error Domain=CTSDK:The slot XXXX and the slot for SDK initialization are not in the same app. Code=10005 "(null)” reported?
+3. Why is the error "Error: CTSDK: The slot ID XXX and the slot ID for initializing SDK don't belong to the same app." reported?
 
 - The slot IDs used in the title are not under the same app id. Please correct it (make the slot IDs under the same app id), or you can’t get ads.
 
