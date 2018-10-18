@@ -2,7 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
-| 1.26   |  2018-10-12  | *    Android: fix interstitial flicker issue    <br>*  iOS: rewarded video exception handle  |
+| 1.26   |  2018-10-18  | *    Android: fix interstitial flicker issue    <br>*  iOS: rewarded video exception handle  |
 | 1.25   |  2018-10-12  | *    Android: fix rewarded video anr issue    <br>*  iOS: rewarded video using safeAreaLayout  |
 | 1.24   |  2018-09-25  | *    Android: webview ssl error handle      |
 | 1.23   |  2018-09-21  | *    Android: change interstitial implement from dialog to activity      |
