@@ -2,7 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
-| 1.27   |  2018-11-27  | *    iOS: interstitialt timeout issue  |
+| 1.28   |  2018-11-27  | *    iOS: interstitialt timeout issue  |
 | 1.27   |  2018-11-27  | *    iOS: use wkwebview for redirection & only support for ios8+  |
 | 1.26   |  2018-10-18  | *    Android: fix interstitial flicker issue    <br>*  iOS: rewarded video exception handle  |
 | 1.25   |  2018-10-12  | *    Android: fix rewarded video anr issue    <br>*  iOS: rewarded video using safeAreaLayout  |
