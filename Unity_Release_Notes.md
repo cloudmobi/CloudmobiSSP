@@ -2,6 +2,7 @@
 
 | Version | Release Date | Notes                                                        |
 | ------- | :----------: | :----------------------------------------------------------- |
+| 1.29   |  2018-12-11  | *    iOS: fix interstitialt image cache couldn't be loaded  |
 | 1.28   |  2018-11-29  | *    iOS: interstitialt timeout issue  |
 | 1.27   |  2018-11-27  | *    iOS: use wkwebview for redirection & only support for ios8+  |
 | 1.26   |  2018-10-18  | *    Android: fix interstitial flicker issue    <br>*  iOS: rewarded video exception handle  |
